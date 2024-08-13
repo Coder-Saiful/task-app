@@ -1,0 +1,56 @@
+/* ======== Responsive CSS Start ======== */
+
+/* X-Small devices (portrait phones, less than 576px) */
+/* No media query for `xs` since this is the default in Bootstrap */
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 767px) {
+    aside.admin_nav ul {
+        transition: all 0.5s ease;
+        transform: scaleY(0);
+        transform-origin: top;
+    }
+    .profile_container {
+        padding: 4px 0 !important;
+    }
+    nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav {
+        margin-top: 10px !important; 
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    nav.admin_nav3 .container-fluid {
+        /* flex-direction: column; */
+        display: block;
+        
+    }
+    nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav {
+        flex-direction: column !important;
+        /* display: block !important; */
+    }
+    .admin_nav3.navbar-expand-md .navbar-collapse {
+        display: block !important;
+        flex-basis: auto;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .admin_nav_offcanvas {
+        width: calc(100% - (9*(100%/12)));
+    }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .admin_nav_offcanvas {
+        width: calc(100% - (10*(100%/12))) !important;
+    }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  
+}

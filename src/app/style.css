@@ -1,62 +1,98 @@
 :root {
-    --primaryColor: #04AA6D;
+  --primaryColor: #04aa6d;
 }
-.nav-link.active, .nav-link:hover {
-    color: white !important;
-    background: var(--primaryColor);
+.nav-link.active,
+.nav-link:hover {
+  color: white !important;
+  background: var(--primaryColor);
 }
 .nav-link {
-    padding: 10px 15px !important;
-    font-size: 15px;
+  padding: 10px 15px !important;
+  font-size: 15px;
 }
 aside.admin_nav ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin-bottom: 0;
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
 }
 
-aside.admin_nav ul li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding-left: 15px;
-    padding-top: 7px;
-    padding-bottom: 7px;
+aside.admin_nav ul li a,
+nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  padding-left: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+aside.admin_nav ul li a:hover,
+aside.admin_nav ul li a.active,
+nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a:hover,
+nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a.active {
+  background: var(--primaryColor);
 }
 
-aside.admin_nav ul li a:hover, aside.admin_nav ul li a.active {
-    background: var(--primaryColor);
+.form-control:focus,
+.form-check-input:focus,
+.form-select:focus {
+  box-shadow: none;
+  border-color: var(--primaryColor);
 }
 
-.form-control:focus, .form-check-input:focus, .form-select:focus {
-    box-shadow: none;
-    border-color: var(--primaryColor);
+.form-check-input:checked[type="checkbox"] {
+  background: var(--primaryColor);
+  border-color: var(--primaryColor);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
 }
-
-.form-check-input:checked[type=checkbox] {
-    background: var(--primaryColor);
-    border-color: var(--primaryColor);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
-}
-.form-check-input:checked[type=radio] {
-    background: var(--primaryColor);
-    border-color: var(--primaryColor);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+.form-check-input:checked[type="radio"] {
+  background: var(--primaryColor);
+  border-color: var(--primaryColor);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
 }
 
 .forgot_pass_link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-.navbar-toggler>span {
-    width: 30px;
-    height: 3px;
-    background: white;
-    display: inherit;
-    margin-bottom: 4px;
-    border-radius: 5px;
+.navbar-toggler > span {
+  width: 30px;
+  height: 3px;
+  background: white;
+  display: inherit;
+  margin-bottom: 4px;
+  border-radius: 5px;
 }
 
-.navbar-toggler>span:last-child {
-    margin: 0;
+.navbar-toggler > span:last-child {
+  margin: 0;
 }
+
+.navbar-toggler {
+  border: none;
+  background: transparent;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+}
+
+button.adminNavClose {
+  background: none;
+  border: none;
+}
+
+button.adminNavClose span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  display: block;
+}
+
+button.adminNavClose span:first-child {
+  transform: translateY(2px) rotate(48deg);
+}
+
+button.adminNavClose span:last-child {
+  transform: rotate(-48deg);
+}
+

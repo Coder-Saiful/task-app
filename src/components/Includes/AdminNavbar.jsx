@@ -11,29 +11,39 @@ const activeLink = (currentPath, pathname) => {
 const AdminNavbar = () => {
   const currentPath = usePathname();
   return (
-    <aside className="admin_nav bg-dark" style={{ minHeight: "100vh" }}>
-      <ul>
+    <aside className="admin_nav">
+      <div
+        className="profile_container d-flex align-items-center bg-dark"
+        style={{ padding: "20px 15px" }}
+      >
+        <div className="image" style={{ marginRight: "5px" }}>
+          <Image
+            src={`/nophoto.webp`}
+            alt="Picture of the author"
+            style={{ borderRadius: "50%" }}
+            width={50}
+            height={50}
+            // blurDataURL="data:..." automatically provided
+            // placeholder="blur" // Optional blur-up while loading
+          />
+        </div>
+        <div className="info">
+          <h5 className="text-white mb-0" style={{ fontSize: "16px" }}>
+            Md. Saiful Islam
+          </h5>
+          <p
+            className="text-white mb-0 text-secondary"
+            style={{ fontSize: "12px", fontWeight: "300" }}
+          >
+            Admin
+          </p>
+        </div>
+      </div>
+      <ul className="bg-dark h-100">
         <li>
-          <div className="profile_container d-flex align-items-center" style={{padding: "20px 15px"}}>
-            <div className="image" style={{marginRight: "5px"}}>
-              <Image
-                src={`/nophoto.webp`}
-                alt="Picture of the author"
-                style={{borderRadius: "50%"}}
-                width={50}
-                height={50}
-                // blurDataURL="data:..." automatically provided
-                // placeholder="blur" // Optional blur-up while loading
-              />
-            </div>
-            <div className="info">
-              <h5 className="text-white mb-0" style={{fontSize: '16px'}}>Md. Saiful Islam</h5>
-              <p className="text-white mb-0 text-secondary" style={{fontSize: "12px", fontWeight: "300"}}>Admin</p>
-            </div>
-          </div>
-        </li>
-        <li>
-          <Link href={`/`} target="_blank">Visit Website</Link>
+          <Link href={`/`} target="_blank">
+            Visit Website
+          </Link>
         </li>
         <li>
           <Link

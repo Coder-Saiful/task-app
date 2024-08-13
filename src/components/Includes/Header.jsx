@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const activeLink = (currentPath, pathname) => {
     return currentPath === pathname ? "active" : "";
@@ -16,45 +16,49 @@ const Header = () => {
         return null;
     }
 
+    const handleMainNavItem = (e) =>  {
+        // console.log(e.target)
+    }
+
+    useEffect(() => {
+        document.querySelector(".navbar-collapse.main_navbar_collapse").classList.remove("show");
+    }, [currentPath]);
+
     return (
         
-        <nav className="navbar navbar-expand-lg bg-dark py-0">
+        <nav className="navbar navbar-expand-lg bg-dark main_nav py-1 py-lg-0">
             <div className="container-fluid">
                 <Link className="navbar-brand text-white fs-4 py-0" href={'/'}>Task Manager</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 {/* <span className="navbar-toggler-icon"></span> */}
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav m-auto mb-2 mb-lg-0">
+                <div className="collapse navbar-collapse main_navbar_collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className={`nav-link text-white ${activeLink(currentPath, '/')}`} href={'/'}>Home</Link>
+                            <Link className={`nav-link text-white ${activeLink(currentPath, '/')}`} href={'/'} onClick={handleMainNavItem}>Home</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link text-white ${activeLink(currentPath, '/tasks')}`} href={'/tasks'}>Tasks</Link>
+                            <Link className={`nav-link text-white ${activeLink(currentPath, '/tasks')}`} href={'/tasks'} onClick={handleMainNavItem}>Tasks</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/profile')}`} href={'/accounts/profile'}>Profile</Link>
+                            <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/profile')}`} href={'/accounts/profile'} onClick={handleMainNavItem}>Profile</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/change-password')}`} href={'/accounts/change-password'}>Change Password</Link>
+                            <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/change-password')}`} href={'/accounts/change-password'} onClick={handleMainNavItem}>Change Password</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/logout')}`} href={'/accounts/logout'}>Logout</Link>
+                            <button className={`nav-link text-white`}>Logout</button>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/login')}`} href={'/accounts/login'}>Login</Link>
+                            <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/login')}`} href={'/accounts/login'} onClick={handleMainNavItem}>Login</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/register')}`} href={'/accounts/register'}>Register</Link>
+                            <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/register')}`} href={'/accounts/register'} onClick={handleMainNavItem}>Register</Link>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
                 </div>
             </div>
         </nav>

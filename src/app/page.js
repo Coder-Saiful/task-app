@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Task App | Home"
+  title: "Task App | Home",
 }
 
 export default function Home() {
