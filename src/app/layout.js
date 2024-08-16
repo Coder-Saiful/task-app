@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
         {/* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/> */}
       </head>
       <body className={poppins.className}>
-        <main className="mb-5">
+        <main>
           <Header />
           {children} 
         </main>

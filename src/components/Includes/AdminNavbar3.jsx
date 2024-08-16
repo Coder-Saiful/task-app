@@ -80,10 +80,25 @@ const AdminNavbar3 = () => {
             </li>
             <li>
               <Link
+                href={`/admin/employee`}
+                className={activeLink(currentPath, "/admin/employee")}
+              >
+                Employees
+              </Link>
+            </li>
+            <li>
+              <Link
                 href={`/admin/tasks`}
                 className={activeLink(currentPath, "/admin/tasks")}
               >
                 Tasks
+              </Link>
+            </li><li>
+              <Link
+                href={`/admin/category`}
+                className={activeLink(currentPath, "/admin/category")}
+              >
+                Category
               </Link>
             </li>
             <li>

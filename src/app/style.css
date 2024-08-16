@@ -38,7 +38,12 @@ nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a.active {
   box-shadow: none;
   border-color: var(--primaryColor);
 }
-
+/* .form-check-input:not(:focus) {
+  border-color: var(--bs-border-color) !important;
+} */
+.form-check-input:not(:checked) {
+  border-color: var(--bs-border-color) !important;
+}
 .form-check-input:checked[type="checkbox"] {
   background: var(--primaryColor);
   border-color: var(--primaryColor);
@@ -96,3 +101,20 @@ button.adminNavClose span:last-child {
   transform: rotate(-48deg);
 }
 
+.dashboard_item {
+  text-align: center;
+  padding: 18px 0;
+  border-radius: 8px;
+}
+
+.dashboard_item h2 {
+  font-size: 37px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.dashboard_item h4 {
+  margin-bottom: 0;
+  color: #626262;
+  font-size: 22px;
+}
