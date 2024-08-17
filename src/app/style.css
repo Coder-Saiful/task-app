@@ -118,3 +118,18 @@ button.adminNavClose span:last-child {
   color: #626262;
   font-size: 22px;
 }
+
+.users_table thead tr th, .users_table tbody tr td {
+  border: none;
+  border-right: 1px solid #dddddd;
+}
+.users_table thead tr th:last-child, .users_table tbody tr td:last-child {
+ border-right: none;
+} 
+.users_table tbody tr td:first-child {
+  width: 60px;
+ } 
+/* .users_table tbody tr td {
+  border: none;
+  border-right: 1px solid #dddddd;
+} */
