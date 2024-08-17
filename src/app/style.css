@@ -119,14 +119,14 @@ button.adminNavClose span:last-child {
   font-size: 22px;
 }
 
-.users_table thead tr th, .users_table tbody tr td {
+.admin_table thead tr th, .admin_table tbody tr td {
   border: none;
   border-right: 1px solid #dddddd;
 }
-.users_table thead tr th:last-child, .users_table tbody tr td:last-child {
+.admin_table thead tr th:last-child, .admin_table tbody tr td:last-child {
  border-right: none;
 } 
-.users_table tbody tr td:first-child {
+.admin_table tbody tr td:first-child {
   width: 60px;
  } 
 /* .users_table tbody tr td {

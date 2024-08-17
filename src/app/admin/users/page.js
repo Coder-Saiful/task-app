@@ -11,10 +11,10 @@ const UsersPage = () => {
         <div className="table-responsive card">
           <div className="card-header" style={{background: "var(--primaryColor)"}}>
             <h2 className="fs-4 mb-0 text-center text-white" style={{ fontWeight: "600" }}>
-              Manage Tasks
+              Manage Users
             </h2>
           </div>
-          <table className="table users_table table-hover table-striped mb-0">
+          <table className="table admin_table table-hover table-striped mb-0">
             <thead>
               <tr>
                 <th scope="col">#S/N</th>
@@ -48,12 +48,12 @@ const UsersPage = () => {
                 <td>12-02-2020</td>
                 <td>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-success btn-sm">
+                    <Link href={`/admin/users/4344`} class="btn btn-outline-success btn-sm">
                       View
-                    </button>
-                    <button type="button" class="btn btn-outline-primary btn-sm">
+                    </Link>
+                    <Link href={`/admin/users/edit/34334`} class="btn btn-outline-primary btn-sm">
                       Edit
-                    </button>
+                    </Link>
                     <button type="button" class="btn btn-outline-danger btn-sm">
                       Delete
                     </button>

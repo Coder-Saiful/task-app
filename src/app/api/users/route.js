@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
 
-
-export function GET(request) {
-  return NextResponse.json("show all users");
+export async function GET(request) {
+    return NextResponse.json({message: "show all data"}, {status: 200});
 }
-
