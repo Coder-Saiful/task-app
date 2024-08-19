@@ -27,7 +27,7 @@ const LoginForm = () => {
     e.preventDefault();
     setIsLoading(true);
     httpAxios
-      .post("http://localhost:3000/api/users/login", userdata)
+      .post("/api/users/login", userdata)
       .then((response) => {
         setIsLoading(false);
         setErrors({});
