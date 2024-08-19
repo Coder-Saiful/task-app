@@ -4,11 +4,11 @@ const ForgotPasswordForm = () => {
   return (
     <form>
       <div className="mb-3">
-        <label className="form-label">Enter your password</label>
+        <label className="form-label">Enter your email</label>
         <input type="text" className="form-control" />
       </div>
       <button type="submit" className="btn btn-dark w-100">
-        Send Email
+        Submit
       </button>
     </form>
   );

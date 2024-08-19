@@ -21,9 +21,9 @@ const RegisterPage = () => {
               <div className="card-body">
                 <SignupForm />
                 <div className="mt-3 text-center">
-        <span className="me-1">Already han an account?</span>
-        <Link href="/accounts/login">Login Here</Link>
-      </div>
+                  <span className="me-1">Already han an account?</span>
+                  <Link href="/accounts/login">Login Here</Link>
+                </div>
               </div>
             </div>
           </div>

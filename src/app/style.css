@@ -38,6 +38,9 @@ nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a.active {
   box-shadow: none;
   border-color: var(--primaryColor);
 }
+.form-control.is-invalid:focus {
+  box-shadow: none;
+}
 /* .form-check-input:not(:focus) {
   border-color: var(--bs-border-color) !important;
 } */
