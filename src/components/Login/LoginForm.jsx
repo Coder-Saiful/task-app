@@ -73,7 +73,7 @@ const LoginForm = () => {
           }
         } else {
           setErrors({});
-          toast.success("Something went wrong. Please try again later.");
+          toast.error("Something went wrong. Please try again later.");
         }
       });
   };
