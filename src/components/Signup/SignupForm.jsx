@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { httpAxios } from "@/helper/httpAxios";
 
 const SignupForm = () => {
   const [userdata, setUserdata] = useState({
@@ -32,8 +32,8 @@ const SignupForm = () => {
 
     setIsLoading(true);
 
-    axios
-      .post("http://localhost:3000/api/users/register", userdata)
+    httpAxios
+      .post("/api/users/register", userdata)
       .then((response) => {
         setIsLoading(false);
         setUserdata({

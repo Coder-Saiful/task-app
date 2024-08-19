@@ -1,9 +1,9 @@
 "use client";
-import axios from "axios";
 import Link from "next/link";
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from 'next/navigation';
+import { httpAxios } from "@/helper/httpAxios";
 
 const LoginForm = () => {
   const [userdata, setUserdata] = useState({
@@ -26,7 +26,7 @@ const LoginForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    axios
+    httpAxios
       .post("http://localhost:3000/api/users/login", userdata)
       .then((response) => {
         setIsLoading(false);
