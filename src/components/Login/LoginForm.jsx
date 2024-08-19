@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -79,7 +79,6 @@ const LoginForm = () => {
   };
 
   return (
-    <>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label className="form-label">Enter your email address</label>
@@ -120,7 +119,6 @@ const LoginForm = () => {
           {isLoading ? "Submitting..." : "Submit"}
         </button>
       </form>
-    </>
   );
 };
 
