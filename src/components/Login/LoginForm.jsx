@@ -37,7 +37,7 @@ const LoginForm = () => {
         toast.success(response.data.message);
 
         if (redirectUrl) {
-          router.push(`${redirectUrl}`);
+          router.push(`/${redirectUrl}`);
         } else {
           switch (response.data.user.role) {
             case "user":
