@@ -14,27 +14,27 @@ export async function middleware(request) {
         new TextEncoder().encode(process.env.JWT_SECRET)
       );
 
-      // if (publicUrl.includes(currentPathname)) {
-      //   if (payload.role == "user") {
-      //     return NextResponse.redirect(
-      //       new URL("/accounts/profile", request.url)
-      //     );
-      //   }
+      if (publicUrl.includes(currentPathname)) {
+        if (payload.role == "user") {
+          return NextResponse.redirect(
+            new URL("/accounts/profile", request.url)
+          );
+        }
 
-      //   if (payload.role == "manager" || payload.role == "admin") {
-      //     return NextResponse.redirect(
-      //       new URL("/admin/dashboard", request.url)
-      //     );
-      //   }
-      // }
+        if (payload.role == "manager" || payload.role == "admin") {
+          return NextResponse.redirect(
+            new URL("/admin/dashboard", request.url)
+          );
+        }
+      }
 
-      return NextResponse.json(payload)
+      // return NextResponse.json(payload)
 
-      // if (currentPathname.startsWith('/admin') && payload.role == "user" ) {
-      //   return NextResponse.redirect(
-      //     new URL("/accounts/profile", request.url)
-      //   );
-      // }
+      if (currentPathname.startsWith('/admin') && payload.role == "user" ) {
+        return NextResponse.redirect(
+          new URL("/accounts/profile", request.url)
+        );
+      }
 
     } catch (error) {
       console.log(
