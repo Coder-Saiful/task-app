@@ -1,7 +1,9 @@
 'use client'
+import { httpAxios } from '@/helper/httpAxios';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const activeLink = (currentPath, pathname) => {
     return currentPath === pathname ? "active" : "";
@@ -9,6 +11,7 @@ const activeLink = (currentPath, pathname) => {
 
 const Header = () => {
     const currentPath = usePathname();
+    const router = useRouter();
     // const isAdminUrl = (currentPath) => {
     //     return currentPath.startsWith('/admin') ? true : false;
     // }
@@ -24,9 +27,24 @@ const Header = () => {
         document.querySelector(".navbar-collapse.main_navbar_collapse").classList.remove("show");
     }, [currentPath]);
 
+    const handleLogout = () => {
+        httpAxios.post('/api/users/logout')
+            .then(response => {
+                toast.success(response.data.message);
+                router.push('/accounts/login');
+            })
+            .catch(error => {
+                if (error.response) {
+                    toast.error(error.response.data.message);
+                } else {
+                    toast.error("Something went wrong. Please refresh the browser then try again.");  
+                }
+            });
+    }
+
     return (
         
-        <nav className="navbar navbar-expand-lg bg-dark main_nav py-1 py-lg-0">
+        <nav className="navbar navbar-expand-lg bg-dark main_nav py-1 py-lg-0 px-lg-4">
             <div className="container-fluid">
                 <Link className="navbar-brand text-white fs-4 py-0" href={'/'}>Task Manager</Link>
                 <button className="navbar-toggler px-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,7 +54,7 @@ const Header = () => {
                     <span></span>
                 </button>
                 <div className="collapse navbar-collapse main_navbar_collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav">
+                    <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
                             <Link className={`nav-link text-white ${activeLink(currentPath, '/')}`} href={'/'} onClick={handleMainNavItem}>Home</Link>
                         </li>
@@ -50,7 +68,7 @@ const Header = () => {
                             <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/change-password')}`} href={'/accounts/change-password'} onClick={handleMainNavItem}>Change Password</Link>
                         </li>
                         <li className="nav-item">
-                            <button className={`nav-link text-white`}>Logout</button>
+                            <button className={`nav-link text-white logout_button`} onClick={handleLogout}>Logout</button>
                         </li>
                         <li className="nav-item">
                             <Link className={`nav-link text-white ${activeLink(currentPath, '/accounts/login')}`} href={'/accounts/login'} onClick={handleMainNavItem}>Login</Link>

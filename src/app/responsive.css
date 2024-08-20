@@ -17,6 +17,10 @@
     nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav {
         margin-top: 10px !important; 
     }
+    .logout_button {
+        width: 100%;
+        text-align: left;
+    }
 }
 
 /* Medium devices (tablets, 768px and up) */

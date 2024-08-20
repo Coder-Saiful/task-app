@@ -31,7 +31,7 @@ export async function POST(request) {
         const token = genJWT(payload);
 
         const response = NextResponse.json({message: "Login successfully.", token, user: payload});
-        response.cookies.set("task-app-token", token, {
+        response.cookies.set(process.env.AUTH_COOKIE_NAME, token, {
             httpOnly: true,
             secure: process.env.NODE_ENV == 'production',
             path: "/",

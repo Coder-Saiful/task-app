@@ -15,7 +15,6 @@ const LoginForm = () => {
 
   const router = useRouter();
   const redirectUrl = useSearchParams().get("next");
-
   const handleChange = (e) => {
     setUserdata((preValue) => ({
       ...preValue,
@@ -39,7 +38,7 @@ const LoginForm = () => {
         
         setTimeout(() => {
           if (redirectUrl) {
-              router.push(`/${redirectUrl}`);
+              router.push(`${redirectUrl}`);
           } else {
             switch(response.data.user.role) {
               case 'user':

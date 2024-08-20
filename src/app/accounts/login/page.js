@@ -9,11 +9,11 @@ export const metadata = {
 const LoginPage = () => {
   return (
     <Suspense>
-      <section className="mt-5">
+      <section className="mt-5 mb">
         <div className="container">
           <div className="row">
             <div className="col-lg-5 col-md-8 col-sm-10 m-auto">
-              <div className="card">
+              <div className="card mb-5">
                 <div
                   className="card-header text-white"
                   style={{ background: "var(--primaryColor)" }}

@@ -139,7 +139,7 @@ const SignupForm = () => {
           Accept our terms and conditions
         </label>
         {errors.agreed && (
-          <div className="invalid-feedback d-block" style={{marginTop: "-1px", marginLeft: "-22px"}}>{errors.agreed}</div>
+          <div className="invalid-feedback d-block" style={{marginTop: "-1px", marginLeft: "-24px"}}>{errors.agreed}</div>
         )}
       </div>
 
