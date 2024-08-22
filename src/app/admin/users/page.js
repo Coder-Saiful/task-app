@@ -47,14 +47,14 @@ const UsersPage = () => {
                 <td>0185738734</td>
                 <td>12-02-2020</td>
                 <td>
-                  <div class="btn-group" role="group">
-                    <Link href={`/admin/users/4344`} class="btn btn-outline-success btn-sm">
+                  <div className="btn-group" role="group">
+                    <Link href={`/admin/users/4344`} className="btn btn-outline-success btn-sm">
                       View
                     </Link>
-                    <Link href={`/admin/users/edit/34334`} class="btn btn-outline-primary btn-sm">
+                    <Link href={`/admin/users/edit/66c5229cdced002984ceea87`} className="btn btn-outline-primary btn-sm">
                       Edit
                     </Link>
-                    <button type="button" class="btn btn-outline-danger btn-sm">
+                    <button type="button" className="btn btn-outline-danger btn-sm">
                       Delete
                     </button>
                   </div>

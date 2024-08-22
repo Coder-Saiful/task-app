@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { httpAxios } from "@/helper/httpAxios";
+import { saveAuthToken } from "@/utils/auth";
+
 
 const LoginForm = () => {
   const [userdata, setUserdata] = useState({
@@ -28,6 +30,7 @@ const LoginForm = () => {
     httpAxios
       .post("/api/users/login", userdata)
       .then((response) => {
+        saveAuthToken(response.data.token)
         setIsLoading(false);
         setErrors({});
         setUserdata({
@@ -37,7 +40,7 @@ const LoginForm = () => {
         toast.success(response.data.message);
 
         if (redirectUrl) {
-          router.push(`/${redirectUrl}`);
+          router.push(`${redirectUrl}`);
         } else {
           switch (response.data.user.role) {
             case "user":

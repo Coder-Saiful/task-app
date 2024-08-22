@@ -29,7 +29,7 @@ export async function middleware(request) {
   }
 
   if (!token && (currentPathname.startsWith("/admin") || currentPathname.startsWith("/accounts") || currentPathname.startsWith("/tasks"))) {
-    return NextResponse.redirect(new URL(`/accounts/login?next=${currentPathname.substring(1)}`, request.url));
+    return NextResponse.redirect(new URL(`/accounts/login`, request.url));
   }
 
 }

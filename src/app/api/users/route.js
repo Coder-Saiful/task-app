@@ -1,21 +1,41 @@
-import { NextResponse } from "next/server";
-import { User } from '@/models/user';
+import { User } from "@/models/user";
 import { mongodbConnect } from "@/config/mongodbConnect";
-import { auth } from "@/helper/auth";
+import { authenticated } from "@/helper/authenticated";
+import { SendResponse } from "@/helper/SendResponse";
+
+mongodbConnect();
 
 export async function GET(request) {
+  const { auth, response } = authenticated(request, ["manager", "admin"]);
+
+  if (auth) {
     try {
-        await mongodbConnect();
+        const {searchParams} = new URL(request.url);
+        const filter = {};
 
-        auth(request);
+        const limit = Number(searchParams.get("limit")) || 50;
+        let page = Number(searchParams.get("page")) || 1;
+        page = page < 1 ? 1 : page;
 
-        const users = await User.find().sort({createdAt: -1}).select({password: 0});
+        const totalData = await User.countDocuments(filter);
+        const totalPages = Math.ceil(totalData/limit);
+        const skip = (page - 1) * limit;
+
+        const users = await User.find(filter)
+          .sort({ createdAt: -1 })
+          .select({ password: 0 })
+          .limit(limit)
+          .skip(skip)
+          .populate('profile');
         if (users.length == 0) {
-            return NextResponse.json({message: "No data available."});
+          return SendResponse({ message: "No data available." });
         }
-        return NextResponse.json({users});
+        return SendResponse({showData: users.length, totalData, totalPages, currentPage: page, skip, users});
+    
     } catch (error) {
-        console.log(error.message)
-        return NextResponse.json({message: "Failed to load users data."}, {status: 500});
+      return SendResponse({ message: "Failed to load users data." }, 500);
     }
+  } else {
+    return response;
+  }
 }

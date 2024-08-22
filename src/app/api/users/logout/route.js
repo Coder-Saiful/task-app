@@ -1,3 +1,4 @@
+import { SendResponse } from "@/helper/SendResponse";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
@@ -9,6 +10,6 @@ export async function POST(request) {
         });
         return response;
     } catch (error) {
-        return NextResponse.json({message: `Logout failed (${error.message})`})
+        return SendResponse({message: `Logout failed (${error.message})`}, 500);
     }
 }

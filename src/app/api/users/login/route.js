@@ -5,26 +5,28 @@ import { mongodbConnect } from "@/config/mongodbConnect";
 import { User } from "@/models/user";
 import bcrypt from 'bcrypt';
 import { genJWT } from "@/helper/genJWT";
+import { SendResponse } from "@/helper/SendResponse";
+
+mongodbConnect();
 
 export async function POST(request) {
-    await mongodbConnect();
     try {
         const requestBody = await request.json();
         const data = _.pick(requestBody, 'email', 'password');
         const errors = loginValidator(data);
 
         if (Object.keys(errors).length > 0) {
-            return NextResponse.json({errors}, {status: 400})
+            return SendResponse({errors}, 400);
         }
 
         const user = await User.findOne({email: data.email});
         if (!user) {
-            return NextResponse.json({invalid_credential: "Your email or password is invalid."}, {status: 400});
+            return SendResponse({invalid_credential: "Your email or password is invalid."}, 400);
         }
 
         const validPass = await bcrypt.compare(data.password, user.password);
         if (!validPass) {
-            return NextResponse.json({invalid_credential: "Your email or password is invalid."}, {status: 400});
+            return SendResponse({invalid_credential: "Your email or password is invalid."}, 400);
         }
 
         const payload = _.pick(user, ["_id", "name", "email", "role"]);
@@ -39,6 +41,6 @@ export async function POST(request) {
         })
         return response;
     } catch (error) {
-        return NextResponse.json({message: "Login failed. Please try again later."}, {status: 500});
+        return SendResponse({message: "Login failed. Please try again later."}, 500);
     }
 }

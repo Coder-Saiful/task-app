@@ -22,6 +22,12 @@ const userSchema = new Schema({
         type: Boolean,
         required: true
     },
+    profile: {
+        type: Schema.Types.ObjectId,
+        ref: "Profile",
+        unique: true,
+        required: true
+    },
     role: {
         type: String,
         enum: ["user", "manager", "admin"],
