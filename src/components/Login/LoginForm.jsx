@@ -1,13 +1,14 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { httpAxios } from "@/helper/httpAxios";
-import { saveAuthToken } from "@/utils/auth";
+import { AuthContext } from "@/context/AuthContext";
 
 
 const LoginForm = () => {
+  const {setUser} = useContext(AuthContext);
   const [userdata, setUserdata] = useState({
     email: "",
     password: "",
@@ -17,6 +18,7 @@ const LoginForm = () => {
 
   const router = useRouter();
   const redirectUrl = useSearchParams().get("next");
+
   const handleChange = (e) => {
     setUserdata((preValue) => ({
       ...preValue,
@@ -30,7 +32,6 @@ const LoginForm = () => {
     httpAxios
       .post("/api/users/login", userdata)
       .then((response) => {
-        saveAuthToken(response.data.token)
         setIsLoading(false);
         setErrors({});
         setUserdata({
@@ -38,6 +39,7 @@ const LoginForm = () => {
           password: "",
         });
         toast.success(response.data.message);
+        setUser(response.data.user);
 
         if (redirectUrl) {
           router.push(`${redirectUrl}`);

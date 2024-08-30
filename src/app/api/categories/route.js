@@ -27,7 +27,9 @@ export async function GET(request) {
 export async function POST(request) {
     const {auth, response} = authenticated(request, ["manager", "admin"]);
 
-    if (!auth) return response;
+    if (!auth) {
+      return response;
+    }
 
     try {
         const requestData = await request.json();

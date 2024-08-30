@@ -10,6 +10,8 @@ export async function GET(request) {
 
   if (auth) {
     try {
+
+
         const {searchParams} = new URL(request.url);
         const filter = {};
 

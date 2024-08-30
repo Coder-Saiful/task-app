@@ -5,7 +5,7 @@ export async function middleware(request) {
   const token = request.cookies.get(process.env.AUTH_COOKIE_NAME)?.value || "";
   const tokenData = tokenDecoded(token);
 
-  const publicUrl = ["/accounts/login", "/accounts/register"];
+  const publicUrl = ["/accounts/login", "/accounts/register", "/accounts/forgot-password"];
   const currentPathname = request.nextUrl.pathname;
 
   if (token && !tokenData) {
@@ -28,11 +28,11 @@ export async function middleware(request) {
     return NextResponse.next();
   }
 
-  if (!token && (currentPathname.startsWith("/admin") || currentPathname.startsWith("/accounts") || currentPathname.startsWith("/tasks"))) {
+  if (!token && (currentPathname.startsWith("/admin") || currentPathname.startsWith("/accounts") || currentPathname.startsWith("/tasks") || currentPathname.startsWith("/bookmarks"))) {
     return NextResponse.redirect(new URL(`/accounts/login`, request.url));
   }
 
 }
 export const config = {
-  matcher: ["/accounts/:path*", "/admin/:path*", "/tasks/:path*"],
+  matcher: ["/accounts/:path*", "/admin/:path*", "/tasks/:path*", "/bookmarks"],
 };

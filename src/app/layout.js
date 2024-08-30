@@ -7,6 +7,7 @@ import "./responsive.css";
 import Header from "../components/Includes/Header";
 import Script from "next/script";
 import { ToastContainer } from "react-toastify";
+import { AuthProvider } from "@/context/AuthContext";
 
 
 const poppins = Poppins({
@@ -22,33 +23,34 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        {/* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/> */}
-      </head>
-      <body className={poppins.className}>
-        <main>
-          <ToastContainer
-            position="top-right"
-            autoClose={1000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            // transition: Bounce
-          />
-          <Header />
-          {children}
-        </main>
-        {/* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> */}
-        {/* <Script src="bootstrap/dist/js/bootstrap.bundle.min.js" /> */}
-        <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" />
-      </body>
-    </html>
-  );
-  z;
+      <html lang="en">
+        <head>
+          {/* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/> */}
+        </head>
+        <body className={poppins.className}>
+          <AuthProvider>
+          <main>
+            <ToastContainer
+              position="top-right"
+              autoClose={1000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              // transition: Bounce
+            />
+            <Header />
+            {children}
+          </main>
+          </AuthProvider>
+          {/* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> */}
+          {/* <Script src="bootstrap/dist/js/bootstrap.bundle.min.js" /> */}
+          <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" />
+        </body>
+      </html>
+    );
 }

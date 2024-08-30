@@ -11,7 +11,6 @@ export const authenticated = (request, role=[]) => {
     
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        
         if (role.length == 0) {
             return {auth: true, decoded};
         }
@@ -28,7 +27,7 @@ export const authenticated = (request, role=[]) => {
         } else if (error.name == "TokenExpiredError") {
             msg = "Token has expired.";
         } else {
-            msg = "Authentication JSON Web Token doesn't decode.";
+            msg = "Authentication JSON Web Token doesn't decode. Please try again or refresh the web/app.";
         }
         return {auth: false, response: SendResponse({message: msg}, 400)};
     }
