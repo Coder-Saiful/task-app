@@ -32,18 +32,31 @@ nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a.active {
   background: var(--primaryColor);
 }
 
+/* form css start */
+.card:has(form) {
+  background: transparent;
+  border: 1px solid gray;
+}
+
+.form-control { 
+  background:transparent;
+  color:white !important;
+  border-color: #bdbdbd;
+}
+form label {
+  color: #bdbdbd;
+}
 .form-control:focus,
 .form-check-input:focus,
 .form-select:focus {
   box-shadow: none;
   border-color: var(--primaryColor);
+  background-color: transparent;
 }
 .form-control.is-invalid:focus {
   box-shadow: none;
 }
-/* .form-check-input:not(:focus) {
-  border-color: var(--bs-border-color) !important;
-} */
+
 .form-check-input:not(:checked) {
   border-color: var(--bs-border-color) !important;
 }
@@ -62,6 +75,31 @@ nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a.active {
   text-decoration: underline;
 }
 
+.submit_btn {
+  background: var(--primaryColor);
+  color: white;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  padding: 6px 0;
+}
+.card:has(form) .card-header h3 {
+  margin-top: 6px;
+}
+.card:has(form) .card-header h3:before {
+  position: absolute;
+  width: 50px;
+  height: 3px;
+  background: var(--primaryColor);
+  left: 50%;
+  content: '';
+  bottom: 0;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+/* form css end */
+
+/* navbar css start*/
 .navbar-toggler > span {
   width: 30px;
   height: 3px;
@@ -132,6 +170,9 @@ button.adminNavClose span:last-child {
 .admin_table tbody tr td:first-child {
   width: 60px;
  } 
+
+
+
 /* .users_table tbody tr td {
   border: none;
   border-right: 1px solid #dddddd;

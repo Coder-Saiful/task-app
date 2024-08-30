@@ -15,16 +15,16 @@ const LoginPage = () => {
             <div className="col-lg-5 col-md-8 col-sm-10 m-auto">
               <div className="card mb-5">
                 <div
-                  className="card-header text-white"
-                  style={{ background: "var(--primaryColor)" }}
+                  className="card-header text-white position-relative"
+                  // style={{ background: "var(--primaryColor)" }}
                 >
                   <h3 className="mb-0 text-center">Login Here</h3>
                 </div>
                 <div className="card-body">
                   <LoginForm />
                   <div className="mt-3 text-center">
-                    <span className="me-1">Don't have an account?</span>
-                    <Link href="/accounts/register">Create Account</Link>
+                    <span className="me-1" style={{color: "#bdbdbd"}}>Don't have an account?</span>
+                    <Link href="/accounts/register" className="text-white">Create Account</Link>
                   </div>
                 </div>
               </div>

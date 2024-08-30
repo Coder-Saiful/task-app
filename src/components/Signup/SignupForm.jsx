@@ -143,7 +143,7 @@ const SignupForm = () => {
         )}
       </div>
 
-      <button type="submit" className="btn btn-dark w-100" disabled={isLoading}>
+      <button type="submit" className="submit_btn w-100" disabled={isLoading}>
         {isLoading ? "Submitting..." : "Submit"}
       </button>
     </form>

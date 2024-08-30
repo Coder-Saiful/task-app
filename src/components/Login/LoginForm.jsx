@@ -73,6 +73,9 @@ const LoginForm = () => {
               password: error.response.data.invalid_credential,
             }));
           }
+          if (error.response.data.message) {
+            toast.error(error.response.data.message);
+          }
         } else {
           setErrors({});
           toast.error("Something went wrong. Please try again later.");
@@ -109,13 +112,13 @@ const LoginForm = () => {
       <div className="text-end mb-3">
         <Link
           href={`/accounts/forgot-password`}
-          className="border-0 bg-transparent forgot_pass_link"
-          style={{ color: "var(--primaryColor)", fontSize: "14px" }}
+          className="border-0 bg-transparent forgot_pass_link text-white"
+          style={{ fontSize: "13px" }}
         >
           Forgot Password
         </Link>
       </div>
-      <button type="submit" className="btn btn-dark w-100" disabled={isLoading}>
+      <button type="submit" className="w-100 submit_btn" disabled={isLoading}>
         {isLoading ? "Submitting..." : "Submit"}
       </button>
     </form>

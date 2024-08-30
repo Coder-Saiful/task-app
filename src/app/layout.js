@@ -27,8 +27,9 @@ export default function RootLayout({ children }) {
         <head>
           {/* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/> */}
         </head>
-        <body className={poppins.className}>
+        <body className={`${poppins.className} bg-dark`}>
           <AuthProvider>
+          <Header />
           <main>
             <ToastContainer
               position="top-right"
@@ -43,7 +44,7 @@ export default function RootLayout({ children }) {
               theme="light"
               // transition: Bounce
             />
-            <Header />
+            
             {children}
           </main>
           </AuthProvider>
