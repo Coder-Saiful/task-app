@@ -113,7 +113,7 @@ const LoginForm = () => {
         <Link
           href={`/accounts/forgot-password`}
           className="border-0 bg-transparent forgot_pass_link text-white"
-          style={{ fontSize: "13px" }}
+          style={{ fontSize: "14px" }}
         >
           Forgot Password
         </Link>

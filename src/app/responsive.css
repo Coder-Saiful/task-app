@@ -45,6 +45,9 @@
     .admin_nav_offcanvas {
         width: calc(100% - (9*(100%/12)));
     }
+    .admin_nav3 {
+        border-right: .1px solid rgb(175 175 175 / 60%);
+    }
 }
 
 /* X-Large devices (large desktops, 1200px and up) */

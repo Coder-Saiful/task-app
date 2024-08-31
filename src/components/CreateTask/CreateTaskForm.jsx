@@ -20,7 +20,7 @@ const CreateTaskForm = () => {
       </div>
       <div className="mb-3">
         <label className="form-label">Description</label>
-        <textarea className="form-control" rows="4"></textarea>
+        <textarea className="form-control" rows="4" style={{resize: "none"}}></textarea>
       </div>
       <div className="mb-3 form-check">
         <input type="checkbox" className="form-check-input" id="publish" />
@@ -28,7 +28,7 @@ const CreateTaskForm = () => {
           Publish
         </label>
       </div>
-      <button type="submit" className="btn btn-dark w-100">
+      <button type="submit" className="submit_btn w-100">
         Create
       </button>
     </form>

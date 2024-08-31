@@ -28,7 +28,7 @@ const EditTaskForm = () => {
           Publish
         </label>
       </div>
-      <button type="submit" className="btn btn-dark w-100">
+      <button type="submit" className="submit_btn w-100">
         Edit
       </button>
     </form>

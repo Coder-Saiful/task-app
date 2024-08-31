@@ -16,7 +16,7 @@ const ChangePasswordForm = () => {
         <label className="form-label">Confirm New Password</label>
         <input type="password" className="form-control" />
       </div>
-      <button type="submit" className="btn btn-dark w-100">
+      <button type="submit" className="submit_btn w-100">
         Change
       </button>
     </form>

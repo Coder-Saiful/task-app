@@ -15,7 +15,7 @@ const DashboardLayout = ({ children }) => {
           {/* <AdminNavbar2 /> */}
           <AdminNavbar3 />
         </div>
-        <div className="col-xl-10 col-lg-9 col-md-8 mb-5">{children}</div>
+        <div className="col-xl-10 col-lg-9 col-md-8 mb-5 empty_div">{children}</div>
       </div>
     </section>
   );

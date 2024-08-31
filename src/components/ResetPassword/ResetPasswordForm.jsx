@@ -11,7 +11,7 @@ const ResetPasswordForm = () => {
         <label className="form-label">Confirm New Password</label>
         <input type="text" className="form-control" />
       </div>
-      <button type="submit" className="btn btn-dark w-100">
+      <button type="submit" className="submit_btn w-100">
         Recover Password
       </button>
     </form>

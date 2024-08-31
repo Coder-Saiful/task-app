@@ -1,5 +1,6 @@
 :root {
   --primaryColor: #04aa6d;
+  --secondaryColor: "#bdbdbd"
 }
 .nav-link.active,
 .nav-link:hover {
@@ -33,18 +34,42 @@ nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a.active {
 }
 
 /* form css start */
-.card:has(form) {
-  background: transparent;
-  border: 1px solid gray;
-}
+
 
 .form-control { 
   background:transparent;
   color:white !important;
   border-color: #bdbdbd;
 }
+ .form-select { 
+  background:transparent;
+  color: #bdbdbd !important;
+  border-color: #bdbdbd;
+}
+.form-control::placeholder { 
+  color: #bdbdbd;
+}
 form label {
   color: #bdbdbd;
+}
+form input[type="date"], form input[type="file"] {
+  color: #bdbdbd !important;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  display: none;
+
+}
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  
+}
+
+.form-select option {
+  color: #080808;
+  background: #cbcbcb;
 }
 .form-control:focus,
 .form-check-input:focus,
@@ -53,6 +78,7 @@ form label {
   border-color: var(--primaryColor);
   background-color: transparent;
 }
+
 .form-control.is-invalid:focus {
   box-shadow: none;
 }
@@ -83,10 +109,17 @@ form label {
   border-radius: 4px;
   padding: 6px 0;
 }
-.card:has(form) .card-header h3 {
+.card:has(form), .card:has(table) {
+  background: transparent;
+  border: 1px solid gray;
+}
+.card:has(form) .card-header h3, .card:has(table) .card-header h3 {
   margin-top: 6px;
 }
-.card:has(form) .card-header h3:before {
+.card {
+  background: black;
+}
+.card:has(form) .card-header h3:before, .card:has(table) .card-header h3:before {
   position: absolute;
   width: 50px;
   height: 3px;
@@ -162,7 +195,8 @@ button.adminNavClose span:last-child {
 
 .admin_table thead tr th, .admin_table tbody tr td {
   border: none;
-  border-right: 1px solid #dddddd;
+  border-right: .1px solid gray;
+  border-top: .1px solid gray;
 }
 .admin_table thead tr th:last-child, .admin_table tbody tr td:last-child {
  border-right: none;
@@ -171,9 +205,12 @@ button.adminNavClose span:last-child {
   width: 60px;
  } 
 
+ .admin_table thead tr th {
+  background: black;
+  color: white;
+}
 
-
-/* .users_table tbody tr td {
-  border: none;
-  border-right: 1px solid #dddddd;
-} */
+.admin_table tbody tr td {
+  background: black;
+  color: #d5d5d5;
+}
