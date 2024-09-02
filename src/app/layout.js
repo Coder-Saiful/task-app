@@ -26,6 +26,7 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <head>
           {/* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/> */}
+          <script src="https://kit.fontawesome.com/380b207d69.js"></script>
         </head>
         <body className={`${poppins.className}`}>
           <AuthProvider>

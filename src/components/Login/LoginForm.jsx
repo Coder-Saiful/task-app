@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useRouter, useSearchParams } from "next/navigation";
 import { httpAxios } from "@/helper/httpAxios";
 import { AuthContext } from "@/context/AuthContext";
+import { handlePassType } from "@/utils/handlePassType";
 
 
 const LoginForm = () => {
@@ -96,15 +97,17 @@ const LoginForm = () => {
         />
         {errors.email && <div className="invalid-feedback">{errors.email}</div>}
       </div>
-      <div className="mb-1">
+      <div className="mb-1 position-relative">
         <label className="form-label">Enter your password</label>
         <input
           type="password"
-          className={`form-control ${errors.password ? "is-invalid" : ""}`}
+          className={`form-control password_field ${errors.password ? "is-invalid" : ""}`}
           name="password"
           value={userdata.password}
           onChange={handleChange}
         />
+        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType}></i>
+        
         {errors.password && (
           <div className="invalid-feedback">{errors.password}</div>
         )}

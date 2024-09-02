@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { httpAxios } from "@/helper/httpAxios";
+import { handlePassType } from "@/utils/handlePassType";
 
 const SignupForm = () => {
   const [userdata, setUserdata] = useState({
@@ -96,7 +97,7 @@ const SignupForm = () => {
         )}
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3 position-relative">
         <label className="form-label">Enter your password</label>
         <input
           type="password"
@@ -105,12 +106,15 @@ const SignupForm = () => {
           value={userdata.password}
           onChange={handleChange}
         />
+      
+        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType}></i>
+  
         {errors.password && (
           <div className="invalid-feedback">{errors.password}</div>
         )}
       </div>
 
-      <div className="mb-3">
+      <div className="mb-3 position-relative">
         <label className="form-label">Enter your confirm password</label>
         <input
           type="password"
@@ -121,6 +125,7 @@ const SignupForm = () => {
           value={userdata.confirm_password}
           onChange={handleChange}
         />
+        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType}></i>
         {errors.confirm_password && (
           <div className="invalid-feedback">{errors.confirm_password}</div>
         )}

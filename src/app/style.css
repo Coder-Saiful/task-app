@@ -61,6 +61,9 @@ form label {
 form input[type="date"], form input[type="file"] {
   color: #bdbdbd !important;
 }
+.form-control.password_field {
+  padding-right: 32px;
+}
 input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0;
   display: none;
@@ -134,7 +137,13 @@ input[type="date"] {
   transform: translateX(-50%);
   border-radius: 2px;
 }
-
+.pass_show_hide{
+  position: absolute;
+  top: 43px;
+  right: 11px;
+  color: #bdbdbd;
+  cursor: pointer;
+}
 /* form css end */
 
 /* navbar css start*/
