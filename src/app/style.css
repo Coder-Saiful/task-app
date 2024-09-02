@@ -2,6 +2,10 @@
   --primaryColor: #04aa6d;
   --secondaryColor: #bdbdbd;
 }
+body {
+  background-color: #080808;
+}
+/* navbar css */
 .nav-link.active,
 .nav-link:hover {
   color: white !important;
@@ -110,8 +114,9 @@ input[type="date"] {
   padding: 6px 0;
 }
 .card:has(form), .card:has(table) {
-  background: black;
+
   border: 1px solid gray;
+  background-color: #212529;
 }
 .card:has(form) .card-header h3, .card:has(table) .card-header h3 {
   margin-top: 6px;
