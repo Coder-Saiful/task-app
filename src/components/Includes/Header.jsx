@@ -46,7 +46,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg bg-dark main_nav py-1 py-lg-0 px-lg-4" style={{borderBottom: ".1px solid rgb(175 175 175 / 60%)"}}>
+    <nav className="navbar navbar-expand-lg main_nav py-1 py-lg-0 px-lg-4" style={{borderBottom: ".1px solid rgb(175 175 175 / 60%)", background: "var(--darkPrimary)"}}>
       <div className="container-fluid">
         <Link className="navbar-brand text-white fs-4 py-0" href={"/"}>
           Task Manager

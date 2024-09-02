@@ -1,9 +1,11 @@
 :root {
   --primaryColor: #04aa6d;
   --secondaryColor: #bdbdbd;
+  --darkPrimaary: #000000;
+  --darkSecondary: #141414;
 }
 body {
-  background-color: #141414;
+  background-color: var(--darkPrimaary);
 }
 /* navbar css */
 .nav-link.active,
@@ -116,7 +118,7 @@ input[type="date"] {
 .card:has(form), .card:has(table) {
 
   border: 1px solid gray;
-  background-color: #212529;
+  background-color: var(--darkSecondary);
 }
 .card:has(form) .card-header h3, .card:has(table) .card-header h3 {
   margin-top: 6px;
