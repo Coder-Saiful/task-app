@@ -15,15 +15,17 @@ export async function GET(request) {
         const {searchParams} = new URL(request.url);
         const filter = {};
 
-        const limit = Number(searchParams.get("limit")) || 50;
+        const limit = Number(searchParams.get("limit")) || 10;
         let page = Number(searchParams.get("page")) || 1;
         page = page < 1 ? 1 : page;
 
         const totalData = await User.countDocuments(filter);
         const totalPages = Math.ceil(totalData/limit);
         const skip = (page - 1) * limit;
-
-        const users = await User.find(filter)
+       
+        const users = await User.find({
+ 
+        })
           .sort({ createdAt: -1 })
           .select({ password: 0 })
           .limit(limit)

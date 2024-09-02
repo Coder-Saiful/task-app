@@ -2,7 +2,8 @@ import { mongodbConnect } from "@/config/mongodbConnect";
 import { authenticated } from "@/helper/authenticated";
 import { SendResponse } from "@/helper/SendResponse";
 import { Category } from "@/models/category";
-import { categoryValidator } from "@/validators/categoryValidator";
+import { SubCategory } from "@/models/subcategory";
+import { subCategoryValidator } from "@/validators/subCategoryValidator";
 
 mongodbConnect();
 
@@ -18,28 +19,25 @@ export async function GET(request) {
       let page = Number(searchParams.get("page")) || 1;
       page = page < 1 ? 1 : page;
 
-      const totalData = await Category.countDocuments();
+      const totalData = await SubCategory.countDocuments();
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
 
-      const categories = await Category.find()
-        .limit(limit)
-        .skip(skip)
-        .populate({ path: "sub_categories", select: "-parent_category -__v", populate: {path: "nasted_sub_categories", select: "-parent_category -__v"} }).select("-__v");
+      const subcategories = await SubCategory.find().limit(limit).skip(skip).populate({path: "nasted_sub_categories", select: "-parent_category -__v"}).select("-__v");
 
-      if (categories.length == 0) {
+      if (subcategories.length == 0) {
         return SendResponse({ message: "No data available." }, 200);
       }
       return SendResponse({
-        showData: categories.length,
+        showData: subcategories.length,
         totalData,
         totalPages,
         currentPage: page,
         skip,
-        categories,
+        subcategories,
       });
     } catch (error) {
-      return SendResponse({ message: "Failed to load categories." }, 500);
+      return SendResponse({ message: "Failed to load subcategories." }, 500);
     }
   } else {
     return response;
@@ -56,27 +54,35 @@ export async function POST(request) {
 
   try {
     const requestData = await request.json();
-    const errors = categoryValidator(requestData);
+    const errors = subCategoryValidator(requestData);
 
     if (Object.keys(errors).length > 0) {
       return SendResponse({ errors }, 400);
     }
 
-    const existCategory = await Category.findOne({ name: requestData.name });
-    if (existCategory) {
+    const existSubCategory = await SubCategory.findOne({
+      name: requestData.name,
+    });
+    if (existSubCategory) {
       return SendResponse(
-        { message: "This category has already been exist." },
+        { message: "This subcategory has already been exist." },
         400
       );
     }
 
-    await Category.create({ name: requestData.name });
+    const result = await SubCategory.create(requestData);
+    await Category.findByIdAndUpdate(result.parent_category, {
+      $push: {
+        sub_categories: result._id,
+      },
+    });
 
     return SendResponse(
-      { message: "Category has been created successfully." },
+      { message: "Subcategory has been created successfully." },
       201
     );
   } catch (error) {
-    return SendResponse({ message: "Failed to create category." }, 500);
+    // console.log(error)
+    return SendResponse({ message: "Failed to create subcategory." }, 500);
   }
 }

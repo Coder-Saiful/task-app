@@ -1,6 +1,6 @@
 :root {
   --primaryColor: #04aa6d;
-  --secondaryColor: "#bdbdbd"
+  --secondaryColor: #bdbdbd;
 }
 .nav-link.active,
 .nav-link:hover {
@@ -110,14 +110,11 @@ input[type="date"] {
   padding: 6px 0;
 }
 .card:has(form), .card:has(table) {
-  background: transparent;
+  background: black;
   border: 1px solid gray;
 }
 .card:has(form) .card-header h3, .card:has(table) .card-header h3 {
   margin-top: 6px;
-}
-.card {
-  background: black;
 }
 .card:has(form) .card-header h3:before, .card:has(table) .card-header h3:before {
   position: absolute;
@@ -130,6 +127,7 @@ input[type="date"] {
   transform: translateX(-50%);
   border-radius: 2px;
 }
+
 /* form css end */
 
 /* navbar css start*/
@@ -213,4 +211,33 @@ button.adminNavClose span:last-child {
 .admin_table tbody tr td {
   background: black;
   color: #d5d5d5;
+}
+
+.admin_table tbody tr:nth-child(odd) td {
+  background: #00e39026;
+}
+
+/* pagination part css */
+.pagination_part {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagination li a {
+    background: transparent;
+    border: .1px solid gray;
+    color: #c5c5c5;
+}
+
+.pagination li.active a {
+  background: var(--primaryColor);
+}
+.pagination li.active  {
+  border-color: var(--primaryColor);
+}
+
+.rowLimit {
+  display: flex;
+  align-items: center;
 }

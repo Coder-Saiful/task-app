@@ -1,20 +1,8 @@
-import { NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import { SendResponse } from "@/helper/SendResponse";
+import { Category } from "@/models/category";
 
-export async function GET(request) {
-  try {
-    const token =
-      request.cookies.get(process.env.AUTH_COOKIE_NAME)?.value || "";
-    if (!token) {
-      return NextResponse.json(
-        { message: "Access denied. No token provided." },
-        { status: 401 }
-      );
-    }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return NextResponse.json({ token, ...decoded });
-  } catch (error) {
-    console.log(error.name)
-    return NextResponse.json({message: error.name == "JsonWebTokenError" ? "Invalid token." : "This token doesn't decode."}, {status: 400});
-  }
+export async function GET() {
+//   const result = await Category.create();
+  console.log(result);
+  return SendResponse("the query successfully run");
 }
