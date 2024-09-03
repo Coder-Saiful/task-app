@@ -44,7 +44,7 @@ export const userValidator = (data) => {
       errorMessages[err.context.key] = err.message;
     }
   } else if (data.password && data.password.length >= 6 && !(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};:\'",.<>?/|`~]).{8,}$').test(data.password))) {
-      errorMessages["confirm_password"] = "Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.";
+      errorMessages["password"] = "Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.";
   } else if (data.password != data.confirm_password) {
     errorMessages["confirm_password"] = "The password and the confirm password doesn't match.";
   } 
