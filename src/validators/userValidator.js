@@ -17,11 +17,11 @@ export const userValidator = (data) => {
       "any.required": "Email is a required field.",
     }),
     password: Joi.string().required().min(6).max(255).messages({
-      "string.base": "Name must not contain anything other than alphabet.",
+      "string.base": "Enter a strong password as a string.",
       "string.empty": "Password is a required field.",
       "string.min": "Password must be at least {#limit} characters long.",
       "string.max": "Password must be less than or equal {#limit} characters.",
-      "any.required": "Password is a required field.",
+      "any.required": "Password is a required field."
     }),
     confirm_password: Joi.string().required().messages({
       "string.base": "Name must not contain anything other than alphabet.",
@@ -43,6 +43,8 @@ export const userValidator = (data) => {
     for (let err of error.details) {
       errorMessages[err.context.key] = err.message;
     }
+  } else if (data.password && data.password.length >= 6 && !(new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};:\'",.<>?/|`~]).{8,}$').test(data.password))) {
+      errorMessages["confirm_password"] = "Password must include at least one lowercase letter, one uppercase letter, one number, and one special character.";
   } else if (data.password != data.confirm_password) {
     errorMessages["confirm_password"] = "The password and the confirm password doesn't match.";
   } 

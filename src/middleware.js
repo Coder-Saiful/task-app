@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { tokenDecoded } from "./helper/tokenDecoded";
+import { mongodbConnect } from "./config/mongodbConnect";
 
 export async function middleware(request) {
   const token = request.cookies.get(process.env.AUTH_COOKIE_NAME)?.value || "";
@@ -34,5 +35,5 @@ export async function middleware(request) {
 
 }
 export const config = {
-  matcher: ["/accounts/:path*", "/admin/:path*", "/tasks/:path*", "/bookmarks"],
+  matcher: ["/accounts/:path*", "/admin/:path*", "/tasks/:path*", "/bookmarks", "/api/:path*"],
 };

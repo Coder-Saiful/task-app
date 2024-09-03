@@ -1,4 +1,4 @@
-import {Schema, models, model} from 'mongoose';
+import { Schema, models, model } from "mongoose";
 export const Profile =
   models.Profile ||
   model(
@@ -15,13 +15,17 @@ export const Profile =
           type: String,
           default: "",
         },
+        cover_pic: {
+          type: String,
+          default: "",
+        },
         mobile: {
           type: String,
           default: "",
         },
         dob: {
           type: Date,
-          default: "",
+          default: null,
         },
         blood_group: {
           type: String,
@@ -83,6 +87,42 @@ export const Profile =
             default: "",
           },
         },
+        facebookProfileLink: {
+          type: String,
+          default: ""
+        },
+        githubProfileLink: {
+          type: String,
+          default: ""
+        },
+        twitterProfileLink: {
+          type: String,
+          default: ""
+        },
+        linkedinProfileLink: {
+          type: String,
+          default: ""
+        },
+        isVerified: {
+          type: Boolean,
+          default: false,
+        },
+        verifyToken: {
+          type: String,
+          default: ""
+        },
+        verifyTokenExpires: {
+          type: Date,
+          default: null
+        },
+        resetPasswordToken: {
+          type: String,
+          default: ""
+        },
+        resetPasswordTokenExpires: {
+          type: Date,
+          default: null
+        }
       },
       { timestamps: true }
     )

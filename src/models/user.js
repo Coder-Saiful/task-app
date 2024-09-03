@@ -32,7 +32,11 @@ const userSchema = new Schema({
         type: String,
         enum: ["user", "manager", "admin"],
         default: 'user'
-    }
+    },
+    isBanned: {
+        type: Boolean,
+        default: false,
+    },
 }, {timestamps: true});
 
 export const User = models.User || model("User", userSchema);
