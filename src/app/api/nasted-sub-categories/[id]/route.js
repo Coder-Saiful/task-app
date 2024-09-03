@@ -1,8 +1,11 @@
+import { mongodbConnect } from "@/config/mongodbConnect";
 import { authenticated } from "@/helper/authenticated";
 import { SendResponse } from "@/helper/SendResponse";
 import { NastedSubCategory } from "@/models/nastedsubcategory";
 import { SubCategory } from "@/models/subcategory";
 import { nastedSubCategoryValidator } from "@/validators/nastedSubCategoryValidator";
+
+mongodbConnect();
 
 export async function GET(request, { params: { id } }) {
   const { auth, response } = authenticated(request);

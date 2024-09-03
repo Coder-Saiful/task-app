@@ -1,6 +1,9 @@
+import { mongodbConnect } from "@/config/mongodbConnect";
 import { authenticated } from "@/helper/authenticated";
 import { SendResponse } from "@/helper/SendResponse";
 import _ from "lodash";
+
+mongodbConnect();
 
 export async function POST(request) {
     const {auth, response, decoded} = authenticated(request);

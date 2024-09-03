@@ -1,3 +1,4 @@
+import { mongodbConnect } from "@/config/mongodbConnect";
 import { authenticated } from "@/helper/authenticated";
 import { SendResponse } from "@/helper/SendResponse";
 import { Category } from "@/models/category";
@@ -5,6 +6,7 @@ import { NastedSubCategory } from "@/models/nastedsubcategory";
 import { SubCategory } from "@/models/subcategory";
 import { subCategoryValidator } from "@/validators/subCategoryValidator";
 
+mongodbConnect();
 
 // show subcategory details
 export async function GET(request, { params: { id } }) {

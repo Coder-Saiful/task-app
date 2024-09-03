@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { tokenDecoded } from "./helper/tokenDecoded";
-import { mongodbConnect } from "./config/mongodbConnect";
 
 export async function middleware(request) {
   const token = request.cookies.get(process.env.AUTH_COOKIE_NAME)?.value || "";
