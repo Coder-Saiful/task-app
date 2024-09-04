@@ -106,7 +106,7 @@ const LoginForm = () => {
           value={userdata.password}
           onChange={handleChange}
         />
-        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType}></i>
+        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType} style={{color: errors.password ? "#bdbdbd" : "#bdbdbd"}}></i>
         
         {errors.password && (
           <div className="invalid-feedback">{errors.password}</div>

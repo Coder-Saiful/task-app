@@ -107,7 +107,7 @@ const SignupForm = () => {
           onChange={handleChange}
         />
       
-        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType}></i>
+        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType} style={{color: errors.password ? "#bdbdbd" : "#bdbdbd"}}></i>
   
         {errors.password && (
           <div className="invalid-feedback">{errors.password}</div>
@@ -125,7 +125,7 @@ const SignupForm = () => {
           value={userdata.confirm_password}
           onChange={handleChange}
         />
-        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType}></i>
+        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType} style={{color: errors.password ? "#bdbdbd" : "#bdbdbd"}}></i>
         {errors.confirm_password && (
           <div className="invalid-feedback">{errors.confirm_password}</div>
         )}

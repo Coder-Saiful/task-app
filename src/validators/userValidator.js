@@ -24,7 +24,7 @@ export const userValidator = (data) => {
       "any.required": "Password is a required field."
     }),
     confirm_password: Joi.string().required().messages({
-      "string.base": "Name must not contain anything other than alphabet.",
+      "string.base": "Re-type a strong password as a string.",
       "string.empty": "Confirm password is a required field.",
       "any.required": "Confirm password is a required field.",
     }),

@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { SendResponse } from "./SendResponse";
+import { getToken } from './getToken';
 
 export const authenticated = (request, role=[]) => {
-    const token = request.cookies.get(process.env.AUTH_COOKIE_NAME)?.value || request.headers.get("authorization")?.split(" ")[1].trim() || "";
+    const token = getToken(request);
     
     if (!token) {
 
@@ -12,10 +13,12 @@ export const authenticated = (request, role=[]) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (role.length == 0) {
-            return {auth: true, decoded};
+            request.token = token;
+            return {auth: true, decoded: decoded};
         }
         if (role.length > 0 && role.includes(decoded.role)) {
-            return {auth: true, decoded};
+            request.token = token;
+            return {auth: true, decoded: decoded};
         } 
         if (role.length > 0 && !role.includes(decoded.role)) {
             return {auth: false, response: SendResponse({message: "403 Forbidden. Permission not granted."}, 403)};

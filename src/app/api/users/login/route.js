@@ -28,7 +28,11 @@ export async function POST(request) {
         if (!validPass) {
             return SendResponse({invalid_credential: "Your email or password is invalid."}, 400);
         }
-
+        
+        if (user.isBanned) {
+            return SendResponse({deactive_account: "Your account has been disabled."});
+        }
+        
         const payload = _.pick(user, ["_id", "name", "email", "role"]);
         const token = genJWT(payload);
 
