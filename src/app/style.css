@@ -13,6 +13,7 @@
 }
 body {
   background-color: var(--darkPrimaary);
+  color: white;
 }
 /*================= navbar/dashboard css start =================*/
 
@@ -352,6 +353,11 @@ input[type="date"] {
 
 .task_card .card .card-header .bookmark_or_menu_icon .bookmark i {
   font-size: 20px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .task_create_card .card .create_note {
   color: white;
@@ -456,4 +462,43 @@ input[type="date"] {
 .dropdown-menu.show li a:hover, .dropdown-menu.show li button:hover {
   background: #4c4c4c;
 }
+
+.dotted_menu_icon {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 /*================ card css  end ===================*/
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 40px;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.primary-btn {
+  color: var(--primaryColor);
+  text-decoration: none;
+  border: 1px solid var(--primaryColor);
+  padding: 11px 17px;
+  margin-top: 20px;
+  display: inline-block;
+  font-weight: 500;
+  font-size: 17px;
+  transition: all .5s ease;
+}
+
+.primary-btn:hover {
+  background: var(--primaryColor);
+  color: white;
+}
+
+section.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}

@@ -8,7 +8,6 @@ import { AuthContext } from "@/context/AuthContext";
 
 const Header = () => {
   const {user, setUser} = useContext(AuthContext);
-  console.log({user, setUser})
   const currentPath = usePathname();
   const router = useRouter();
 
