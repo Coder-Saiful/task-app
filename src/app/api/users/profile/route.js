@@ -14,8 +14,8 @@ export async function GET(request) {
   if (auth) {
     try {
       const user = await User.findOne({ _id: decoded._id })
-        .select("-password")
-        .populate("profile");
+        .select("-password -agreed -isBanned")
+        .populate({path: "profile", select: "-resetPasswordToken -resetPasswordTokenExpires -verifyToken -verifyTokenExpires -user"});
       return SendResponse(user);
     } catch (error) {
       return SendResponse(

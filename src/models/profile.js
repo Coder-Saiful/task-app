@@ -19,6 +19,10 @@ export const Profile =
           type: String,
           default: "",
         },
+        bio:  {
+          type: String,
+          default: "",
+        },
         mobile: {
           type: String,
           default: "",
