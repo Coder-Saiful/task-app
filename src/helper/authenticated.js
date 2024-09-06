@@ -2,8 +2,8 @@ import jwt from 'jsonwebtoken';
 import { SendResponse } from "./SendResponse";
 import { getToken } from './getToken';
 
-export const authenticated = (request, role=[]) => {
-    const token = getToken(request);
+export const authenticated = (role=[]) => {
+    const token = getToken();
     
     if (!token) {
 
@@ -13,11 +13,9 @@ export const authenticated = (request, role=[]) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (role.length == 0) {
-            request.token = token;
             return {auth: true, decoded: decoded};
         }
         if (role.length > 0 && role.includes(decoded.role)) {
-            request.token = token;
             return {auth: true, decoded: decoded};
         } 
         if (role.length > 0 && !role.includes(decoded.role)) {

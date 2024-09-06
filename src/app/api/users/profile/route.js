@@ -9,7 +9,7 @@ mongodbConnect();
 
 // get profile information
 export async function GET(request) {
-  const { auth, response, decoded } = authenticated(request);
+  const { auth, response, decoded } = authenticated();
 
   if (auth) {
     try {
@@ -30,7 +30,7 @@ export async function GET(request) {
 
 // update profile information
 export async function PUT(request) {
-  const { auth, response, decoded } = authenticated(request);
+  const { auth, response, decoded } = authenticated();
 
   if (auth) {
     try {

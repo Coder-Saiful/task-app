@@ -9,10 +9,10 @@ import { handlePassType } from "@/utils/handlePassType";
 
 
 const LoginForm = () => {
-  const {setUser} = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const [userdata, setUserdata] = useState({
-    email: "",
-    password: "",
+    email: "saiful@gmail.com",
+    password: "max970@G",
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -106,8 +106,8 @@ const LoginForm = () => {
           value={userdata.password}
           onChange={handleChange}
         />
-        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType} style={{color: errors.password ? "#bdbdbd" : "#bdbdbd"}}></i>
-        
+        <i className="fa-regular fa-eye pass_show_hide" onClick={handlePassType} style={{ color: errors.password ? "#bdbdbd" : "#bdbdbd" }}></i>
+
         {errors.password && (
           <div className="invalid-feedback">{errors.password}</div>
         )}

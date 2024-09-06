@@ -3,10 +3,12 @@ import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+       
 
 const activeLink = (currentPath, pathname) => {
   return currentPath === pathname ? "active" : "";
 };
+
 
 const AdminNavbar = () => {
   const currentPath = usePathname();
@@ -86,12 +88,11 @@ const AdminNavbar = () => {
           </Link>
         </li>
         <li>
-          <Link
-            href={`/accounts/logout`}
-            className={activeLink(currentPath, "/")}
+          <button
+            onClick={handleLogout}
           >
             Logout
-          </Link>
+          </button>
         </li>
       </ul>
     </aside>

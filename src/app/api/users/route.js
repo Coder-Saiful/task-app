@@ -6,7 +6,7 @@ import { SendResponse } from "@/helper/SendResponse";
 mongodbConnect();
 
 export async function GET(request) {
-  const { auth, response } = authenticated(request, ["manager", "admin"]);
+  const { auth, response } = authenticated(["manager", "admin"]);
 
   if (auth) {
     try {
@@ -30,7 +30,7 @@ export async function GET(request) {
           .select({ password: 0 })
           .limit(limit)
           .skip(skip)
-          .populate('profile');
+          .populate({path: "profile", select: "-resetPasswordToken -resetPasswordTokenExpires -verifyToken -verifyTokenExpires -user"});
         if (users.length == 0) {
           return SendResponse({ message: "No data available." });
         }

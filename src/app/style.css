@@ -40,11 +40,25 @@ nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a {
   padding-left: 15px;
   padding-top: 7px;
   padding-bottom: 7px;
+  
 }
 aside.admin_nav ul li a:hover,
 aside.admin_nav ul li a.active,
 nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a:hover,
 nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a.active {
+  background: var(--primaryColor);
+}
+button.logout_btn {
+  padding: 6px 14px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: white;
+}
+
+button.logout_btn:hover {
   background: var(--primaryColor);
 }
 .navbar-toggler > span {
@@ -472,6 +486,9 @@ input[type="date"] {
 }
 /*================ card css  end ===================*/
 
+
+/*================ hero css  end ===================*/
+
 .hero-content p {
   font-size: 18px;
   margin-bottom: 40px;
@@ -502,3 +519,74 @@ section.hero {
   align-items: center;
   min-height: 100vh;
 }
+
+
+/*================ hero css  end ===================*/
+
+
+/*================ profile css  start ===================*/
+
+.user_profile_image img {
+  width: 150px;
+  height: 150px;
+}
+.profile_header {
+  display: flex;
+  align-items: center;
+}
+.username_designation {
+  margin-left: 20px;
+}
+
+.username_designation h2 {
+  color: #f1f1f1;
+}
+.username_designation h3 {
+  color: #bfbfbf;
+  font-size: 25px;
+  font-weight: 500;
+}
+.username_designation h4 {
+  color: #bfbfbf;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.present_address, .permanent_address, .basic_info, .profile_header, .other_info {
+  border-bottom: 1px solid grey;
+  margin-bottom: 22px;
+  padding-bottom: 5px;
+}
+
+.user_profile_socialmedia .icons {
+  display: flex;
+}
+
+.user_profile_socialmedia .icons a {
+  width: 40px;
+  height: 40px;
+  border: 1px solid white;
+  margin-right: 10px;
+  border-radius: 50%;
+  color: white;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.user_profile_socialmedia .icons a:last-child {
+  margin-right: 0;
+}
+
+button.account_verify_btn {
+  border: none;
+  background: var(--primaryColor);
+  color: white;
+  border-radius: 3px;
+  padding: 5px 9px;
+  font-size: 14px;
+  margin-left: 9px;
+}
+/*================ profile css  end ===================*/

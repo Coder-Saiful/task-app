@@ -19,7 +19,7 @@ export const Profile =
           type: String,
           default: "",
         },
-        bio:  {
+        bio: {
           type: String,
           default: "",
         },
@@ -91,21 +91,23 @@ export const Profile =
             default: "",
           },
         },
-        facebookProfileLink: {
-          type: String,
-          default: ""
-        },
-        githubProfileLink: {
-          type: String,
-          default: ""
-        },
-        twitterProfileLink: {
-          type: String,
-          default: ""
-        },
-        linkedinProfileLink: {
-          type: String,
-          default: ""
+        socialMedia: {
+          facebook: {
+            type: String,
+            default: "",
+          },
+          github: {
+            type: String,
+            default: "",
+          },
+          twitter: {
+            type: String,
+            default: "",
+          },
+          linkedin: {
+            type: String,
+            default: "",
+          },
         },
         isVerified: {
           type: Boolean,
@@ -113,20 +115,20 @@ export const Profile =
         },
         verifyToken: {
           type: String,
-          default: ""
+          default: "",
         },
         verifyTokenExpires: {
           type: Date,
-          default: null
+          default: null,
         },
         resetPasswordToken: {
           type: String,
-          default: ""
+          default: "",
         },
         resetPasswordTokenExpires: {
           type: Date,
-          default: null
-        }
+          default: null,
+        },
       },
       { timestamps: true }
     )
