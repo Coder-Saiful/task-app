@@ -552,7 +552,7 @@ section.hero {
   font-weight: 400;
 }
 
-.present_address, .permanent_address, .basic_info, .profile_header, .other_info {
+.present_address, .permanent_address, .basic_info, .profile_header, .account_info {
   border-bottom: 1px solid grey;
   margin-bottom: 22px;
   padding-bottom: 5px;
@@ -580,7 +580,7 @@ section.hero {
   margin-right: 0;
 }
 
-button.account_verify_btn {
+button.account_verify_btn, a.update_profile_btn {
   border: none;
   background: var(--primaryColor);
   color: white;
@@ -588,5 +588,13 @@ button.account_verify_btn {
   padding: 5px 9px;
   font-size: 14px;
   margin-left: 9px;
+  margin-bottom: 13px;
+}
+
+
+a.update_profile_btn {
+  background: #0065a3;
+  margin-bottom: 0;
+  text-decoration: none;
 }
 /*================ profile css  end ===================*/
