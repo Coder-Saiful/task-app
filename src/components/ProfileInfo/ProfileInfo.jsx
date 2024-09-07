@@ -1,29 +1,12 @@
-"use client"
-
-import React, { useEffect, useState, useContext } from 'react';
-import { httpAxios } from "@/helper/httpAxios";
+import React from 'react';
 import Link from 'next/link';
 import dateFormat from "dateformat";
-import { AuthContext } from "@/context/AuthContext";
 
-const ProfileInfo = () => {
-    const [userprofile, setUserProfile] = useState(null);
-    const {user} = useContext(AuthContext);
-    useEffect(() => {
-        httpAxios.get('/api/users/profile')
-            .then(response => {
-                setUserProfile(response.data);
-            })
-            .catch(error => {
-                console.log(error.response.data)
-            })
-    }, []);
+const ProfileInfo = async ({userprofile}) => {
 
     return (
         <section className='my-4'>
             <div className='container'>
-                {userprofile && (
-                    <>
                         <div className='row'>
                             <div className='col-lg-8 m-auto'>
                                 <div className="profile_header pb-4" style={{ borderBottom: "1px solid grey" }}>
@@ -101,7 +84,7 @@ const ProfileInfo = () => {
                                     <p>Joint At: {dateFormat(userprofile.createdAt, "dddd, mmmm dd, yyyy 'at' HH:MM:ss TT")}</p>
                                     <p>Last Updated At: {dateFormat(userprofile.updatedAt, "dddd, mmmm dd, yyyy 'at' HH:MM:ss TT")}</p>
                                     <div>Status: {userprofile.profile.isVerified ? <span>Active</span> : <><span className="text-danger">Your account is not verified.</span><button className="account_verify_btn">Verify Now</button></>}</div>
-                                    <div>Would you like to update your profile? <Link href={user.role == "user" ? "/accounts/profile/edit" : "/admin/profile/edit"} className='update_profile_btn'>Click Here</Link></div>
+                                    <div>Would you like to update your profile? <Link href={userprofile.role == "user" ? "/accounts/profile/edit" : "/admin/profile/edit"} className='update_profile_btn'>Click Here</Link></div>
                                 </div>
 
                                 {/* social media */}
@@ -127,8 +110,6 @@ const ProfileInfo = () => {
                                 </div>
                             </div>
                         </div>
-                    </>
-                )}
             </div>
         </section>
     );

@@ -36,7 +36,7 @@ const TasksPage = () => {
                   </div>
                   <div className="bookmark_or_menu_icon">
                     <div className="bookmark">
-                      <i class="fa-solid fa-bullhorn text-light"></i>
+                      <i className="fa-solid fa-bullhorn text-light"></i>
                     </div>
                   </div>
                 </div>

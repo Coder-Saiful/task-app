@@ -1,25 +1,27 @@
-import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
-import { httpAxios } from "@/helper/httpAxios";
-import { getToken } from "@/helper/getToken";
 import React from "react";
+import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
+import Spinner from "@/components/LoadingAnimation/Spinner";
+import { fetchProfile, fetchTokenData } from "@/services/userService";
+import { getToken } from "@/helper/getToken";
+const token = getToken();
+
 
 export async function generateMetadata  ({params}) {
-  const token = getToken();
 
-  const response = await httpAxios.get("/api/users/token-data", {
-    headers: {
-      'Authorization': 'Bearer ' + token
-    }
-  });
+  const {data} = await fetchTokenData(token);
 
   return {
-    title: response.data.name + "'s | Profile"
+    title: data ? data.name + "'s | Profile" : "Profile"
   }  
 } 
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+  const userprofile = await fetchProfile(token);
   return (
-    <ProfileInfo />
+    <>
+      {userprofile.data && <ProfileInfo userprofile={userprofile.data}  />}
+      {userprofile.error && <h2>{userprofile.error.message}</h2>}
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import { SendResponse } from "@/helper/SendResponse"
 export function GET(request) {
     const {auth, decoded, response} = authenticated();
     if (auth) {
-        return SendResponse({...decoded, tokenn: getToken()});
+        return SendResponse({...decoded, token: getToken()});
     } else {
         return response;
     }

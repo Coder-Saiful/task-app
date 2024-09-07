@@ -4,442 +4,429 @@
 * Autoprefixer: v10.4.7
 * Browsers: last 4 version
 */
-
 :root {
-  --primaryColor: #04aa6d;
-  --secondaryColor: #bdbdbd;
-  --darkPrimaary: #000000;
-  --darkSecondary: hsl(0, 0%, 8%);
+    --primaryColor: #04aa6d;
+    --secondaryColor: #bdbdbd;
+    --darkPrimaary: #000000;
+    --darkSecondary: hsl(0, 0%, 8%);
 }
 body {
-  background-color: var(--darkPrimaary);
-  color: white;
+    background-color: var(--darkPrimaary);
+    color: white;
 }
 /*================= navbar/dashboard css start =================*/
-
 .nav-link.active,
 .nav-link:hover {
-  color: white !important;
-  background: var(--primaryColor);
+    color: white !important;
+    background: var(--primaryColor);
 }
 .nav-link {
-  padding: 10px 15px !important;
-  font-size: 15px;
+    padding: 10px 15px !important;
+    font-size: 15px;
 }
 aside.admin_nav ul {
-  list-style-type: none;
-  padding-left: 0;
-  margin-bottom: 0;
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 0;
 }
 
 aside.admin_nav ul li a,
 nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a {
-  color: white;
-  text-decoration: none;
-  display: block;
-  padding-left: 15px;
-  padding-top: 7px;
-  padding-bottom: 7px;
-  
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding-left: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+
 }
-aside.admin_nav ul li a:hover,
 aside.admin_nav ul li a.active,
-nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a:hover,
-nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a.active {
-  background: var(--primaryColor);
+aside.admin_nav ul li a:hover,
+nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a.active,
+nav.admin_nav3 .container-fluid .navbar-collapse .navbar-nav li a:hover {
+    background: var(--primaryColor);
 }
 button.logout_btn {
-  padding: 6px 14px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-  background: transparent;
-  color: white;
+    padding: 6px 14px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    color: white;
 }
-
 button.logout_btn:hover {
-  background: var(--primaryColor);
+    background: var(--primaryColor);
 }
 .navbar-toggler > span {
-  width: 30px;
-  height: 3px;
-  background: white;
-  display: inherit;
-  margin-bottom: 4px;
-  border-radius: 5px;
+    width: 30px;
+    height: 3px;
+    background: white;
+    display: inherit;
+    margin-bottom: 4px;
+    border-radius: 5px;
 }
-
 .navbar-toggler > span:last-child {
-  margin: 0;
+    margin: 0;
 }
 
 .navbar-toggler {
-  border: none;
-  background: transparent;
+    border: none;
+    background: transparent;
 }
-
 .navbar-toggler:focus {
-  outline: none;
+    outline: none;
 }
 
 button.adminNavClose {
-  background: none;
-  border: none;
+    background: none;
+    border: none;
 }
 
 button.adminNavClose span {
-  width: 25px;
-  height: 3px;
-  background: white;
-  display: block;
+    width: 25px;
+    height: 3px;
+    background: white;
+    display: block;
 }
-
 button.adminNavClose span:first-child {
-  -webkit-transform: translateY(2px) rotate(48deg);
-      -ms-transform: translateY(2px) rotate(48deg);
-          transform: translateY(2px) rotate(48deg);
+    -webkit-transform: translateY(2px) rotate(48deg);
+    -ms-transform: translateY(2px) rotate(48deg);
+    transform: translateY(2px) rotate(48deg);
 }
-
 button.adminNavClose span:last-child {
-  -webkit-transform: rotate(-48deg);
-      -ms-transform: rotate(-48deg);
-          transform: rotate(-48deg);
+    -webkit-transform: rotate(-48deg);
+    -ms-transform: rotate(-48deg);
+    transform: rotate(-48deg);
 }
 
 .dashboard_item {
-  text-align: center;
-  padding: 18px 0;
-  border-radius: 8px;
+    text-align: center;
+    padding: 18px 0;
+    border-radius: 8px;
 }
 
 .dashboard_item h2 {
-  font-size: 37px;
-  font-weight: 600;
-  margin-bottom: 2px;
+    font-size: 37px;
+    font-weight: 600;
+    margin-bottom: 2px;
 }
 
 .dashboard_item h4 {
-  margin-bottom: 0;
-  color: #626262;
-  font-size: 22px;
+    margin-bottom: 0;
+    color: #626262;
+    font-size: 22px;
 }
 
-.admin_table thead tr th,
-.admin_table tbody tr td {
-  border: none;
-  border-right: 0.1px solid gray;
-  border-top: 0.1px solid gray;
+.admin_table tbody tr td,
+.admin_table thead tr th {
+    border: none;
+    border-right: 0.1px solid gray;
+    border-top: 0.1px solid gray;
 }
-.admin_table thead tr th:last-child,
-.admin_table tbody tr td:last-child {
-  border-right: none;
+.admin_table tbody tr td:last-child,
+.admin_table thead tr th:last-child {
+    border-right: none;
 }
 .admin_table tbody tr td:first-child {
-  width: 60px;
+    width: 60px;
 }
 
 .admin_table thead tr th {
-  background: black;
-  color: white;
+    background: black;
+    color: white;
 }
 
 .admin_table tbody tr td {
-  background: black;
-  color: #d5d5d5;
+    background: black;
+    color: #d5d5d5;
 }
-
 .admin_table tbody tr:nth-child(odd) td {
-  background: #00e39026;
+    background: #00e39026;
 }
 /*=============== navbar/dashboard css start===============*/
 
 /*============= form css start ==============*/
 
 .form-control {
-  background: transparent;
-  color: white !important;
-  border-color: #bdbdbd;
+    background: transparent;
+    color: white !important;
+    border-color: #bdbdbd;
 }
 .form-select {
-  background: transparent;
-  color: #bdbdbd !important;
-  border-color: #bdbdbd;
+    background: transparent;
+    color: #bdbdbd !important;
+    border-color: #bdbdbd;
 }
 .form-control::-webkit-input-placeholder {
-  color: #bdbdbd;
+    color: #bdbdbd;
 }
 .form-control::-moz-placeholder {
-  color: #bdbdbd;
+    color: #bdbdbd;
 }
 .form-control:-ms-input-placeholder {
-  color: #bdbdbd;
+    color: #bdbdbd;
 }
 .form-control::-ms-input-placeholder {
-  color: #bdbdbd;
+    color: #bdbdbd;
 }
 .form-control::placeholder {
-  color: #bdbdbd;
+    color: #bdbdbd;
 }
 form label {
-  color: #bdbdbd;
+    color: #bdbdbd;
 }
 form input[type="date"],
 form input[type="file"] {
-  color: #bdbdbd !important;
+    color: #bdbdbd !important;
 }
 .form-control.password_field {
-  padding-right: 32px;
+    padding-right: 32px;
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
-  opacity: 0;
-  display: none;
+    opacity: 0;
+    display: none;
 }
 input[type="date"] {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 .form-select option {
-  color: #080808;
-  background: #cbcbcb;
+    color: #080808;
+    background: #cbcbcb;
 }
-.form-control:focus,
 .form-check-input:focus,
+.form-control:focus,
 .form-select:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  border-color: var(--primaryColor);
-  background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-color: var(--primaryColor);
+    background-color: transparent;
 }
-
 .form-control.is-invalid:focus {
-  -webkit-box-shadow: none;
-          box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
-
 .form-check-input:not(:checked) {
-  border-color: var(--bs-border-color) !important;
+    border-color: var(--bs-border-color) !important;
 }
 .form-check-input:checked[type="checkbox"] {
-  background: var(--primaryColor);
-  border-color: var(--primaryColor);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+    background: var(--primaryColor);
+    border-color: var(--primaryColor);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
 }
 .form-check-input:checked[type="radio"] {
-  background: var(--primaryColor);
-  border-color: var(--primaryColor);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
+    background: var(--primaryColor);
+    border-color: var(--primaryColor);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
 }
-
 .forgot_pass_link:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 .form-control.is-invalid {
-  background: none;
+    background: none;
 }
 .submit_btn {
-  background: var(--primaryColor);
-  color: white;
-  border: none;
-  outline: none;
-  border-radius: 4px;
-  padding: 6px 0;
+    background: var(--primaryColor);
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    padding: 6px 0;
 }
 
 .pass_show_hide {
-  position: absolute;
-  top: 43px;
-  right: 11px;
-  cursor: pointer;
+    position: absolute;
+    top: 43px;
+    right: 11px;
+    cursor: pointer;
 }
 
 /*=============== form css end ==================*/
 
 /*============== pagination part css ==============*/
 .pagination_part {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 .pagination li a {
-  background: transparent;
-  border: 0.1px solid gray;
-  color: #c5c5c5;
+    background: transparent;
+    border: 0.1px solid gray;
+    color: #c5c5c5;
 }
 
 .pagination li.active a {
-  background: var(--primaryColor);
+    background: var(--primaryColor);
 }
 .pagination li.active {
-  border-color: var(--primaryColor);
+    border-color: var(--primaryColor);
 }
 
 .rowLimit {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 /*================ pagination css  end ===================*/
 
 /*================ card css  start ===================*/
-
 .card:has(form),
 .card:has(table) {
-  border: 1px solid gray;
-  background-color: var(--darkSecondary);
+    border: 1px solid gray;
+    background-color: var(--darkSecondary);
 }
 .card:has(form) .card-header h3,
 .card:has(table) .card-header h3 {
-  margin-top: 6px;
+    margin-top: 6px;
 }
 .card:has(form) .card-header h3:before,
 .card:has(table) .card-header h3:before {
-  position: absolute;
-  width: 50px;
-  height: 3px;
-  background: var(--primaryColor);
-  left: 50%;
-  content: "";
-  bottom: 0;
-  -webkit-transform: translateX(-50%);
-      -ms-transform: translateX(-50%);
-          transform: translateX(-50%);
-  border-radius: 2px;
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background: var(--primaryColor);
+    left: 50%;
+    content: "";
+    bottom: 0;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    border-radius: 2px;
 }
 .task_card .card .card-header .author .image img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
-.task_card .card, .task_create_card .card {
-  background: var(--darkSecondary);
-  border: 0.1px solid gray;
+.task_card .card,
+.task_create_card .card {
+    background: var(--darkSecondary);
+    border: 0.1px solid gray;
 }
-.task_card .card .card-header  {
-  padding: 10px;
+.task_card .card .card-header {
+    padding: 10px;
 }
 .task_card .card .card-header .author .name_and_date h4 {
-  font-weight: 500;
-  font-size: 17px;
-  margin-bottom: 0;
-  margin-bottom: 2px;
+    font-weight: 500;
+    font-size: 17px;
+    margin-bottom: 0;
+    margin-bottom: 2px;
 }
 .task_card .card .card-header .author .name_and_date h6 {
-  font-weight: 300;
-  font-size: 13px;
-  margin-bottom: 0;
+    font-weight: 300;
+    font-size: 13px;
+    margin-bottom: 0;
 }
 .task_card .card .card-header .bookmark_or_menu_icon .bookmark {
-  width: 35px;
-  height: 35px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border-radius: 50%;
-  cursor: pointer;
-  -webkit-transition: all 0.3s ease;
-  -o-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+    width: 35px;
+    height: 35px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 .task_card .card .card-header .bookmark_or_menu_icon .bookmark:hover {
-  background: #4a4a4a;
+    background: #4a4a4a;
 }
 
 .task_card .card .card-header .bookmark_or_menu_icon .bookmark i {
-  font-size: 20px;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    font-size: 20px;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .task_create_card .card .create_note {
-  color: white;
-  width: 100px;
-  height: 100px;
-  border: 2px dashed white;
-  border-radius: 50%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+    color: white;
+    width: 100px;
+    height: 100px;
+    border: 2px dashed white;
+    border-radius: 50%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 .task_create_card .card .create_note i {
-  font-size: 35px;
+    font-size: 35px;
 }
 .task_card .card a .card-body .blog_text {
-  padding: 10px;
+    padding: 10px;
 }
 .task_card .card a .card-body .blog_text h2 {
-  color: #e5e5e5;
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 15px;
-  display: -webkit-box;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+    color: #e5e5e5;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
 }
 .task_card .card a .card-body .blog_text p {
-  color: #c7c7c7;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 20px;
-  margin-bottom: 0px;
-  display: -webkit-box;
-  overflow: hidden;
-  -o-text-overflow: ellipsis;
-  text-overflow: ellipsis;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+    color: #c7c7c7;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-bottom: 0;
+    display: -webkit-box;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
 }
 .dotted_menu_icon span {
-  width: 5px;
-  height: 5px;
-  background: #d3d3d3;
-  display: inline-block;
-  border-radius: 50%;
-  margin-right: 3px;
+    width: 5px;
+    height: 5px;
+    background: #d3d3d3;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 3px;
 }
-
 .dotted_menu_icon span:last-child {
-  margin-right: 0;
+    margin-right: 0;
 }
 
 .task_card .card a .card-body .blog_image img {
-  aspect-ratio: 3/2;
+    aspect-ratio: 3/2;
 }
-
 .bookmark_or_menu_icon .dropdown-toggle:after {
-  display: none;
+    display: none;
 }
 .dropdown-menu.show {
     display: block;
@@ -448,153 +435,173 @@ input[type="date"] {
     right: 0 !important;
     position: absolute !important;
     background: var(--darkSecondary);
-    border: .1px solid gray;
-    padding: 5px 5px;
+    border: 0.1px solid gray;
+    padding: 5px;
 }
 
 .dropdown-menu.show li a.edit {
-  color: white;
-  background: transparent;
-  display: block;
-  padding: 6px;
-  border-radius: 3px;
-  transition: all .2s ease;
+    color: white;
+    background: transparent;
+    display: block;
+    padding: 6px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
 }
 
 .dropdown-menu.show li button.delete {
-  color: white;
-  background: transparent;
-  display: block;
-  padding: 6px;
-  border: none;
-  width: 100%;
-  text-align: left;
-  border-radius: 3px;
-  transition: all .2s ease;
+    color: white;
+    background: transparent;
+    display: block;
+    padding: 6px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    border-radius: 3px;
+    transition: all 0.2s ease;
 }
-
-.dropdown-menu.show li a:hover, .dropdown-menu.show li button:hover {
-  background: #4c4c4c;
+.dropdown-menu.show li a:hover,
+.dropdown-menu.show li button:hover {
+    background: #4c4c4c;
 }
 
 .dotted_menu_icon {
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /*================ card css  end ===================*/
-
 
 /*================ hero css  end ===================*/
 
 .hero-content p {
-  font-size: 18px;
-  margin-bottom: 40px;
-  max-width: 600px;
-  line-height: 1.6;
+    font-size: 18px;
+    margin-bottom: 40px;
+    max-width: 600px;
+    line-height: 1.6;
 }
 
 .primary-btn {
-  color: var(--primaryColor);
-  text-decoration: none;
-  border: 1px solid var(--primaryColor);
-  padding: 11px 17px;
-  margin-top: 20px;
-  display: inline-block;
-  font-weight: 500;
-  font-size: 17px;
-  transition: all .5s ease;
+    color: var(--primaryColor);
+    text-decoration: none;
+    border: 1px solid var(--primaryColor);
+    padding: 11px 17px;
+    margin-top: 20px;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 17px;
+    transition: all 0.5s ease;
 }
-
 .primary-btn:hover {
-  background: var(--primaryColor);
-  color: white;
+    background: var(--primaryColor);
+    color: white;
 }
 
 section.hero {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-
 /*================ hero css  end ===================*/
-
 
 /*================ profile css  start ===================*/
 
 .user_profile_image img {
-  width: 150px;
-  height: 150px;
+    width: 150px !important;
+    height: 150px !important;
 }
 .profile_header {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 .username_designation {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 
 .username_designation h2 {
-  color: #f1f1f1;
+    color: #f1f1f1;
 }
 .username_designation h3 {
-  color: #bfbfbf;
-  font-size: 25px;
-  font-weight: 500;
+    color: #bfbfbf;
+    font-size: 25px;
+    font-weight: 500;
 }
 .username_designation h4 {
-  color: #bfbfbf;
-  font-size: 18px;
-  font-weight: 400;
+    color: #bfbfbf;
+    font-size: 18px;
+    font-weight: 400;
 }
 
-.present_address, .permanent_address, .basic_info, .profile_header, .account_info {
-  border-bottom: 1px solid grey;
-  margin-bottom: 22px;
-  padding-bottom: 5px;
+.account_info,
+.basic_info,
+.permanent_address,
+.present_address,
+.profile_header {
+    border-bottom: 1px solid grey;
+    margin-bottom: 22px;
+    padding-bottom: 5px;
 }
 
 .user_profile_socialmedia .icons {
-  display: flex;
+    display: flex;
 }
 
 .user_profile_socialmedia .icons a {
-  width: 40px;
-  height: 40px;
-  border: 1px solid white;
-  margin-right: 10px;
-  border-radius: 50%;
-  color: white;
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
+    width: 40px;
+    height: 40px;
+    border: 1px solid white;
+    margin-right: 10px;
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
 }
-
 .user_profile_socialmedia .icons a:last-child {
-  margin-right: 0;
+    margin-right: 0;
 }
 
-button.account_verify_btn, a.update_profile_btn {
-  border: none;
-  background: var(--primaryColor);
-  color: white;
-  border-radius: 3px;
-  padding: 5px 9px;
-  font-size: 14px;
-  margin-left: 9px;
-  margin-bottom: 13px;
+a.update_profile_btn,
+button.account_verify_btn {
+    border: none;
+    background: var(--primaryColor);
+    color: white;
+    border-radius: 3px;
+    padding: 5px 9px;
+    font-size: 14px;
+    margin-left: 9px;
+    margin-bottom: 13px;
 }
-
 
 a.update_profile_btn {
-  background: #0065a3;
-  margin-bottom: 0;
-  text-decoration: none;
+    background: #0065a3;
+    margin-bottom: 0;
+    text-decoration: none;
+    display: inline-block;
 }
 /*================ profile css  end ===================*/
+
+
+
+/*================ loding spinner css  start ===================*/
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: fit-content;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  clip-path: inset(0 3ch 0 0);
+  animation: l4 1s steps(4) infinite;
+}
+.loader:before {
+  content:"Loading..."
+}
+@keyframes l4 {to{clip-path: inset(0 -1ch 0 0)}}
+
+/*================ loding spinner css  end ===================*/

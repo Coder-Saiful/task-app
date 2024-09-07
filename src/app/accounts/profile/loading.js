@@ -1,10 +1,9 @@
 import React from 'react';
+import Spinner from "@/components/LoadingAnimation/Spinner";
 
 const ProfileSkeleton = () => {
     return (
-        <div>
-            <h2>Loading...</h2>
-        </div>
+        <Spinner />
     );
 };
 
