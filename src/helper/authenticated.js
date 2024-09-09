@@ -26,10 +26,10 @@ export const authenticated = (role=[]) => {
         if (error.name == "JsonWebTokenError") {
             msg = "Invalid token.";
         } else if (error.name == "TokenExpiredError") {
-            msg = "Token has expired.";
+            msg = "Token has expired. Please login again.";
         } else {
             msg = "Authentication JSON Web Token doesn't decode. Please try again or refresh the web/app.";
         }
-        return {auth: false, response: SendResponse({message: msg}, 400)};
+        return {auth: false, response: SendResponse({message: msg}, 401)};
     }
 }

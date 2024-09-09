@@ -1,5 +1,6 @@
 import CategoryList from "@/components/Category/CategoryList";
-import React from "react";
+import Spinner from "@/components/LoadingAnimation/Spinner";
+import React, { Suspense } from "react";
 
 export const metadata = {
   title: "Manage All Category"
@@ -7,7 +8,9 @@ export const metadata = {
 
 const CategoriesPage = () => {
   return (
-    <CategoryList />
+    <Suspense fallback={<Spinner/>}>
+      <CategoryList />
+    </Suspense>
   );
 };
 

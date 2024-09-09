@@ -51,7 +51,7 @@ export async function GET(request) {
             populate: { path: "nasted_subcategories"},
           });
       }
-
+      
       return SendResponse({
         showData: categories.length,
         totalData,

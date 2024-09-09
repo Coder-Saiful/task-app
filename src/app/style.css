@@ -284,7 +284,31 @@ input[type="date"] {
     -ms-flex-align: center;
     align-items: center;
 }
+tr.pagination_row {
+    border-top: .1px solid grey;
+}
 
+.pagination_part .rowLimit select {
+    padding-right: 15px;
+    padding-left: 15px;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.pagination_part nav .pagination .page-item.disabled .page-link {
+    background: transparent;
+    border: .1px solid gray;
+    color: #c5c5c5;
+}
+
+.pagination_part nav .pagination .page-item.active .page-link {
+    border: .1px solid var(--primaryColor);
+}
+
+.pagination_part nav .pagination .page-item .page-link:focus {
+    box-shadow: none;
+}
 /*================ pagination css  end ===================*/
 
 /*================ card css  start ===================*/

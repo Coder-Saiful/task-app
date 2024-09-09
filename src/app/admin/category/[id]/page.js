@@ -1,10 +1,10 @@
 import React from "react";
 import { fetchCategoryDetails } from "@/services/categoryService";
-import { cookies } from "next/headers";
 import CategoryDetails from "@/components/Category/CategoryDetails";
+import { getToken } from "@/helper/getToken";
 
 export const generateMetadata = async ({ params: { id } }) => {
-  const { data } = await fetchCategoryDetails(id, cookies().get(AUTH_COOKIE_NAME)?.value);
+  const { data } = await fetchCategoryDetails(id, getToken());
   return {
     title: data ? data?.name + " | Category | Details" : "Category Details",
   };
