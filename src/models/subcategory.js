@@ -1,7 +1,7 @@
 import { model, models, Schema } from "mongoose";
 
 export const SubCategory = models.SubCategory || model("SubCategory", new Schema({
-    parent_category: {
+    parentCategory: {
         type: Schema.Types.ObjectId,
         ref: "Category"
     },
@@ -10,5 +10,5 @@ export const SubCategory = models.SubCategory || model("SubCategory", new Schema
         required: true,
         unique: true
     },
-    nasted_sub_categories: [{type: Schema.Types.ObjectId, ref: "NastedSubCategory"}]
+    nasted_subcategories: [{type: Schema.Types.ObjectId, ref: "NastedSubCategory"}]
 }, {timestamps: true}));

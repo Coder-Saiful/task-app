@@ -1,14 +1,14 @@
 "use client";
 
 import { httpAxios } from "@/helper/httpAxios";
-import { createContext, useState, useEffect, useCallback, useMemo } from "react";
-import {fetchTokenData } from "@/services/userService";
+import { createContext, useState, useEffect} from "react";
 
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
+    const [userprofile, setUserprofile] = useState(null);
 
     // console.log(await fetchTokenData())
     // const fetchUser = useCallback(() => {
@@ -35,9 +35,19 @@ export const AuthProvider = ({ children }) => {
         });
     }, []);
 
+    useEffect(() => {
+      httpAxios.get('/api/users/profile')
+        .then(response => {
+          setUserprofile(response.data);
+        })
+        .catch(error => {
+          setUserprofile(null);
+        });
+    }, []);
+
 
   return (
-    <AuthContext.Provider value={{user, setUser}}>
+    <AuthContext.Provider value={{user, setUser, userprofile}}>
       {children}
     </AuthContext.Provider>
   );

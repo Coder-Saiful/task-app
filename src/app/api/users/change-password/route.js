@@ -9,7 +9,7 @@ import { User } from "@/models/user";
 mongodbConnect();
 
 export async function POST(request) {
-    const {auth, response, decoded} = authenticated(request);
+    const {auth, response, decoded} = authenticated();
 
     if (auth) {
         try {

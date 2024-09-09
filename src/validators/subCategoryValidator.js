@@ -2,7 +2,7 @@ import Joi from "joi"
 
 export const subCategoryValidator = (data) => {
     const schema = Joi.object({
-        parent_category: Joi.string().required().messages({
+        parentCategory: Joi.string().required().messages({
             'string.base': 'Parent category must not contain anything other than Mongoose ObjectId.',
             'string.empty': 'Parent category field is a required field.',
             'any.required': 'Parent category field is a required field.',

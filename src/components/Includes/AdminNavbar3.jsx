@@ -14,7 +14,7 @@ const activeLink = (currentPath, pathname) => {
 const AdminNavbar3 = () => {
   const currentPath = usePathname();
   const router = useRouter();
-  const {user, setUser} = useContext(AuthContext);
+  const {user, setUser, userprofile} = useContext(AuthContext);
 
   useEffect(() => {
     document.querySelector(".navbar-collapse.admin_navbar_collapse").classList.remove("show");
@@ -42,7 +42,9 @@ const AdminNavbar3 = () => {
     <nav className="navbar navbar-expand-md bg-dark admin_nav3 py-1 py-md-0 h-100 flex-column">
       <div className="container-fluid px-md-0">
         <div className="profile_container d-flex align-items-center" style={{ padding: "20px 15px" }}>
-          <div className="image" style={{ marginRight: "5px" }}>
+          {user && (
+            <>
+            <div className="image" style={{ marginRight: "5px" }}>
             <Image
               src={`/nophoto.webp`}
               alt="Picture of the author"
@@ -55,15 +57,18 @@ const AdminNavbar3 = () => {
           </div>
           <div className="info">
             <h5 className="text-white mb-0" style={{ fontSize: "16px" }}>
-              Md. Saiful Islam
+              {user.name}
             </h5>
             <p
               className="text-white mb-0 text-secondary"
               style={{ fontSize: "12px", fontWeight: "300" }}
             >
-              Admin
+              {user.role}
             </p>
           </div>
+            </>
+          )}
+          
         </div>
         <button
           className="navbar-toggler p-0"

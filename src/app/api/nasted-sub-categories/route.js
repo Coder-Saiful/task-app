@@ -9,7 +9,7 @@ mongodbConnect();
 
 // get all category
 export async function GET(request) {
-  const { auth, response } = authenticated(request);
+  const { auth, response } = authenticated();
 
   if (auth) {
     try {
@@ -23,7 +23,7 @@ export async function GET(request) {
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
 
-      const nasted_subcategories = await NastedSubCategory.find().limit(limit).skip(skip).populate({path: "parent_category", select: "name parent_category", populate: {path: 'parent_category', select: 'name'}});
+      const nasted_subcategories = await NastedSubCategory.find().limit(limit).skip(skip).populate({path: "parentCategory", select: "name parentCategory", populate: {path: 'parentCategory', select: 'name'}});
 
       if (nasted_subcategories.length == 0) {
         return SendResponse({ message: "No data available." }, 200);
@@ -46,7 +46,7 @@ export async function GET(request) {
 
 // create category
 export async function POST(request) {
-  const { auth, response } = authenticated(request, ["manager", "admin"]);
+  const { auth, response } = authenticated(["manager", "admin"]);
 
   if (!auth) {
     return response;
@@ -71,9 +71,9 @@ export async function POST(request) {
     }
 
     const result = await NastedSubCategory.create(requestData);
-    await SubCategory.findByIdAndUpdate(result.parent_category, {
+    await SubCategory.findByIdAndUpdate(result.parentCategory, {
       $push: {
-        nasted_sub_categories: result._id,
+        nasted_subcategories: result._id,
       },
     });
 

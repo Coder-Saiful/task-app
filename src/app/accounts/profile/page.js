@@ -1,14 +1,11 @@
 import React from "react";
 import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
-import Spinner from "@/components/LoadingAnimation/Spinner";
 import { fetchProfile, fetchTokenData } from "@/services/userService";
-import { getToken } from "@/helper/getToken";
-const token = getToken();
-
+import { cookies } from "next/headers";
 
 export async function generateMetadata  ({params}) {
 
-  const {data} = await fetchTokenData(token);
+  const {data} = await fetchTokenData(cookies().get(AUTH_COOKIE_NAME)?.value);
 
   return {
     title: data ? data.name + "'s | Profile" : "Profile"
@@ -16,7 +13,7 @@ export async function generateMetadata  ({params}) {
 } 
 
 const ProfilePage = async () => {
-  const userprofile = await fetchProfile(token);
+  const userprofile = await fetchProfile(cookies().get(AUTH_COOKIE_NAME)?.value);
   return (
     <>
       {userprofile.data && <ProfileInfo userprofile={userprofile.data}  />}

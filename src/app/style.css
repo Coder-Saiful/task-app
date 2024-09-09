@@ -122,7 +122,7 @@ button.adminNavClose span:last-child {
 .admin_table thead tr th {
     border: none;
     border-right: 0.1px solid gray;
-    border-top: 0.1px solid gray;
+    border-bottom: 0.1px solid gray;
 }
 .admin_table tbody tr td:last-child,
 .admin_table thead tr th:last-child {
@@ -131,12 +131,16 @@ button.adminNavClose span:last-child {
 .admin_table tbody tr td:first-child {
     width: 60px;
 }
-
-.admin_table thead tr th {
+.admin_table tbody tr:last-child td {
+    border-bottom: none;
+}
+.admin_table thead tr th, .admin_table tfoot tr td {
     background: black;
     color: white;
 }
-
+.admin_table tfoot tr td {
+    border-bottom: none;
+}
 .admin_table tbody tr td {
     background: black;
     color: #d5d5d5;
@@ -314,7 +318,8 @@ input[type="date"] {
 }
 
 .task_card .card,
-.task_create_card .card {
+.task_create_card .card,
+.category_card .card {
     background: var(--darkSecondary);
     border: 0.1px solid gray;
 }
@@ -470,6 +475,10 @@ input[type="date"] {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.category_details.category_card .card p span {
+	color: #e6e6e6;
 }
 /*================ card css  end ===================*/
 

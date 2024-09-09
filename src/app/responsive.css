@@ -5,6 +5,12 @@
 
 
 /* Small devices (landscape phones, 576px and up) */
+@media (max-width: 575px) { 
+    .profile_header {
+        flex-direction: column;
+        text-align: center;
+    }
+}
 @media (max-width: 767px) {
     aside.admin_nav ul {
         transition: all 0.5s ease;
@@ -20,6 +26,9 @@
     .logout_button {
         width: 100%;
         text-align: left;
+    }
+    .admin_nav3 {
+        border-bottom: .1px solid  gray;
     }
 }
 

@@ -1,13 +1,25 @@
 import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
 import React from "react";
+import { fetchProfile, fetchTokenData } from "@/services/userService";
+import { cookies } from "next/headers";
 
-export const metadata = {
-  title: "Saiful's Profile"
-}
 
-const AdminProfile = () => {
+export async function generateMetadata  ({params}) {
+
+  const {data} = await fetchTokenData(cookies().get(AUTH_COOKIE_NAME)?.value);
+
+  return {
+    title: data ? data.name + "'s | Profile" : "Profile"
+  }  
+} 
+
+const AdminProfile = async () => {
+  const userprofile = await fetchProfile(cookies().get(AUTH_COOKIE_NAME)?.value);
   return (
-    <ProfileInfo />
+    <>
+      {userprofile.data && <ProfileInfo userprofile={userprofile.data}  />}
+      {userprofile.error && <h2>{userprofile.error.message}</h2>}
+    </>
   );
 };
 

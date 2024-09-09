@@ -9,7 +9,7 @@ mongodbConnect();
 
 // get all category
 export async function GET(request) {
-  const { auth, response } = authenticated(request, ["manager", "admin"]);
+  const { auth, response } = authenticated(["manager", "admin"]);
 
   if (auth) {
     try {
@@ -23,7 +23,7 @@ export async function GET(request) {
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
 
-      const subcategories = await SubCategory.find().limit(limit).skip(skip).populate({path: "nasted_sub_categories", select: "-parent_category -__v"}).select("-__v");
+      const subcategories = await SubCategory.find().limit(limit).skip(skip).populate({path: "nasted_subcategories", select: "-parentCategory -__v"}).select("-__v");
 
       if (subcategories.length == 0) {
         return SendResponse({ message: "No data available." }, 200);
@@ -46,7 +46,7 @@ export async function GET(request) {
 
 // create category
 export async function POST(request) {
-  const { auth, response } = authenticated(request, ["manager", "admin"]);
+  const { auth, response } = authenticated(["manager", "admin"]);
 
   if (!auth) {
     return response;
@@ -71,9 +71,9 @@ export async function POST(request) {
     }
 
     const result = await SubCategory.create(requestData);
-    await Category.findByIdAndUpdate(result.parent_category, {
+    await Category.findByIdAndUpdate(result.parentCategory, {
       $push: {
-        sub_categories: result._id,
+        subcategories: result._id,
       },
     });
 

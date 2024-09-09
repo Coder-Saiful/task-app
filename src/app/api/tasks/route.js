@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 // mongodbConnect();
 
 export async function POST(request) {
-    const {auth, response, decoded} = authenticated(request);
+    const {auth, response, decoded} = authenticated();
     
     if (auth) {
         try {

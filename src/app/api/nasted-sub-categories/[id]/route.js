@@ -7,13 +7,14 @@ import { nastedSubCategoryValidator } from "@/validators/nastedSubCategoryValida
 
 mongodbConnect();
 
+// get nasted subcategory details
 export async function GET(request, { params: { id } }) {
-  const { auth, response } = authenticated(request);
+  const { auth, response } = authenticated();
 
   if (auth) {
     try {
       const nasted_subcategory = await NastedSubCategory.findById(id).populate({
-        path: "parent_category",
+        path: "parentCategory",
         select: "name",
       });
       if (!nasted_subcategory) {
@@ -34,8 +35,9 @@ export async function GET(request, { params: { id } }) {
   }
 }
 
+// updatet nasted subcategory
 export async function PUT(request, { params: { id } }) {
-  const { auth, response } = authenticated(request, ["admin"]);
+  const { auth, response } = authenticated(["admin", "manager"]);
 
   if (auth) {
     try {
@@ -51,7 +53,7 @@ export async function PUT(request, { params: { id } }) {
         return SendResponse({ errors }, 400);
       }
 
-      nasted_subcategory.parent_category = requestData.parent_category;
+      nasted_subcategory.parentCategory = requestData.parentCategory;
       nasted_subcategory.name = requestData.name;
       
       await nasted_subcategory.save();
@@ -71,8 +73,9 @@ export async function PUT(request, { params: { id } }) {
   }
 }
 
+// delete nasted subcategory
 export async function DELETE(request, { params: { id } }) {
-  const { auth, response } = authenticated(request, ["admin"]);
+  const { auth, response } = authenticated(["admin"]);
 
   if (auth) {
     try {
@@ -80,8 +83,8 @@ export async function DELETE(request, { params: { id } }) {
       if (!nasted_subcategory) {
         return SendResponse({ message: "404 Not Found." }, 404);
       }
-      await SubCategory.findByIdAndUpdate(nasted_subcategory.parent_category, {
-        $pull: { nasted_sub_categories: nasted_subcategory._id },
+      await SubCategory.findByIdAndUpdate(nasted_subcategory.parentCategory, {
+        $pull: { nasted_subcategories: nasted_subcategory._id },
       });
       return SendResponse({
         message: "Nasted category has been deleted successfully.",

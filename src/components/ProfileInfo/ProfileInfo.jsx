@@ -81,8 +81,8 @@ const ProfileInfo = async ({userprofile}) => {
                                 {/* account information */}
                                 <div className='account_info'>
                                     <h4><u>Account Information</u></h4>
-                                    <p>Joint At: {dateFormat(userprofile.createdAt, "dddd, mmmm dd, yyyy 'at' HH:MM:ss TT")}</p>
-                                    <p>Last Updated At: {dateFormat(userprofile.updatedAt, "dddd, mmmm dd, yyyy 'at' HH:MM:ss TT")}</p>
+                                    <p>Joint At: {dateFormat(userprofile.createdAt, "dddd, mmmm dd, yyyy 'at' h:MM:ss tt")}</p>
+                                    <p>Last Updated At: {dateFormat(userprofile.updatedAt, "dddd, mmmm dd, yyyy 'at' h:MM:ss tt")}</p>
                                     <div>Status: {userprofile.profile.isVerified ? <span>Active</span> : <><span className="text-danger">Your account is not verified.</span><button className="account_verify_btn">Verify Now</button></>}</div>
                                     <div>Would you like to update your profile? <Link href={userprofile.role == "user" ? "/accounts/profile/edit" : "/admin/profile/edit"} className='update_profile_btn'>Click Here</Link></div>
                                 </div>

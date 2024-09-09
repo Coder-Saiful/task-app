@@ -2,34 +2,56 @@ import { mongodbConnect } from "@/config/mongodbConnect";
 import { authenticated } from "@/helper/authenticated";
 import { SendResponse } from "@/helper/SendResponse";
 import { Category } from "@/models/category";
+import { SubCategory } from "@/models/subcategory";
+import { NastedSubCategory } from "@/models/nastedsubcategory";
 import { categoryValidator } from "@/validators/categoryValidator";
 
 mongodbConnect();
 
 // get all category
 export async function GET(request) {
-  const { auth, response } = authenticated(request, ["manager", "admin"]);
+  const { auth, response } = authenticated(["manager", "admin"]);
 
   if (auth) {
     try {
       const { searchParams } = new URL(request.url);
 
+      const populateSubCat = searchParams.get("subcategory") || "";
+      const populateNasSubCat = searchParams.get("nasted-subcategory") || "";
+
       const limit = Number(searchParams.get("limit")) || 10;
       let page = Number(searchParams.get("page")) || 1;
       page = page < 1 ? 1 : page;
-
       const totalData = await Category.countDocuments();
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
 
-      const categories = await Category.find()
+      let categories = await Category.find()
         .limit(limit)
         .skip(skip)
-        .populate({ path: "sub_categories", select: "-parent_category -__v", populate: {path: "nasted_sub_categories", select: "-parent_category -__v"} }).select("-__v");
+        .select("-subcategories");
 
       if (categories.length == 0) {
         return SendResponse({ message: "No data available." }, 200);
       }
+
+      if (populateSubCat && populateSubCat == "true") {
+        categories = await Category.find()
+          .limit(limit)
+          .skip(skip)
+          .populate({ path: "subcategories", select: "-nasted_subcategories" });
+      }
+
+      if ((populateSubCat && populateSubCat == "true") && (populateNasSubCat && populateNasSubCat == "true")) {
+        categories = await Category.find()
+          .limit(limit)
+          .skip(skip)
+          .populate({
+            path: "subcategories",
+            populate: { path: "nasted_subcategories"},
+          });
+      }
+
       return SendResponse({
         showData: categories.length,
         totalData,
@@ -48,7 +70,7 @@ export async function GET(request) {
 
 // create category
 export async function POST(request) {
-  const { auth, response } = authenticated(request, ["manager", "admin"]);
+  const { auth, response } = authenticated(["manager", "admin"]);
 
   if (!auth) {
     return response;
@@ -65,7 +87,7 @@ export async function POST(request) {
     const existCategory = await Category.findOne({ name: requestData.name });
     if (existCategory) {
       return SendResponse(
-        { message: "This category has already been exist." },
+        { errors: { name: "This category has already been exist." } },
         400
       );
     }

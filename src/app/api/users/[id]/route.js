@@ -9,19 +9,19 @@ mongodbConnect();
 
 // get user details
 export async function GET(request, { params: { id } }) {
-  const { auth, response } = authenticated(request, ["manager", "admin"]);
+  const { auth, response } = authenticated(["manager", "admin"]);
   if (auth) {
     try {
       const user = await User.findById(id)
         .select("-password")
         .populate("profile");
       if (!sponsuser) {
-        return SendRee({ message: "404 Not Found." }, 404);
+        return SendRee({ notFoundError: "404 Not Found." }, 404);
       }
       return SendResponse(user);
     } catch (error) {
       if (error.name == "CastError") {
-        return SendResponse({ message: "404 Not Found." }, 404);
+        return SendResponse({ notFoundError: "404 Not Found." }, 404);
       }
       return SendResponse({ message: "Failed to load user details." }, 500);
     }
@@ -32,13 +32,13 @@ export async function GET(request, { params: { id } }) {
 
 // update user details
 export async function PUT(request, { params: { id } }) {
-  const { auth, response } = authenticated(request, ["admin"]);
+  const { auth, response } = authenticated(["admin", "manager"]);
   if (auth) {
     try {
       const user = await User.findById(id)
         .select("-password");
       if (!user) {
-        return SendResponse({ message: "404 Not Found." }, 404);
+        return SendResponse({ notFoundError: "404 Not Found." }, 404);
       }
 
       const formData = await request.formData();
@@ -90,7 +90,7 @@ export async function PUT(request, { params: { id } }) {
     } catch (error) {
       console.log(error.message);
       if (error.name == "CastError") {
-        return SendResponse({ message: "404 Not Found." }, 404);
+        return SendResponse({ notFoundError: "404 Not Found." }, 404);
       }
       return SendResponse({ message: "Failed to update user details." }, 500);
     }
@@ -101,19 +101,19 @@ export async function PUT(request, { params: { id } }) {
 
 // delete an user
 export async function DELETE(request, { params: { id } }) {
-  const { auth, response } = authenticated(request, ["admin"]);
+  const { auth, response } = authenticated(["admin"]);
   if (auth) {
     try {
       const user = await User.findById(id).select("-password");
       if (!user) {
-        return SendResponse({ message: "404 Not Found." }, 404);
+        return SendResponse({ notFoundError: "404 Not Found." }, 404);
       }
       await User.deleteOne({ _id: id });
       await Profile.deleteOne({ user: user._id });
       return SendResponse({ message: "User has been deleted successfully." });
     } catch (error) {
       if (error.name == "CastError") {
-        return SendResponse({ message: "404 Not Found." }, 404);
+        return SendResponse({ notFoundError: "404 Not Found." }, 404);
       }
       return SendResponse({ message: "Failed to delete user details." }, 500);
     }

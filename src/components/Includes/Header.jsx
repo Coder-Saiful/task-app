@@ -43,7 +43,6 @@ const Header = () => {
         }
       });
   };
-
   return (
     <nav className="navbar navbar-expand-lg main_nav py-2 py-lg-0 px-lg-4" style={{borderBottom: ".1px solid rgb(175 175 175 / 60%)", background: "var(--darkPrimary)"}}>
       <div className="container-fluid">
@@ -80,7 +79,7 @@ const Header = () => {
                 Home
               </Link>
             </li>
-
+            
             {user ? (
               <>
               <li className="nav-item">
@@ -127,6 +126,19 @@ const Header = () => {
                   Bookmarks[4]
                 </Link>
               </li>
+            {user && (user.role == "admin" || user.role == "manager") && (
+              <li className="nav-item">
+              <Link
+                className={`nav-link text-white ${activeLink(
+                  currentPath,
+                  "//admin/dashboard"
+                )}`}
+                href={"/admin/dashboard"}
+              >
+                Dashboard
+              </Link>
+            </li>
+            )}
               <li className="nav-item">
                 <button
                   className={`nav-link text-white logout_button`}

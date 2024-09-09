@@ -10,16 +10,16 @@ mongodbConnect();
 
 // show subcategory details
 export async function GET(request, { params: { id } }) {
-  const { auth, response } = authenticated(request);
+  const { auth, response } = authenticated();
 
   if (auth) {
     try {
       const subcategory = await SubCategory.findById(id)
         .populate({
-          path: "nasted_sub_categories",
-          select: "-parent_category",
+          path: "nasted_subcategories",
+          select: "-parentCategory",
         })
-        .populate({ path: "parent_category", select: "name" });
+        .populate({ path: "parentCategory", select: "name" });
 
       if (!subcategory) {
         return SendResponse({ message: "404 Not Found." }, 404);
@@ -44,12 +44,12 @@ export async function GET(request, { params: { id } }) {
 
 // update subcategory details
 export async function PUT(request, { params: { id } }) {
-  const { auth, response } = authenticated(request, ["admin"]);
+  const { auth, response } = authenticated(["admin", "manager"]);
 
   if (auth) {
     try {
       const subcategory = await SubCategory.findById(id).select(
-        "-nasted_sub_categories"
+        "-nasted_subcategories"
       );
       if (!subcategory) {
         return SendResponse({ message: "404 Not Found." }, 404);
@@ -62,7 +62,7 @@ export async function PUT(request, { params: { id } }) {
         return SendResponse({ errors }, 400);
       }
 
-      subcategory.parent_category = requestData.parent_category;
+      subcategory.parentCategory = requestData.parentCategory;
       subcategory.name = requestData.name;
 
       await subcategory.save();
@@ -84,7 +84,7 @@ export async function PUT(request, { params: { id } }) {
 
 // delete subcategory
 export async function DELETE(request, { params: { id } }) {
-  const { auth, response } = authenticated(request, ["admin"]);
+  const { auth, response } = authenticated(["admin"]);
 
   if (auth) {
     try {
@@ -93,15 +93,15 @@ export async function DELETE(request, { params: { id } }) {
         return SendResponse({ message: "404 Not Found." }, 404);
       }
 
-      await Category.findByIdAndUpdate(subcategory.parent_category,  {
+      await Category.findByIdAndUpdate(subcategory.parentCategory,  {
         $pull: {
-          sub_categories: subcategory._id
+          subcategories: subcategory._id
         }
       });
 
-      await NastedSubCategory.updateMany({parent_category: subcategory._id}, {
+      await NastedSubCategory.updateMany({parentCategory: subcategory._id}, {
         $set: {
-          parent_category: null
+          parentCategory: null
         }
       });
 
