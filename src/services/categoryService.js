@@ -17,3 +17,21 @@ export const fetchCategoryDetails = async (id, token) => {
         }
     }
 }
+
+export const fetchSubcategoryDetails = async (id, token) => {
+    try {
+        const {data} = await httpAxios.get("/api/sub-categories/"+id, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return {
+            data
+        }
+    } catch (error) {
+     
+        return {
+            error: error.response.data.message
+        }
+    }
+}

@@ -16,12 +16,18 @@ export async function GET(request, { params: { id } }) {
 
       const populateSubCat = searchParams.get("subcategory") || "";
       const populateNasSubCat = searchParams.get("nasted-subcategory") || "";
+      const subCategoryId = searchParams.get("subcategory-id") || "";
+      const nasSubCategoryId = searchParams.get("nasted-subcategory-id") || "";
 
-      let category = await Category.findById(id);
+      let category = await Category.findById(id).select("-subcategories");
 
       if (populateSubCat && populateSubCat == "true") {
         category = await Category.findById(id)
           .populate({ path: "subcategories", select: "-nasted_subcategories" });
+      }
+
+      if (subCategoryId && subCategoryId == "true") {
+        category = await Category.findById(id);
       }
 
       if ((populateSubCat && populateSubCat == "true") && (populateNasSubCat && populateNasSubCat == "true")) {
@@ -32,12 +38,20 @@ export async function GET(request, { params: { id } }) {
           });
       }
 
+      if ((populateSubCat && populateSubCat == "true") && (nasSubCategoryId && nasSubCategoryId == "true")) {
+        category = await Category.findById(id)
+          .populate({
+            path: "subcategories"
+          });
+      }
+
       if (!category) {
         return SendResponse({ notFoundError: "404 Not Found." }, 404);
       }
 
       return SendResponse(category);
     } catch (error) {
+ 
       if (error.name == "CastError") {
         return SendResponse({ notFoundError: "404 Not Found." }, 404);
       }

@@ -121,12 +121,29 @@ const AdminNavbar3 = () => {
               >
                 Tasks
               </Link>
-            </li><li>
+            </li>
+            <li>
               <Link
                 href={`/admin/category`}
                 className={activeLink(currentPath, "/admin/category")}
               >
                 Category
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/admin/subcategory`}
+                className={activeLink(currentPath, "/admin/subcategory")}
+              >
+                Subcategory
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/admin/nasted-subcategory`}
+                className={activeLink(currentPath, "/admin/nasted-subcategory")}
+              >
+                Nasted Subcategory
               </Link>
             </li>
             <li>

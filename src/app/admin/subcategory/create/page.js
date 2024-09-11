@@ -1,11 +1,11 @@
 import React from "react";
-import CreateCategoryForm from "@/components/Category/CreateCategoryForm";
+import CreateSubCategoryForm from "@/components/SubCategory/CreateSubCategoryForm";
 
 export const metadata = {
-  title: "Create New Category",
+  title: "Create New Subcategory",
 };
 
-const CreateCategoryPage = () => {
+const SubcategoryCreatePage = () => {
   return (
     <section className="my-5">
       <div className="container">
@@ -13,10 +13,10 @@ const CreateCategoryPage = () => {
           <div className="col-lg-5 col-md-8 col-sm-10 m-auto">
             <div className="card">
               <div className="card-header text-white position-relative">
-                <h3 className="mb-0 text-center">Create New Category</h3>
+                <h3 className="mb-0 text-center">Create New Subcategory</h3>
               </div>
               <div className="card-body">
-                <CreateCategoryForm />
+                <CreateSubCategoryForm />
               </div>
             </div>
           </div>
@@ -26,4 +26,4 @@ const CreateCategoryPage = () => {
   );
 };
 
-export default CreateCategoryPage;
+export default SubcategoryCreatePage;

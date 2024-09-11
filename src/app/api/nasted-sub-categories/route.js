@@ -15,16 +15,29 @@ export async function GET(request) {
     try {
       const { searchParams } = new URL(request.url);
 
+      const parentCategory = searchParams.get("parent-category") || "";
+
       const limit = Number(searchParams.get("limit")) || 10;
       let page = Number(searchParams.get("page")) || 1;
       page = page < 1 ? 1 : page;
+
+      let isLimit = Boolean(Number(searchParams.get("limit")));
 
       const totalData = await NastedSubCategory.countDocuments();
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
 
-      const nasted_subcategories = await NastedSubCategory.find().limit(limit).skip(skip).populate({path: "parentCategory", select: "name parentCategory", populate: {path: 'parentCategory', select: 'name'}});
+      let nasted_subcategories = await NastedSubCategory.find()
+      .limit(isLimit ? limit : false)
+      .skip(skip);
 
+      if (parentCategory && parentCategory == "true") {
+        nasted_subcategories = await NastedSubCategory.find()
+      .limit(isLimit ? limit : false)
+      .skip(skip)
+      .populate({path: "parentCategory", select: "name"});
+      }
+      
       if (nasted_subcategories.length == 0) {
         return SendResponse({ message: "No data available." }, 200);
       }
@@ -65,7 +78,11 @@ export async function POST(request) {
     });
     if (existNastedSubCategory) {
       return SendResponse(
-        { message: "This nasted subcategory has already been exist." },
+        {
+          errors: {
+            name: "This nasted subcategory has already been exist."
+          }
+        },
         400
       );
     }
@@ -82,7 +99,6 @@ export async function POST(request) {
       201
     );
   } catch (error) {
-    // console.log(error)
     return SendResponse({ message: "Failed to create nasted subcategory." }, 500);
   }
 }

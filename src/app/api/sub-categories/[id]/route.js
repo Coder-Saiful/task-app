@@ -14,20 +14,45 @@ export async function GET(request, { params: { id } }) {
 
   if (auth) {
     try {
-      const subcategory = await SubCategory.findById(id)
-        .populate({
-          path: "nasted_subcategories",
-          select: "-parentCategory",
-        })
-        .populate({ path: "parentCategory", select: "name" });
+      const { searchParams } = new URL(request.url);
+      const populateNasSubCat = searchParams.get("nasted-subcategory") || "";
+      const nasSubCategoryId = searchParams.get("nasted-subcategory-id") || "";
+      const parentCategory = searchParams.get("parent-category") || "";
+
+      let subcategory = await SubCategory.findById(id).select("-nasted_subcategories");
 
       if (!subcategory) {
         return SendResponse({ message: "404 Not Found." }, 404);
       }
 
+      if (populateNasSubCat && populateNasSubCat == "true") {
+        subcategory = await SubCategory.findById(id)
+          .populate({path: "nasted_subcategories"});
+      }
+
+      if (nasSubCategoryId && nasSubCategoryId == "true") {
+        subcategory = await SubCategory.findById(id);
+      }
+
+      if (parentCategory && parentCategory == "true") {
+        subcategory = await SubCategory.findById(id)
+            .select("-nasted_subcategories")
+            .populate({path: "parentCategory", select: "name"});
+        }
+
+      if ((populateNasSubCat && populateNasSubCat == "true") && (parentCategory && parentCategory == "true")) {
+        subcategory = await SubCategory.findById(id)
+          .populate({path: "parentCategory", select: "name"})
+          .populate({path: "nasted_subcategories"});
+      }
+
+      if ((nasSubCategoryId && nasSubCategoryId == "true") && (parentCategory && parentCategory == "true")) {
+        subcategory = await SubCategory.findById(id)
+          .populate({path: "parentCategory", select: "name"});
+      }
+
       return SendResponse(subcategory);
     } catch (error) {
-      console.log(error)
       if (error.name == "CastError") {
         return SendResponse({ message: "404 Not Found." }, 404);
       }
@@ -62,12 +87,20 @@ export async function PUT(request, { params: { id } }) {
         return SendResponse({ errors }, 400);
       }
 
+      const exitSubategory = await SubCategory.findOne({name: requestData.name})
+      if (exitSubategory && (subcategory.name != requestData.name)) { 
+        return SendResponse(
+          { errors: { name: "This subcategory has already been exist." } },
+          400
+        );
+      }
+
       subcategory.parentCategory = requestData.parentCategory;
       subcategory.name = requestData.name;
 
       await subcategory.save();
 
-      return SendResponse(subcategory);
+      return SendResponse({message: "Subcategory has been updated successfully."});
     } catch (error) {
       if (error.name == "CastError") {
         return SendResponse({ message: "404 Not Found." }, 404);
@@ -88,7 +121,7 @@ export async function DELETE(request, { params: { id } }) {
 
   if (auth) {
     try {
-      const subcategory = await SubCategory.findById(id);
+      const subcategory = await SubCategory.findByIdAndDelete(id);
       if (!subcategory) {
         return SendResponse({ message: "404 Not Found." }, 404);
       }

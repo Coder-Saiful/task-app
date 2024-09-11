@@ -15,15 +15,61 @@ export async function GET(request) {
     try {
       const { searchParams } = new URL(request.url);
 
+      const populateNasSubCat = searchParams.get("nasted-subcategory") || "";
+      const nasSubCategoryId = searchParams.get("nasted-subcategory-id") || "";
+      const parentCategory = searchParams.get("parent-category") || "";
+
       const limit = Number(searchParams.get("limit")) || 10;
       let page = Number(searchParams.get("page")) || 1;
       page = page < 1 ? 1 : page;
+
+      let isLimit = Boolean(Number(searchParams.get("limit")));
 
       const totalData = await SubCategory.countDocuments();
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
 
-      const subcategories = await SubCategory.find().limit(limit).skip(skip).populate({path: "nasted_subcategories", select: "-parentCategory -__v"}).select("-__v");
+      let subcategories = await SubCategory.find()
+        .limit(isLimit ? limit : false)
+        .skip(skip)
+        .select("-nasted_subcategories");
+
+      if (populateNasSubCat && populateNasSubCat == "true") {
+        subcategories = await SubCategory.find()
+          .limit(isLimit ? limit : false)
+          .skip(skip)
+          .populate({ path: "nasted_subcategories" });
+      }
+
+      if (nasSubCategoryId && nasSubCategoryId == "true") {
+        subcategories = await SubCategory.find()
+          .limit(isLimit ? limit : false)
+          .skip(skip);
+      }
+
+      if (parentCategory && parentCategory == "true") {
+        subcategories = await SubCategory.find()
+          .limit(isLimit ? limit : false)
+          .skip(skip)
+          .select("-nasted_subcategories")
+          .populate({ path: "parentCategory", select: "name" });
+      }
+
+      if ((populateNasSubCat && populateNasSubCat == "true") && (parentCategory && parentCategory == "true")) {
+        subcategories = await SubCategory.find()
+          .limit(isLimit ? limit : false)
+          .skip(skip)
+          .populate({ path: "parentCategory", select: "name" })
+          .populate({ path: "nasted_subcategories" });
+      }
+
+      if ((nasSubCategoryId && nasSubCategoryId == "true") && (parentCategory && parentCategory == "true")) {
+        subcategories = await SubCategory.find()
+          .limit(isLimit ? limit : false)
+          .skip(skip)
+          .populate({ path: "parentCategory", select: "name" });
+      }
+
 
       if (subcategories.length == 0) {
         return SendResponse({ message: "No data available." }, 200);
@@ -65,7 +111,7 @@ export async function POST(request) {
     });
     if (existSubCategory) {
       return SendResponse(
-        { message: "This subcategory has already been exist." },
+        { errors: { name: "This subcategory has already been exist." } },
         400
       );
     }
@@ -82,7 +128,6 @@ export async function POST(request) {
       201
     );
   } catch (error) {
-    // console.log(error)
     return SendResponse({ message: "Failed to create subcategory." }, 500);
   }
 }

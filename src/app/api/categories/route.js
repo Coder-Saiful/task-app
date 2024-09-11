@@ -18,16 +18,21 @@ export async function GET(request) {
 
       const populateSubCat = searchParams.get("subcategory") || "";
       const populateNasSubCat = searchParams.get("nasted-subcategory") || "";
+      const subCategoryId = searchParams.get("subcategory-id") || "";
+      const nasSubCategoryId = searchParams.get("nasted-subcategory-id") || "";
 
       const limit = Number(searchParams.get("limit")) || 10;
       let page = Number(searchParams.get("page")) || 1;
       page = page < 1 ? 1 : page;
+
+      let isLimit = Boolean(Number(searchParams.get("limit")));
+
       const totalData = await Category.countDocuments();
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
 
       let categories = await Category.find()
-        .limit(limit)
+        .limit(isLimit ? limit : false)
         .skip(skip)
         .select("-subcategories");
 
@@ -37,21 +42,37 @@ export async function GET(request) {
 
       if (populateSubCat && populateSubCat == "true") {
         categories = await Category.find()
-          .limit(limit)
+          .limit(isLimit ? limit : false)
           .skip(skip)
           .populate({ path: "subcategories", select: "-nasted_subcategories" });
       }
 
+      if (subCategoryId && subCategoryId == "true") {
+        categories = await Category.find()
+          .limit(isLimit ? limit : false)
+          .skip(skip);
+      }
+
+
       if ((populateSubCat && populateSubCat == "true") && (populateNasSubCat && populateNasSubCat == "true")) {
         categories = await Category.find()
-          .limit(limit)
+          .limit(isLimit ? limit : false)
           .skip(skip)
           .populate({
             path: "subcategories",
-            populate: { path: "nasted_subcategories"},
+            populate: { path: "nasted_subcategories" },
           });
       }
-      
+
+      if ((populateSubCat && populateSubCat == "true") && (nasSubCategoryId && nasSubCategoryId == "true")) {
+        categories = await Category.find()
+          .limit(isLimit ? limit : false)
+          .skip(skip)
+          .populate({
+            path: "subcategories"
+          });
+      }
+
       return SendResponse({
         showData: categories.length,
         totalData,
@@ -99,6 +120,7 @@ export async function POST(request) {
       201
     );
   } catch (error) {
+
     return SendResponse({ message: "Failed to create category." }, 500);
   }
 }

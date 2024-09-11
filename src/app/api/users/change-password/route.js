@@ -19,6 +19,12 @@ export async function POST(request) {
             if (Object.keys(errors).length > 0) {
                 return SendResponse({errors}, 400);
             }
+            
+            const user = await User.findById(decoded._id).select("password");
+            if (!(await bcrypt.compare(requestBody["current_password"], user.password))) {
+                return SendResponse({errors: {current_password: "You typed wrong current password."}}, 400);
+            }
+
             const hashedPass = await bcrypt.hash(requestBody.new_password, 10);
 
             await User.findByIdAndUpdate(decoded._id, {
@@ -26,7 +32,7 @@ export async function POST(request) {
             });
             return SendResponse({message: "Your current password has been changed."})
         } catch (error) {
-            return SendResponse({message: "Failed to change current password."});
+            return SendResponse({message: "Failed to change current password."}, 500);
         }
     } else {
         return response;

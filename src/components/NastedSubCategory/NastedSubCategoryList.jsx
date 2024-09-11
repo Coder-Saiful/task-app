@@ -7,13 +7,13 @@ import { httpAxios } from "@/helper/httpAxios";
 import Spinner from "@/components/LoadingAnimation/Spinner";
 import { toast } from "react-toastify";
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import SingleCategory from './SingleCategory';
-import CustomPagination from '../Includes/CustomPagination';
+import SingleNastedSubCategory from '@/components/NastedSubCategory/SingleNastedSubCategory';
+import CustomPagination from '@/components/Includes/CustomPagination';
 
-const CategoryList = () => {
+const NastedSubCategoryList = () => {
   const { user } = useContext(AuthContext);
 
-  const [categoryData, setCategoryData] = useState({});
+  const [nastedSubcategoryData,setNastedSubcategoryData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -29,13 +29,13 @@ const CategoryList = () => {
 
   const pathname = usePathname();
 
-  const showCategories = () => {
+  const showNastedSubcategories = () => {
     setLoading(true);
-    httpAxios.get("/api/categories", {
+    httpAxios.get("/api/nasted-sub-categories", {
       params: {
         page,
         limit,
-        'subcategory-id': true
+        'parent-category': true
       }
     })
       .then(response => { 
@@ -44,7 +44,7 @@ const CategoryList = () => {
           setError(response.data.message);
         } else {
           setError(null);
-          setCategoryData(response.data);
+          setNastedSubcategoryData(response.data);
         }
       })
       .catch(error => {
@@ -57,22 +57,22 @@ const CategoryList = () => {
             setError(error.response.data.message);
           }
         } else {
-          setError("Something went wrong. Please try again later or refresh the web/app");
+          setError("Something went wrong. Please refresh the browser/app or try again later.");
         }
       });
   }
 
   useEffect(() => {
-    showCategories()
+    showNastedSubcategories()
   }, [page, limit]);
 
-  const handleCategoryDelete = (e, id) => {
+  const handleNastedSubCategoryDelete = (e, id) => {
     e.target.innerHTML = "Deleting...";
     e.target.disabled = true;
 
-    httpAxios.delete("/api/categories/" + id)
+    httpAxios.delete("/api/nasted-sub-categories/" + id)
       .then(response => {
-        showCategories();
+        showNastedSubcategories();
         e.target.innerHTML = "Delete";
         e.target.disabled = false;
         toast.success(response.data.message);
@@ -84,57 +84,58 @@ const CategoryList = () => {
         if (error.response) {
           toast.error(error.response.data.message);
         } else {
-          toast.error("Something went wrong. Please try again later or refresh the web/app");
+          toast.error("Something went wrong. Please refresh the browser/app or try again later.");
         }
       });
+
   }
 
   const handleChangeLimit = e => {
-    setSelect({ limit: Number(e.target.value) });
-
+    const newLimit = Number(e.target.value);
+    setSelect({ limit: newLimit});
+    
     const queryParams = new URLSearchParams(searchParams);
     queryParams.set("limit", e.target.value);
-
-    router.replace('/admin/category?' + queryParams.toString());
+    router.replace('/admin/nasted-subcategory?' + queryParams.toString());
   }
 
   return (
     <section>
       <div className="container mt-5">
-        <div className="text-end mb-3"><Link href="/admin/category/create" className="text-decoration-none btn btn-info">Create</Link></div>
+        <div className="text-end mb-3"><Link href="/admin/nasted-subcategory/create" className="text-decoration-none btn btn-info">Create</Link></div>
         <div className="table-responsive card">
           <div className="card-header text-white" style={{ background: "var(--primaryColor)" }}>
             <h2 className="fs-4 mb-0 text-center" style={{ fontWeight: "600" }}>
-              Manage All Category
+              Manage All Nasted Subategory
             </h2>
           </div>
           <table className="table admin_table table-hover table-striped mb-0">
             <thead>
               <tr>
                 <th scope="col">#S/N</th>
-                <th scope="col">Category Name</th>
-                <th scope="col">Total Subcategory</th>
+                <th scope="col">Nasted Subcategory Name</th>
+                <th scope="col">Parent Category</th>
                 <th scope="col">Created Time</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              {categoryData?.categories && !error && !loading && categoryData.categories.map((category, index) => (
-                <SingleCategory key={category._id} category={category} skip={categoryData.skip} index={index} user={user} handleCategoryDelete={(e, id) => handleCategoryDelete(e, id)} />
+              {nastedSubcategoryData?.nasted_subcategories && !error && !loading && nastedSubcategoryData.nasted_subcategories.map((nasted_subcategory, index) => (
+                <SingleNastedSubCategory key={nasted_subcategory._id} nasted_subcategory={nasted_subcategory} skip={nastedSubcategoryData.skip} index={index} user={user} handleNastedSubCategoryDelete={(e, id) => handleNastedSubCategoryDelete(e, id)} />
               ))}
 
               {loading && !error && (
-                <tr><td colSpan={5}><Spinner /></td></tr>
+                <tr><td colSpan={6}><Spinner /></td></tr>
               )}
             </tbody>
             <tfoot>
-              {categoryData?.categories && !error && !loading && (
-                <CustomPagination select={select} handleChangeLimit={(e) => handleChangeLimit(e)} rowLimit={rowLimit} page={page} limit={limit} totalPages={categoryData.totalPages} pathname={pathname} />
+              {nastedSubcategoryData?.nasted_subcategories && !error && !loading && (
+                <CustomPagination select={select} handleChangeLimit={(e) => handleChangeLimit(e)} rowLimit={rowLimit} page={page} limit={limit} totalPages={nastedSubcategoryData.totalPages} pathname={pathname} />
               )}
 
               {error && (
                 <tr>
-                  <td colSpan={5}><h5 className="text-center mb-0">{error}</h5></td>
+                  <td colSpan={6}><h5 className="text-center mb-0">{error}</h5></td>
                 </tr>
               )}
             </tfoot>
@@ -145,4 +146,4 @@ const CategoryList = () => {
   );
 };
 
-export default CategoryList;
+export default NastedSubCategoryList;

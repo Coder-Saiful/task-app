@@ -145,9 +145,7 @@ button.adminNavClose span:last-child {
     background: black;
     color: #d5d5d5;
 }
-.admin_table tbody tr:nth-child(odd) td {
-    background: #00e39026;
-}
+
 /*=============== navbar/dashboard css start===============*/
 
 /*============= form css start ==============*/
@@ -471,22 +469,26 @@ tr.pagination_row {
 .dropdown-menu.show li a.edit {
     color: white;
     background: transparent;
-    display: block;
-    padding: 6px;
+    padding: 7px 3px;
     border-radius: 3px;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
 }
-
+.dropdown-menu.show li a.edit i, .dropdown-menu.show li button.delete i {
+    height: auto !important;
+}
 .dropdown-menu.show li button.delete {
     color: white;
     background: transparent;
-    display: block;
-    padding: 6px;
+    padding: 7px 3px;
     border: none;
     width: 100%;
     text-align: left;
     border-radius: 3px;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
 }
 .dropdown-menu.show li a:hover,
 .dropdown-menu.show li button:hover {

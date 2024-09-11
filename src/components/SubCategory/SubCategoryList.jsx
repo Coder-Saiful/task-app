@@ -7,13 +7,13 @@ import { httpAxios } from "@/helper/httpAxios";
 import Spinner from "@/components/LoadingAnimation/Spinner";
 import { toast } from "react-toastify";
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import SingleCategory from './SingleCategory';
-import CustomPagination from '../Includes/CustomPagination';
+import SingleSubCategory from '@/components/SubCategory/SingleSubCategory';
+import CustomPagination from '@/components/Includes/CustomPagination';
 
-const CategoryList = () => {
+const SubCategoryList = () => {
   const { user } = useContext(AuthContext);
 
-  const [categoryData, setCategoryData] = useState({});
+  const [subcategoryData, setSubcategoryData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
@@ -29,22 +29,24 @@ const CategoryList = () => {
 
   const pathname = usePathname();
 
-  const showCategories = () => {
+  const showSubcategories = () => {
     setLoading(true);
-    httpAxios.get("/api/categories", {
+    httpAxios.get("/api/sub-categories", {
       params: {
         page,
         limit,
-        'subcategory-id': true
+        'parent-category': true,
+        'nasted-subcategory-id': true
       }
     })
-      .then(response => { 
+      .then(response => {
+
         setLoading(false);
         if (response.data.message) {
           setError(response.data.message);
         } else {
           setError(null);
-          setCategoryData(response.data);
+          setSubcategoryData(response.data);
         }
       })
       .catch(error => {
@@ -63,16 +65,16 @@ const CategoryList = () => {
   }
 
   useEffect(() => {
-    showCategories()
+    showSubcategories()
   }, [page, limit]);
 
-  const handleCategoryDelete = (e, id) => {
+  const handleSubCategoryDelete = (e, id) => {
     e.target.innerHTML = "Deleting...";
     e.target.disabled = true;
 
-    httpAxios.delete("/api/categories/" + id)
+    httpAxios.delete("/api/sub-categories/" + id)
       .then(response => {
-        showCategories();
+        showSubcategories();
         e.target.innerHTML = "Delete";
         e.target.disabled = false;
         toast.success(response.data.message);
@@ -87,54 +89,56 @@ const CategoryList = () => {
           toast.error("Something went wrong. Please try again later or refresh the web/app");
         }
       });
+
   }
 
   const handleChangeLimit = e => {
-    setSelect({ limit: Number(e.target.value) });
-
+    const newLimit = Number(e.target.value);
+    setSelect({ limit: newLimit});
+    
     const queryParams = new URLSearchParams(searchParams);
     queryParams.set("limit", e.target.value);
-
-    router.replace('/admin/category?' + queryParams.toString());
+    router.replace('/admin/subcategory?' + queryParams.toString());
   }
 
   return (
     <section>
       <div className="container mt-5">
-        <div className="text-end mb-3"><Link href="/admin/category/create" className="text-decoration-none btn btn-info">Create</Link></div>
+        <div className="text-end mb-3"><Link href="/admin/subcategory/create" className="text-decoration-none btn btn-info">Create</Link></div>
         <div className="table-responsive card">
           <div className="card-header text-white" style={{ background: "var(--primaryColor)" }}>
             <h2 className="fs-4 mb-0 text-center" style={{ fontWeight: "600" }}>
-              Manage All Category
+              Manage All Subategory
             </h2>
           </div>
           <table className="table admin_table table-hover table-striped mb-0">
             <thead>
               <tr>
                 <th scope="col">#S/N</th>
-                <th scope="col">Category Name</th>
-                <th scope="col">Total Subcategory</th>
+                <th scope="col">Subcategory Name</th>
+                <th scope="col">Parent Category</th>
+                <th scope="col">Total Nasted Subcategory</th>
                 <th scope="col">Created Time</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              {categoryData?.categories && !error && !loading && categoryData.categories.map((category, index) => (
-                <SingleCategory key={category._id} category={category} skip={categoryData.skip} index={index} user={user} handleCategoryDelete={(e, id) => handleCategoryDelete(e, id)} />
+              {subcategoryData?.subcategories && !error && !loading && subcategoryData.subcategories.map((subcategory, index) => (
+                <SingleSubCategory key={subcategory._id} subcategory={subcategory} skip={subcategoryData.skip} index={index} user={user} handleSubCategoryDelete={(e, id) => handleSubCategoryDelete(e, id)} />
               ))}
 
               {loading && !error && (
-                <tr><td colSpan={5}><Spinner /></td></tr>
+                <tr><td colSpan={6}><Spinner /></td></tr>
               )}
             </tbody>
             <tfoot>
-              {categoryData?.categories && !error && !loading && (
-                <CustomPagination select={select} handleChangeLimit={(e) => handleChangeLimit(e)} rowLimit={rowLimit} page={page} limit={limit} totalPages={categoryData.totalPages} pathname={pathname} />
+              {subcategoryData?.subcategories && !error && !loading && (
+                <CustomPagination select={select} handleChangeLimit={(e) => handleChangeLimit(e)} rowLimit={rowLimit} page={page} limit={limit} totalPages={subcategoryData.totalPages} pathname={pathname} />
               )}
 
               {error && (
                 <tr>
-                  <td colSpan={5}><h5 className="text-center mb-0">{error}</h5></td>
+                  <td colSpan={6}><h5 className="text-center mb-0">{error}</h5></td>
                 </tr>
               )}
             </tfoot>
@@ -145,4 +149,4 @@ const CategoryList = () => {
   );
 };
 
-export default CategoryList;
+export default SubCategoryList;
