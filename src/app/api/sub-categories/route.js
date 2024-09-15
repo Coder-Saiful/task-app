@@ -75,7 +75,6 @@ export async function GET(request) {
         return SendResponse({ message: "No data available." }, 200);
       }
       return SendResponse({
-        showData: subcategories.length,
         totalData,
         totalPages,
         currentPage: page,
@@ -131,3 +130,5 @@ export async function POST(request) {
     return SendResponse({ message: "Failed to create subcategory." }, 500);
   }
 }
+
+

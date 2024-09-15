@@ -1,23 +1,22 @@
-import CreateTaskForm from "@/components/Post/CreateTaskForm";
+import React from "react";
+import CreatePostForm from "@/components/Post/CreatePostForm";
 
 export const metadata = {
-  title: "Create New Task",
+  title: "Create New Post",
 };
 
-const CreateTaskPage = () => {
+const CreateCategoryPage = () => {
   return (
     <section className="my-5">
       <div className="container">
         <div className="row">
           <div className="col-lg-5 col-md-8 col-sm-10 m-auto">
             <div className="card">
-              <div
-                className="card-header text-white position-relative"
-              >
-                <h3 className="mb-0 text-center">Create New Task</h3>
+              <div className="card-header text-white position-relative">
+                <h3 className="mb-0 text-center">Create New Post</h3>
               </div>
               <div className="card-body">
-                <CreatePost />
+                <CreatePostForm />
               </div>
             </div>
           </div>
@@ -27,4 +26,4 @@ const CreateTaskPage = () => {
   );
 };
 
-export default CreateTaskPage;
+export default CreateCategoryPage;

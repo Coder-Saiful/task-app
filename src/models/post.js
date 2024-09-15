@@ -1,9 +1,9 @@
 import { model, models, Schema } from "mongoose";
 
-export const Task =
-  models.Task ||
+export const Post =
+  models.Post ||
   model(
-    "Task",
+    "Post",
     new Schema(
       {
         author: {
@@ -14,14 +14,17 @@ export const Task =
         title: {
           type: String,
           required: true,
+          trim: true
         },
         slug: {
           type: String,
           required: true,
+          trim: true
         },
         description: {
           type: String,
           required: true,
+          trim: true
         },
         category: {
           type: Schema.Types.ObjectId,
@@ -42,3 +45,5 @@ export const Task =
       { timestamps: true }
     )
   );
+
+  

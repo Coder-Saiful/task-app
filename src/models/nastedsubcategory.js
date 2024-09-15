@@ -8,6 +8,7 @@ export const NastedSubCategory = models.NastedSubCategory || model("NastedSubCat
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     }
 }, {timestamps: true}));

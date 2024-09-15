@@ -1,7 +1,7 @@
 import { mongodbConnect } from "@/config/mongodbConnect";
 import { authenticated } from "@/helper/authenticated";
 import { SendResponse } from "@/helper/SendResponse";
-import { taskValidator } from "@/validators/taskValidator";
+import { postValidator } from "@/validators/postValidator";
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -14,19 +14,21 @@ export async function POST(request) {
         try {
             const formdata = await request.formData() || new FormData();
             const requestBody = {};
-            const taskImages = [];
-            for (let [key,value] of formdata.entries()) {
-                if (value instanceof Blob && value.name) {
-                    taskImages.push(value);
-                }
+            // const taskImages = [];
+            // for (let [key,value] of formdata.entries()) {
+            //     if (value instanceof Blob && value.name) {
+            //         taskImages.push(value);
+            //     }
 
-                if (!(value instanceof Blob)) {
-                    requestBody[key] = value;
-                }
-            }
-            const errors = taskValidator(requestBody);
+            //     if (!(value instanceof Blob)) {
+            //         requestBody[key] = value;
+            //     }
+            // }
+            console.log(formdata)
+
+            const errors = postValidator(requestBody);
             if (Object.keys(errors).length > 0) {
-                // return SendResponse({errors}, 400)
+                return SendResponse({errors}, 400)
             }
             // console.log({...requestBody, images: taskImages});
             // console.log({requestBody, taskImages})

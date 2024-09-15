@@ -17,7 +17,7 @@ const CategoryList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
-  const [rowLimit, setRowLimit] = useState(["2", "4", "6", "8", "10", "20", "30", "40", "50"]);
+  const [rowLimit, setRowLimit] = useState([10, 2, 4, 6, 25, 50, 75, 100]);
 
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
@@ -105,7 +105,7 @@ const CategoryList = () => {
         <div className="table-responsive card">
           <div className="card-header text-white" style={{ background: "var(--primaryColor)" }}>
             <h2 className="fs-4 mb-0 text-center" style={{ fontWeight: "600" }}>
-              Manage All Category
+              Manage All Category {categoryData?.totalData && '('+categoryData?.totalData+')'}
             </h2>
           </div>
           <table className="table admin_table table-hover table-striped mb-0">
@@ -119,7 +119,7 @@ const CategoryList = () => {
               </tr>
             </thead>
             <tbody>
-              {categoryData?.categories && !error && !loading && categoryData.categories.map((category, index) => (
+              {categoryData?.categories?.length > 0 && !error && !loading && categoryData.categories.map((category, index) => (
                 <SingleCategory key={category._id} category={category} skip={categoryData.skip} index={index} user={user} handleCategoryDelete={(e, id) => handleCategoryDelete(e, id)} />
               ))}
 

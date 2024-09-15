@@ -35,3 +35,21 @@ export const fetchSubcategoryDetails = async (id, token) => {
         }
     }
 }
+
+export const fetchNastedSubcategoryDetails = async (id, token) => {
+    try {
+        const {data} = await httpAxios.get("/api/nasted-sub-categories/"+id, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+        return {
+            data
+        }
+    } catch (error) {
+     
+        return {
+            error: error.response.data.message
+        }
+    }
+}

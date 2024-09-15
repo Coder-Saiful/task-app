@@ -17,7 +17,7 @@ const SubCategoryList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
-  const [rowLimit, setRowLimit] = useState(["2", "4", "6", "8", "10", "20", "30", "40", "50"]);
+  const [rowLimit, setRowLimit] = useState([10, 2, 4, 6, 25, 50, 75, 100]);
 
   const searchParams = useSearchParams();
   const page = Number(searchParams.get("page")) || 1;
@@ -108,7 +108,7 @@ const SubCategoryList = () => {
         <div className="table-responsive card">
           <div className="card-header text-white" style={{ background: "var(--primaryColor)" }}>
             <h2 className="fs-4 mb-0 text-center" style={{ fontWeight: "600" }}>
-              Manage All Subategory
+              Manage All Subategory {subcategoryData?.totalData && '('+subcategoryData?.totalData+')'}
             </h2>
           </div>
           <table className="table admin_table table-hover table-striped mb-0">

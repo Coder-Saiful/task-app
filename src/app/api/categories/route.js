@@ -15,7 +15,7 @@ export async function GET(request) {
   if (auth) {
     try {
       const { searchParams } = new URL(request.url);
-
+      
       const populateSubCat = searchParams.get("subcategory") || "";
       const populateNasSubCat = searchParams.get("nasted-subcategory") || "";
       const subCategoryId = searchParams.get("subcategory-id") || "";
@@ -74,7 +74,6 @@ export async function GET(request) {
       }
 
       return SendResponse({
-        showData: categories.length,
         totalData,
         totalPages,
         currentPage: page,
@@ -82,6 +81,7 @@ export async function GET(request) {
         categories,
       });
     } catch (error) {
+      console.log(error)
       return SendResponse({ message: "Failed to load categories." }, 500);
     }
   } else {

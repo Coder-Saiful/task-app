@@ -38,10 +38,17 @@ const AdminNavbar3 = () => {
         }
       });
   };
+
+  const handleNavigate = () => {
+    if (user || userprofile) {
+      router.push("/admin/profile");
+    }
+  }
+
   return (
     <nav className="navbar navbar-expand-md bg-dark admin_nav3 py-1 py-md-0 h-100 flex-column">
       <div className="container-fluid px-md-0">
-        <div className="profile_container d-flex align-items-center" style={{ padding: "20px 15px" }}>
+        <div className="profile_container d-flex align-items-center" style={{ padding: "20px 15px", cursor: (user || userprofile) ? "pointer": "default" }} onClick={handleNavigate}>
           {user && (
             <>
             <div className="image" style={{ marginRight: "5px" }}>
@@ -116,10 +123,10 @@ const AdminNavbar3 = () => {
             </li>
             <li>
               <Link
-                href={`/admin/tasks`}
-                className={activeLink(currentPath, "/admin/tasks")}
+                href={`/admin/posts`}
+                className={activeLink(currentPath, "/admin/posts")}
               >
-                Tasks
+                Posts
               </Link>
             </li>
             <li>

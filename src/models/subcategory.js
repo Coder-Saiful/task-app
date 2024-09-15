@@ -8,7 +8,8 @@ export const SubCategory = models.SubCategory || model("SubCategory", new Schema
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     nasted_subcategories: [{type: Schema.Types.ObjectId, ref: "NastedSubCategory"}]
 }, {timestamps: true}));

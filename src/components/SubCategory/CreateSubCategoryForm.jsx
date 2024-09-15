@@ -36,10 +36,14 @@ const CreateSubCategoryForm = () => {
         toast.success(response.data.message);
         setIsSubmit(false);
         setError({});
-        setFormdata({
+        // setFormdata({
+        //   name: "",
+        //   parentCategory: ""
+        // });
+        setFormdata((preVal) => ({
+          ...preVal,
           name: "",
-          parentCategory: ""
-        });
+        }));
       })
       .catch(error => {
         setIsSubmit(false);

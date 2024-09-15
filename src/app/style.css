@@ -128,9 +128,7 @@ button.adminNavClose span:last-child {
 .admin_table thead tr th:last-child {
     border-right: none;
 }
-.admin_table tbody tr td:first-child {
-    width: 60px;
-}
+
 .admin_table tbody tr:last-child td {
     border-bottom: none;
 }
@@ -245,7 +243,9 @@ input[type="date"] {
     right: 11px;
     cursor: pointer;
 }
-
+.form-select:disabled {
+    background: transparent;
+}
 /*=============== form css end ==================*/
 
 /*============== pagination part css ==============*/

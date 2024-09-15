@@ -22,10 +22,12 @@ export const Profile =
         bio: {
           type: String,
           default: "",
+          trim: true
         },
         mobile: {
           type: String,
           default: "",
+          trim: true
         },
         dob: {
           type: Date,
@@ -34,6 +36,7 @@ export const Profile =
         blood_group: {
           type: String,
           default: "",
+          trim: true
         },
         gender: {
           type: String,
@@ -51,62 +54,76 @@ export const Profile =
           country: {
             type: String,
             default: "",
+            trim: true
           },
           city: {
             type: String,
             default: "",
+            trim: true
           },
           state: {
             type: String,
             default: "",
+            trim: true
           },
           postcode: {
             type: String,
             default: "",
+            trim: true
           },
           address: {
             type: String,
             default: "",
+            trim: true
           },
         },
         permanent_address: {
           country: {
             type: String,
             default: "",
+            trim: true
           },
           city: {
             type: String,
             default: "",
+            trim: true
           },
           state: {
             type: String,
             default: "",
+            trim: true
           },
           postcode: {
             type: String,
             default: "",
+            trim: true
           },
           address: {
             type: String,
             default: "",
+            trim: true
           },
         },
         socialMedia: {
           facebook: {
             type: String,
             default: "",
+            trim: true
           },
           github: {
             type: String,
             default: "",
+            trim: true
           },
           twitter: {
             type: String,
             default: "",
+            trim: true
           },
           linkedin: {
             type: String,
             default: "",
+            trim: true
           },
         },
         isVerified: {

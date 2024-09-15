@@ -2,10 +2,15 @@ import React from 'react';
 import Link from "next/link";
 import dateFormat from "dateformat";
 
-const SingleNastedSubCategory = ({ nasted_subcategory, skip, index, user, handleNastedSubCategoryDelete }) => {
+const SingleNastedSubCategory = ({ nasted_subcategory, skip, index, user, handleNastedSubCategoryDelete, handleDeletedIds, deletedIds }) => {
     return (
         <tr style={{ verticalAlign: "middle" }}>
-            <td className="fw-bold" style={{ minWidth: "80px" }}>{skip + index + 1}</td>
+            {user?.role == "admin" && (
+                <td scope="col">
+                    <input type="checkbox" style={{ cursor: "pointer", minWidth: "25px" }} value={nasted_subcategory._id} onChange={(e) => handleDeletedIds(e)} name="deletedItem" checked={deletedIds?.includes(nasted_subcategory._id)} />
+                </td>
+            )}
+            <td className="fw-bold sn" style={{ minWidth: "60px", textAlign: "center" }}>{skip + index + 1}</td>
             <td>{nasted_subcategory.name}</td>
             <td>{nasted_subcategory.parentCategory?.name}</td>
             <td>{dateFormat(nasted_subcategory.createdAt, "mmmm, dd yyyy 'at' h:MM tt")}</td>
@@ -26,7 +31,7 @@ const SingleNastedSubCategory = ({ nasted_subcategory, skip, index, user, handle
                             </button>
                         </>
                     )}
-             
+
                 </div>
             </td>
         </tr>

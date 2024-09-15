@@ -7,7 +7,7 @@ import { nastedSubCategoryValidator } from "@/validators/nastedSubCategoryValida
 
 mongodbConnect();
 
-// get all category
+// get all nasted subcategory
 export async function GET(request) {
   const { auth, response } = authenticated();
 
@@ -23,26 +23,34 @@ export async function GET(request) {
 
       let isLimit = Boolean(Number(searchParams.get("limit")));
 
+      
       const totalData = await NastedSubCategory.countDocuments();
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
+      
+      const search = searchParams.get("search") || "";
+      const regex = new RegExp(search, 'i');
 
-      let nasted_subcategories = await NastedSubCategory.find()
+      let query = NastedSubCategory.find({
+        name: {
+          $regex: regex
+        }
+      })
       .limit(isLimit ? limit : false)
       .skip(skip);
 
       if (parentCategory && parentCategory == "true") {
-        nasted_subcategories = await NastedSubCategory.find()
-      .limit(isLimit ? limit : false)
-      .skip(skip)
-      .populate({path: "parentCategory", select: "name"});
+        query =  query.populate({path: "parentCategory", select: "name"});
       }
+
+      const nasted_subcategories = await query;
       
-      if (nasted_subcategories.length == 0) {
+      if (nasted_subcategories.length == 0 && !search) {
         return SendResponse({ message: "No data available." }, 200);
+      } else if (nasted_subcategories.length == 0 && search) {
+        return SendResponse({ message: "No search result." }, 200);
       }
       return SendResponse({
-        showData: nasted_subcategories.length,
         totalData,
         totalPages,
         currentPage: page,
