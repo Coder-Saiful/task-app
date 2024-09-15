@@ -17,7 +17,7 @@ const CreateTaskPage = () => {
                 <h3 className="mb-0 text-center">Create New Task</h3>
               </div>
               <div className="card-body">
-                <CreatePost />
+                <CreateTaskForm />
               </div>
             </div>
           </div>

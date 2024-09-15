@@ -16,6 +16,11 @@ export async function GET(request) {
       const { searchParams } = new URL(request.url);
 
       const parentCategory = searchParams.get("parent-category") || "";
+      const search = searchParams.get("search") || "";
+      const sort = searchParams.get("sort") || "";
+      const order = searchParams.get("order") || "";
+      const minDateRange = searchParams.get("minDateRange") || "";
+      const maxDateRange = searchParams.get("maxDateRange") || "";
 
       const limit = Number(searchParams.get("limit")) || 10;
       let page = Number(searchParams.get("page")) || 1;
@@ -23,28 +28,45 @@ export async function GET(request) {
 
       let isLimit = Boolean(Number(searchParams.get("limit")));
 
-      
+
       const totalData = await NastedSubCategory.countDocuments();
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
-      
-      const search = searchParams.get("search") || "";
-      const regex = new RegExp(search, 'i');
 
-      let query = NastedSubCategory.find({
-        name: {
-          $regex: regex
+      const regex = new RegExp(search, 'i');
+      let filterObj = {};
+ 
+      if (minDateRange && maxDateRange) {
+        filterObj.createdAt = {
+          $gte: new Date(minDateRange),
+          $lte: new Date(maxDateRange)
         }
-      })
-      .limit(isLimit ? limit : false)
-      .skip(skip);
+      } else if (minDateRange) {
+        filterObj.createdAt = {
+          $gte: new Date(minDateRange)
+        }
+      } else if (maxDateRange) {
+        filterObj.createdAt = {
+          $lte: new Date(maxDateRange)
+        }
+      }
+
+      filterObj = {...filterObj, name: {$regex: regex}};
+
+      let query = NastedSubCategory.find(filterObj)
+        .limit(isLimit ? limit : false)
+        .skip(skip);
 
       if (parentCategory && parentCategory == "true") {
-        query =  query.populate({path: "parentCategory", select: "name"});
+        query = query.populate({ path: "parentCategory", select: "name" });
+      }
+
+      if (sort && order) {
+        query = query.sort({ [sort]: order == "asc" ? 1 : -1 })
       }
 
       const nasted_subcategories = await query;
-      
+
       if (nasted_subcategories.length == 0 && !search) {
         return SendResponse({ message: "No data available." }, 200);
       } else if (nasted_subcategories.length == 0 && search) {
