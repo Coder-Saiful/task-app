@@ -103,12 +103,12 @@ const SubCategoryList = () => {
 
   return (
     <section>
-      <div className="container mt-5">
+      <div className="container mt-3">
         <div className="text-end mb-3"><Link href="/admin/subcategory/create" className="text-decoration-none btn btn-info">Create</Link></div>
         <div className="table-responsive card">
           <div className="card-header text-white" style={{ background: "var(--primaryColor)" }}>
             <h2 className="fs-4 mb-0 text-center" style={{ fontWeight: "600" }}>
-              Manage All Subategory {subcategoryData?.totalData && '('+subcategoryData?.totalData+')'}
+              Manage All Subategory 
             </h2>
           </div>
           <table className="table admin_table table-hover table-striped mb-0">

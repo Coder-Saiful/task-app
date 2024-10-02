@@ -11,8 +11,7 @@ const CreateNastedSubCategoryForm = () => {
   const [formdata, setFormdata] = useState({
     name: "",
     category: "",
-    subcategory: "",
-    parentCategory: ""
+    subcategory: ""
   });
   const [categoryData, setCategoryData] = useState({});
   const [subcategories, setSubcategories] = useState([]);
@@ -33,43 +32,49 @@ const CreateNastedSubCategoryForm = () => {
     }));
   }
 
+  // save nasted subcategory in database after submitting form
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formdata)
-    // setIsSubmit(true);
+    setIsSubmit(true);
 
-    // httpAxios.post("/api/nasted-sub-categories", formdata, {
-    //   headers: {
-    //     'Content-Type': "application/json"
-    //   }
-    // })
-    //   .then(response => {
-    //     toast.success(response.data.message);
-    //     setIsSubmit(false);
-    //     setError({});
-    //     // setFormdata({
-    //     //   name: "",
-    //     //   parentCategory: ""
-    //     // });
-    //     setFormdata((preVal) => ({
-    //       ...preVal,
-    //       name: "",
-    //     }));
-    //   })
-    //   .catch(error => {
-    //     setIsSubmit(false);
+    httpAxios.post("/api/nasted-sub-categories", {name: formdata.name, parentCategory: formdata.subcategory}, {
+      headers: {
+        'Content-Type': "application/json"
+      }
+    })
+      .then(response => {
+        toast.success(response.data.message);
+        setIsSubmit(false);
+        setError({});
+        // setFormdata({
+        //   name: "",
+        //   parentCategory: ""
+        // });
+        setFormdata((preVal) => ({
+          ...preVal,
+          name: "",
+        }));
+      })
+      .catch(error => {
+        setIsSubmit(false);
 
-    //     if (error.response) {
-    //       if (error.response.data.message) {
-    //         toast.error(error.response.data.message);
-    //       } else if (error.response.data.errors) {
-    //         setError(error.response.data.errors)
-    //       }
-    //     } else {
-    //       toast.error("Something went wrong. Please refresh the browser/app or try again later.");
-    //       setError({});
-    //     }
-    //   });
+        if (error.response) {
+          if (error.response.data.message) {
+            toast.error(error.response.data.message);
+          } else if (error.response.data.errors) {
+            const errMsg = {};
+              if (!formdata.category) {
+                errMsg["category"] = "Parent category field is a required field.";
+              } else {
+                delete errMsg["category"];
+              }
+            setError({...errMsg, ...error.response.data.errors});
+          }
+        } else {
+          toast.error("Something went wrong. Please refresh the browser/app or try again later.");
+          setError({});
+        }
+      });
   };
 
   // get all categories for adding as a parent category
@@ -102,9 +107,11 @@ const CreateNastedSubCategoryForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+
+      {/* Parent category field */}
       <div className="mb-3">
         <label className="form-label">Parent Category:</label>
-        <select className={`form-select ${error.category ? "is-invalid" : ""}`} name="category" value={formdata.category} onChange={handleChange} disabled={categoriesLoadErr}>
+        <select className={`form-select ${error.category ? "is-invalid" : ""}`} name="category" value={formdata.category} onChange={handleChange} disabled={categoriesLoadErr||!categoryData.categories?.length}>
           <option value="">--Select Parent Category--</option>
           {categoryData.categories?.length > 0 && categoryData.categories.map(category => (
             <option key={category._id} value={category._id}>{category.name}</option>
@@ -121,9 +128,11 @@ const CreateNastedSubCategoryForm = () => {
           </div>
         )}
       </div>
+
+      {/* Parent subcategory field */}
       <div className="mb-3">
         <label className="form-label">Parent Subcategory Name:</label>
-        <select className={`form-select ${error.parentCategory ? "is-invalid" : ""}`} name="subcategory" value={formdata.subcategory} onChange={handleChange}>
+        <select className={`form-select ${error.parentCategory ? "is-invalid" : ""}`} name="subcategory" value={formdata.subcategory} onChange={handleChange} disabled={!subcategories?.length}>
           <option value="">--Select Parent Subcategory--</option>
           {subcategories?.length > 0 && subcategories.map(subcategory => (
             <option key={subcategory._id} value={subcategory._id}>{subcategory.name}</option>
@@ -135,6 +144,8 @@ const CreateNastedSubCategoryForm = () => {
           </div>
         )}
       </div>
+
+      {/* Nasted subcategory field */}
       <div className="mb-3">
         <label className="form-label">Nasted Subcategory Name:</label>
         <input type="text" className={`form-control ${error.name ? "is-invalid" : ""}`} name="name" value={formdata.name} onChange={handleChange} />

@@ -1,4 +1,4 @@
-import EditProfileForm from "@/components/EditProfile/EditProfileForm";
+import EditProfileForm from "@/components/User/EditProfile/EditProfileForm";
 import Link from "next/link";
 
 export const metadata = {

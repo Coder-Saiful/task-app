@@ -10,12 +10,12 @@ mongodbConnect();
 
 // get all category
 export async function GET(request) {
-  const { auth, response } = authenticated(["manager", "admin"]);
+  const { auth, response } = authenticated();
 
   if (auth) {
     try {
       const { searchParams } = new URL(request.url);
-      
+
       const populateSubCat = searchParams.get("subcategory") || "";
       const populateNasSubCat = searchParams.get("nasted-subcategory") || "";
       const subCategoryId = searchParams.get("subcategory-id") || "";
@@ -30,47 +30,42 @@ export async function GET(request) {
       const totalData = await Category.countDocuments();
       const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
-
-      let categories = await Category.find()
+      
+      let query = Category.find()
         .limit(isLimit ? limit : false)
         .skip(skip)
-        .select("-subcategories");
 
-      if (categories.length == 0) {
-        return SendResponse({ message: "No data available." }, 200);
+      
+
+      if (!populateSubCat && !populateNasSubCat && !subCategoryId && !nasSubCategoryId) {
+        query = query.select("-subcategories");
       }
 
       if (populateSubCat && populateSubCat == "true") {
-        categories = await Category.find()
-          .limit(isLimit ? limit : false)
-          .skip(skip)
-          .populate({ path: "subcategories", select: "-nasted_subcategories" });
+        query = query.populate({ path: "subcategories", select: "-nasted_subcategories" });
       }
 
       if (subCategoryId && subCategoryId == "true") {
-        categories = await Category.find()
-          .limit(isLimit ? limit : false)
-          .skip(skip);
+        query = query.select();
       }
 
-
       if ((populateSubCat && populateSubCat == "true") && (populateNasSubCat && populateNasSubCat == "true")) {
-        categories = await Category.find()
-          .limit(isLimit ? limit : false)
-          .skip(skip)
-          .populate({
-            path: "subcategories",
-            populate: { path: "nasted_subcategories" },
-          });
+        query = query.populate({
+          path: "subcategories",
+          populate: { path: "nasted_subcategories" },
+        });
       }
 
       if ((populateSubCat && populateSubCat == "true") && (nasSubCategoryId && nasSubCategoryId == "true")) {
-        categories = await Category.find()
-          .limit(isLimit ? limit : false)
-          .skip(skip)
-          .populate({
-            path: "subcategories"
-          });
+        query = query.populate({
+          path: "subcategories"
+        });
+      }
+
+      const categories = await query;
+
+      if (categories.length == 0) {
+        return SendResponse({ message: "No data available." }, 200);
       }
 
       return SendResponse({
@@ -81,7 +76,6 @@ export async function GET(request) {
         categories,
       });
     } catch (error) {
-      console.log(error)
       return SendResponse({ message: "Failed to load categories." }, 500);
     }
   } else {

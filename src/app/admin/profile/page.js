@@ -1,4 +1,4 @@
-import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
+import ProfileInfo from "@/components/User/ProfileInfo/ProfileInfo";
 import React from "react";
 import { fetchProfile, fetchTokenData } from "@/services/userService";
 import { getToken } from "@/helper/getToken";

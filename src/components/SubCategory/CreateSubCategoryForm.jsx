@@ -7,7 +7,6 @@ import { toast } from "react-toastify";
 const CreateSubCategoryForm = () => {
   const [error, setError] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [loading, setLoading] = useState(true);
   const [formdata, setFormdata] = useState({
     name: "",
     parentCategory: ""
@@ -36,14 +35,14 @@ const CreateSubCategoryForm = () => {
         toast.success(response.data.message);
         setIsSubmit(false);
         setError({});
-        // setFormdata({
-        //   name: "",
-        //   parentCategory: ""
-        // });
-        setFormdata((preVal) => ({
-          ...preVal,
+        setFormdata({
           name: "",
-        }));
+          parentCategory: ""
+        });
+        // setFormdata((preVal) => ({
+        //   ...preVal,
+        //   name: "",
+        // }));
       })
       .catch(error => {
         setIsSubmit(false);
@@ -55,17 +54,16 @@ const CreateSubCategoryForm = () => {
             setError(error.response.data.errors)
           }
         } else {
-          toast.error("Something went wrong. Please try again later or refresh the web/app");
+          toast.error("Something went wrong. Please refresh the web/app or try again later.");
           setError({});
         }
       });
   };
 
   useEffect(() =>  {
-    setLoading(true);
+    
     httpAxios.get("/api/categories")
       .then(response => {
-        setLoading(false);
         if (response.data.message) {
           setCategoriesLoadErr("No data available for adding parent category.");
         } else {
@@ -74,7 +72,6 @@ const CreateSubCategoryForm = () => {
         }
       })
       .catch(error => {
-        setLoading(false);
 
         if (error.response) {
           if (error.response.status == 401) {
@@ -92,7 +89,7 @@ const CreateSubCategoryForm = () => {
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
         <label className="form-label">Parent Category:</label>
-        <select className={`form-select ${error.parentCategory ? "is-invalid" : ""}`} name="parentCategory" value={formdata.parentCategory} onChange={handleChange}>
+        <select className={`form-select ${error.parentCategory ? "is-invalid" : ""}`} name="parentCategory" value={formdata.parentCategory} onChange={handleChange} disabled={categoriesLoadErr||!categoryData.categories?.length}>
           <option value="">--Select Parent Category--</option>
           {categoryData.categories?.length > 0 && categoryData.categories.map(category => (
             <option key={category._id} value={category._id}>{category.name}</option>

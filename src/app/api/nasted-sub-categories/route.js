@@ -19,8 +19,8 @@ export async function GET(request) {
       const search = searchParams.get("search") || "";
       const sort = searchParams.get("sort") || "";
       const order = searchParams.get("order") || "";
-      const minDateRange = searchParams.get("minDateRange") || "";
-      const maxDateRange = searchParams.get("maxDateRange") || "";
+      const minDateRange = searchParams.get("min-date-range") || "";
+      const maxDateRange = searchParams.get("max-date-range") || "";
 
       const limit = Number(searchParams.get("limit")) || 10;
       let page = Number(searchParams.get("page")) || 1;
@@ -62,7 +62,7 @@ export async function GET(request) {
       }
 
       if (sort && order) {
-        query = query.sort({ [sort]: order == "asc" ? 1 : -1 })
+        query = query.sort({ [sort]: order == "asc" ? 1 : -1 });
       }
 
       const nasted_subcategories = await query;

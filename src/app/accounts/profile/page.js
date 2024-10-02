@@ -1,5 +1,5 @@
 import React from "react";
-import ProfileInfo from "@/components/ProfileInfo/ProfileInfo";
+import ProfileInfo from "@/components/User/ProfileInfo/ProfileInfo";
 import { fetchProfile, fetchTokenData } from "@/services/userService";
 import { getToken } from "@/helper/getToken";
 

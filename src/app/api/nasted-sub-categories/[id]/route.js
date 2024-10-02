@@ -35,7 +35,6 @@ export async function GET(request, { params: { id } }) {
       }
       return SendResponse(nasted_subcategory);
     } catch (error) {
-      console.log(error)
       if (error.name == "CastError") { 
         return SendResponse({ notFoundError: "404 Not Found." }, 404);
       }

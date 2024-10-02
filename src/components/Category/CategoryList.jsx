@@ -105,7 +105,7 @@ const CategoryList = () => {
         <div className="table-responsive card">
           <div className="card-header text-white" style={{ background: "var(--primaryColor)" }}>
             <h2 className="fs-4 mb-0 text-center" style={{ fontWeight: "600" }}>
-              Manage All Category {categoryData?.totalData && '('+categoryData?.totalData+')'}
+              Manage All Category
             </h2>
           </div>
           <table className="table admin_table table-hover table-striped mb-0">

@@ -23,7 +23,7 @@ const SubCategoryDetails = ({id}) => {
             if (error.response)  {
                 setError(error.response.data);
             } else {
-            setError({message: "Something went wrong. Please try again later or refresh the web/app."}); 
+            setError({message: "Something went wrong. Please refresh the browser/app or try again later."}); 
             }
         });    
     }, [id]);

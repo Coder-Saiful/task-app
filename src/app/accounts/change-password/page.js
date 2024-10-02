@@ -1,4 +1,4 @@
-import ChangePasswordForm from "@/components/ChangePassword/ChangePasswordForm";
+import ChangePasswordForm from "@/components/User/ChangePassword/ChangePasswordForm";
 
 export const metadata = {
   title: "Change Password",

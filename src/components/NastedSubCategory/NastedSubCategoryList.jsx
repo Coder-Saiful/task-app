@@ -33,8 +33,9 @@ const NastedSubCategoryList = () => {
   const search = searchParams.get("search") || "";
   const sort = searchParams.get("sort") || "";
   const order = searchParams.get("order") || "";
-  const minDateRange = searchParams.get("minDateRange") || "";
-  const maxDateRange = searchParams.get("maxDateRange") || "";
+  const minDateRange = searchParams.get("min-date-range") || "";
+  const maxDateRange = searchParams.get("max-date-range") || "";
+  const showFilter = searchParams.get("show-filter") || "";
 
   const [filters, setFilters] = useState({
     sort,
@@ -52,8 +53,8 @@ const NastedSubCategoryList = () => {
         search,
         sort,
         order,
-        minDateRange,
-        maxDateRange,
+        "min-date-range": minDateRange,
+        "max-date-range": maxDateRange,
         'parent-category': true
       }
     })
@@ -141,20 +142,40 @@ const NastedSubCategoryList = () => {
   }
 
   const handleMultipleDelete = (e) => {
-    e.target.innerHTML = `Deleting...`;
-    e.target.disabled = true;
+    const tagName = e.target.tagName;
+
+    if (tagName == "BUTTON") {
+      e.target.innerHTML = `Deleting...`;
+      e.target.disabled = true;
+    } else if (tagName == "I") {
+      const parent = e.target.parentElement;
+      parent.innerHTML = `Deleting...`;
+      parent.disabled = true;
+    }
 
     httpAxios.post("/api/nasted-sub-categories/delete-multiple", { deletedIds })
       .then(response => {
         setDeletedIds([]);
         showNastedSubcategories();
-        e.target.innerHTML = "Delete";
-        e.target.disabled = false;
         toast.success(response.data.message);
+        if (tagName == "BUTTON") {
+          e.target.innerHTML = `Delete`;
+          e.target.disabled = false;
+        } else if (tagName == "I") {
+          const parent = e.target.parentElement;
+          parent.innerHTML = `Delete`;
+          parent.disabled = false;
+        }
       })
       .catch(error => {
-        e.target.innerHTML = `Delete ${deletedIds?.length} ${deletedIds.length == 1 ? "Item" : 'Items'}`;
-        e.target.disabled = false;
+        if (tagName == "BUTTON") {
+          e.target.innerHTML = `Delete ${deletedIds?.length} ${deletedIds.length == 1 ? "Item" : 'Items'}`;
+          e.target.disabled = false;
+        } else if (tagName == "I") {
+          const parent = e.target.parentElement;
+          parent.innerHTML = `Delete ${deletedIds?.length} ${deletedIds.length == 1 ? "Item" : 'Items'}`;
+          parent.disabled = false;
+        }
 
         if (error.response) {
           toast.error(error.response.data.message);
@@ -162,6 +183,7 @@ const NastedSubCategoryList = () => {
           toast.error("Something went wrong. Please refresh the browser/app or try again later.");
         }
       });
+
   }
 
 
@@ -181,7 +203,7 @@ const NastedSubCategoryList = () => {
   }
 
   const handleSearch = (e) => {
-    const searchValue = e.target.value.trim();
+    const searchValue = e.target.value;
     setSearchQuery(searchValue);
 
     setDeletedIds([]);
@@ -189,7 +211,7 @@ const NastedSubCategoryList = () => {
     const queryParams = new URLSearchParams(searchParams);
     queryParams.set("page", 1);
     queryParams.set("limit", limit);
-    queryParams.set("search", searchValue);
+    queryParams.set("search", searchValue.trim());
 
     if (!searchValue) {
       queryParams.delete("search");
@@ -209,25 +231,55 @@ const NastedSubCategoryList = () => {
     queryParams.set("page", 1);
     queryParams.set("limit", limit);
 
+    const paramsName = name == "minDateRange" ? "min-date-range" : name == "maxDateRange" ? "max-date-range" : name;
+
     if (search) {
       queryParams.set("search", search);
     } else {
       queryParams.delete("search");
     }
     if (value) {
-      queryParams.set(name, value);
+      queryParams.set(paramsName, value);
     } else {
-      queryParams.delete(name);
+      queryParams.delete(paramsName);
     }
 
     router.replace('/admin/nasted-subcategory?' + queryParams.toString());
   }
 
+  const resetFilter = (e) => {
+    const queryParams = new URLSearchParams(searchParams);
+    queryParams.delete("sort");
+    queryParams.delete("order");
+    queryParams.delete("min-date-range");
+    queryParams.delete("max-date-range");
+    queryParams.delete("show-filter");
+    router.replace('/admin/nasted-subcategory?' + queryParams.toString());
+  }
+
+  const showOrHideFilter = e => {
+    const queryParams = new URLSearchParams(searchParams);
+    if (showFilter && showFilter == "true") {
+      queryParams.delete("show-filter");
+      router.replace('/admin/nasted-subcategory?' + queryParams.toString());
+    } else {
+      queryParams.set("show-filter", "true");
+      router.replace('/admin/nasted-subcategory?' + queryParams.toString());
+    }
+  }
+
+  const clearSearchBar = () => {
+    const queryParams = new URLSearchParams(searchParams);
+    queryParams.delete("search");
+    router.replace('/admin/nasted-subcategory?' + queryParams.toString());
+  }
+
   return (
     <section>
-      <div className="container mt-5">
+      <div className="container mt-3">
         {/* filtering */}
-        <form>
+        {showFilter && (
+          <form>
           <div className="row mb-3">
             <div className="col-lg-3 col-sm-6 mb-3 mb-lg-0">
               <label>Sort:</label>
@@ -256,6 +308,8 @@ const NastedSubCategoryList = () => {
             </div>
           </div>
         </form>
+        )}
+        
         {/* add, delete, search */}
         <div className='row mb-2'>
           <div className="col-lg-6 d-flex align-items-center">
@@ -265,16 +319,26 @@ const NastedSubCategoryList = () => {
 
             <Link href="/admin/nasted-subcategory/create" className="text-decoration-none btn btn-info btn-sm me-2"><i className="fa-solid fa-plus" style={{ border: "1px solid black", borderRadius: "50%", width: "20px", height: "20px", display: "inline-flex", justifyContent: "center", alignItems: "center", color: "black", marginRight: "4px" }}></i>Create</Link>
 
-            <button className="btn btn-sm btn-warning me-2"><i className="fa-solid fa-filter" style={{ marginRight: "4px" }}></i>Show Filter</button>
+            <button className="btn btn-sm btn-warning me-2" onClick={showOrHideFilter}><i className="fa-solid fa-filter" style={{ marginRight: "4px" }}></i>{showFilter ? "Hide" : "Show"} Filter</button>
 
-            <button className='btn btn-sm btn-secondary d-flex align-items-center'><i className="fa-regular fa-circle-xmark" style={{ marginRight: "4px", fontSize: "16px" }}></i>Reset Filter</button>
+     
+              {
+                ((sort && order) || minDateRange || maxDateRange) && (
+                  <button className='btn btn-sm btn-secondary d-flex align-items-center' onClick={resetFilter}><i className="fa-regular fa-circle-xmark" style={{ marginRight: "4px", fontSize: "16px" }}></i>Reset Filter</button>
+                )
+              }
+                
+     
 
           </div>
           <div className="col-lg-6 mt-3 mt-lg-0">
             <div className="row justify-content-end">
 
-              <div className="col-xl-8 col-lg-12">
-                <input type='search' placeholder='Search' name='search' className="form-control" value={searchQuery} onChange={handleSearch} />
+              <div className="col-xl-8 col-lg-12 position-relative">
+                <input type='text' placeholder='Search' name='search' className="form-control" value={searchQuery||search} onChange={handleSearch} style={{paddingRight: "20px"}} />
+                {(searchQuery?.length>0 || search?.length>0 ) && (
+                  <i className="fa-regular fa-circle-xmark position-absolute" style={{fontSize: "24px", top: "50%", right: "19px", color: "rgb(191 191 191)", cursor: "pointer", transform: "translateY(-50%)" }} onClick={clearSearchBar}></i>
+                )}
               </div>
             </div>
           </div>

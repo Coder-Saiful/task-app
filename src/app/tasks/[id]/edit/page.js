@@ -1,4 +1,4 @@
-import EditTaskForm from "@/components/EditTask/EditTaskForm";
+import EditTaskForm from "@/components/Post/EditTask/EditTaskForm";
 
 export const metadata = {
   title: "Task | Edit",

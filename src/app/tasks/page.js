@@ -1,6 +1,6 @@
 import React from "react";
 import dateFormat from "dateformat";
-import CreateTaskButton from '../../components/CreateTaskButton/CreateTaskButton';
+import CreateTaskButton from '../../components/Post/CreateTaskButton/CreateTaskButton';
 import Link from "next/link";
 
 export const metadata = {

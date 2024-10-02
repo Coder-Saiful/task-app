@@ -1,4 +1,4 @@
-import EditUserForm from "@/components/EditUser/EditUserForm";
+import EditUserForm from "@/components/User/EditUser/EditUserForm";
 import { httpAxios } from "@/helper/httpAxios";
 import React from "react";
 

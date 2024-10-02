@@ -3,9 +3,9 @@ import Joi from "joi"
 export const nastedSubCategoryValidator = (data) => {
     const schema = Joi.object({
         parentCategory: Joi.string().required().messages({
-            'string.base': 'Parent category/Subcategory must not contain anything other than Mongoose ObjectId.',
-            'string.empty': 'Parent category/Subcategory field is a required field.',
-            'any.required': 'Parent category/Subcategory field is a required field.',
+            'string.base': 'Parent subcategory must not contain anything other than Mongoose ObjectId.',
+            'string.empty': 'Parent subcategory field is a required field.',
+            'any.required': 'Parent subcategory field is a required field.',
         }),
         name: Joi.string().required().min(3).max(100).messages({
             'string.base': 'Nasted subcategory name must not contain anything other than alphabet.',
