@@ -51,8 +51,7 @@ export async function POST(request) {
     await profile.save();
 
     return SendResponse({message: "Your registration has been successful.", user: _.pick(result, "_id", "name", "email", "role")}, 201);
-  } catch (error) {
-    console.log(error)
+  } catch (error) { 
     return SendResponse({ message: "Your registration has been failed." }, 500);
   }
 }

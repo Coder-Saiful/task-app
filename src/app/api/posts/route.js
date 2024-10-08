@@ -13,82 +13,82 @@ export async function POST(request) {
     const { auth, response, decoded } = authenticated();
 
     if (auth) {
+        const formdata = await request.formData() || new FormData();
+        const requestBody = {};
+        const files = formdata.getAll("images");
+        const { imageError, fileUrls, filePaths } = await fileUpload(files, "images", "posts" + "/" + decoded.username, 1, true) || {};
+
+        try {
+
+            for (let [key, value] of formdata.entries()) {
+                if (!(value instanceof Blob)) {
+                    requestBody[key] = value;
+                }
+            }
+
+
+            const err = postValidator(requestBody);
+
+            const errors = { ...err, ...imageError };
+            if (Object.keys(errors).length > 0) {
+                if (fileUrls) {
+                    await fileDelete(filePaths, true);
+                }
+                return SendResponse({ errors }, 400);
+            }
+
+            const slug = requestBody.title.split(/[\s_]+/).join("-").toLowerCase() + "-" + Date.now();
+            const postObj = { ...requestBody, images: fileUrls, author: decoded._id, slug };
+            const post = new Post(postObj);
+
+            await post.save();
+
+            return SendResponse({ message: "Your task has been created successfully." }, 201);
+        } catch (error) {
+            console.log((error))
+            await fileDelete(filePaths, true);
+            return SendResponse({ message: "Failed to create task." }, 500);
+        }
+
         // const formdata = await request.formData() || new FormData();
         // const requestBody = {};
         // const files = formdata.getAll("images");
-        // const { imageError, fileUrls, filePaths } = await fileUpload(files, "images", "posts" + "/" + decoded.username, 1, true) || {};
 
         // try {
+        //     await Promise.all(Array(10).fill(1).map(async n => {
+        //         const { imageError, fileUrls, filePaths } = await fileUpload(files, "images", "posts" + "/" + decoded.username, 5, true) || {};
 
-        //     for (let [key, value] of formdata.entries()) {
-        //         if (!(value instanceof Blob)) {
-        //             requestBody[key] = value;
+
+
+        //         for (let [key, value] of formdata.entries()) {
+        //             if (!(value instanceof Blob)) {
+        //                 requestBody[key] = value;
+        //             }
         //         }
-        //     }
 
 
-        //     const err = postValidator(requestBody);
+        //         const err = postValidator(requestBody);
 
-        //     const errors = { ...err, ...imageError };
-        //     if (Object.keys(errors).length > 0) {
-        //         if (fileUrls) {
-        //             await fileDelete(filePaths, true);
+        //         const errors = { ...err, ...imageError };
+        //         if (Object.keys(errors).length > 0) {
+        //             if (fileUrls) {
+        //                 await fileDelete(filePaths, true);
+        //             }
+        //             return SendResponse({ errors }, 400);
         //         }
-        //         return SendResponse({ errors }, 400);
-        //     }
 
-        //     const slug = requestBody.title.split(/[\s_]+/).join("-").toLowerCase() + "-" + Date.now();
-        //     const postObj = { ...requestBody, images: fileUrls, author: decoded._id, slug };
-        //     const post = new Post(postObj);
+        //         const slug = requestBody.title.split(/[\s_]+/).join("-").toLowerCase() + "-" + Date.now();
+        //         const postObj = { ...requestBody, images: fileUrls, author: decoded._id, slug };
+        //         const post = new Post(postObj);
 
-        //     await post.save();
-
+        //         await post.save(); 
+        //     }))
         //     return SendResponse({ message: "Your task has been created successfully." }, 201);
         // } catch (error) {
         //     console.log((error))
         //     await fileDelete(filePaths, true);
         //     return SendResponse({ message: "Failed to create task." }, 500);
         // }
-
-        const formdata = await request.formData() || new FormData();
-        const requestBody = {};
-        const files = formdata.getAll("images");
-        Array(10).fill(1).map(async n => {
-            const { imageError, fileUrls, filePaths } = await fileUpload(files, "images", "posts" + "/" + decoded.username, 1, true) || {};
-
-            try {
-
-                for (let [key, value] of formdata.entries()) {
-                    if (!(value instanceof Blob)) {
-                        requestBody[key] = value;
-                    }
-                }
-
-
-                const err = postValidator(requestBody);
-
-                const errors = { ...err, ...imageError };
-                if (Object.keys(errors).length > 0) {
-                    if (fileUrls) {
-                        await fileDelete(filePaths, true);
-                    }
-                    return SendResponse({ errors }, 400);
-                }
-
-                const slug = requestBody.title.split(/[\s_]+/).join("-").toLowerCase() + "-" + Date.now();
-                const postObj = { ...requestBody, images: fileUrls, author: decoded._id, slug };
-                const post = new Post(postObj);
-
-                await post.save();
-
-                // return SendResponse({ message: "Your task has been created successfully." }, 201);
-            } catch (error) {
-                console.log((error))
-                await fileDelete(filePaths, true);
-                return SendResponse({ message: "Failed to create task." }, 500);
-            }
-        })
-        return SendResponse("SUCCESSFULLY ADDED")
     } else {
         return response;
     }
@@ -101,7 +101,7 @@ export async function GET(request) {
 
     if (auth) {
         try {
-            const posts = await Post.find().populate({ path: "author", select: "name" });
+            const posts = await Post.find().populate({ path: "author", select: "name profile", populate: {path: "profile", select: "avatar"}}).sort({ createdAt: -1 });
             if (posts.length == 0) {
                 return SendResponse({ message: "No posts available." });
             }

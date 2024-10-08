@@ -6,12 +6,14 @@ import Link from "next/link";
 import { AuthContext } from "@/context/AuthContext";
 import { httpAxios } from "@/helper/httpAxios";
 import Spinner from "@/components/LoadingAnimation/Spinner";
+import { useRouter } from 'next/navigation';
 
 const PostList = () => {
     const { user } = useContext(AuthContext);
     const [postData, setPostData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const router = useRouter();
 
     // show all post
     const showAllPost = () => {
@@ -26,7 +28,7 @@ const PostList = () => {
                     setError(null);
                     setPostData(response.data);
                 }
-                console.log(response.data.posts)
+                console.log(response.data)
             })
             .catch(error => {
                 setLoading(false);
@@ -71,8 +73,12 @@ const PostList = () => {
                                 <div className="card">
                                     <div className="card-header d-flex justify-content-between text-white">
                                         <div className="author d-flex align-items-center">
-                                            <div className="image me-2">
-                                                <img src="/nophoto.webp" alt="avatar" />
+                                            <div className="image me-2"> 
+                                                {post.author?.profile?.avatar ? (
+                                                    <img src={post.author.profile.avatar} alt="avatar" />
+                                                ) : (
+                                                    <img src="/nophoto.webp" alt="avatar" />
+                                                )}
                                             </div>
                                             <div className="name_and_date">
                                                 <h4>{post.author?.name}</h4>
@@ -97,10 +103,10 @@ const PostList = () => {
                                                         </div>
                                                         <ul className="dropdown-menu">
                                                             <li>
-                                                                <a className="text-decoration-none edit" href="#">
+                                                                <Link className="text-decoration-none edit" href={`/tasks/${post._id}/edit`}>
                                                                     <i className="fa-regular fa-pen-to-square text-primary"></i>{" "}
                                                                     Edit
-                                                                </a>
+                                                                </Link>
                                                             </li>
                                                             <li>
                                                                 <button className="delete" href="#">
@@ -124,7 +130,7 @@ const PostList = () => {
                                         <div className="card-body p-0">
                                             <div className="blog_image">
                                                 <img
-                                                    src="/responsive-web-design.webp"
+                                                    src={post.images[0]}
                                                     alt="post image"
                                                     className="img-fluid"
                                                 />

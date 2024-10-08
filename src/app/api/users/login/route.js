@@ -33,11 +33,11 @@ export async function POST(request) {
             return SendResponse({deactive_account: "Your account has been disabled."});
         }
         
-        const username = user.profile.username;
+        const username = user.profile?.username;
         let payload = _.pick(user, ["_id", "name", "email", "role"]);
         payload = {...payload, username};
         const token = genJWT(payload);
-
+  
         const response = NextResponse.json({message: "Login successfully.", token, user: payload});
         response.cookies.set(process.env.AUTH_COOKIE_NAME, token, {
             httpOnly: true,
@@ -46,7 +46,7 @@ export async function POST(request) {
             expires: new Date(Date.now() + Number(process.env.AUTH_COOKIE_EXPIRY) * 1000)
         })
         return response;
-    } catch (error) {  
+    } catch (error) {   
         return SendResponse({message: "Login failed. Please try again later."}, 500);
     }
 }

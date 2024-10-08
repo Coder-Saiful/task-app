@@ -1,6 +1,6 @@
 import React from "react";
 import ProfileInfo from "@/components/User/ProfileInfo/ProfileInfo";
-import { fetchProfile, fetchTokenData } from "@/services/userService";
+import { fetchTokenData } from "@/services/userService";
 import { getToken } from "@/helper/getToken";
 
 export async function generateMetadata  ({params}) {
@@ -12,13 +12,9 @@ export async function generateMetadata  ({params}) {
   }  
 } 
 
-const ProfilePage = async () => {
-  const userprofile = await fetchProfile(getToken());
-  return (
-    <>
-      {userprofile.data && <ProfileInfo userprofile={userprofile.data}  />}
-      {userprofile.error && <h2>{userprofile.error.message}</h2>}
-    </>
+const ProfilePage = () => { 
+  return ( 
+      <ProfileInfo /> 
   );
 };
 
