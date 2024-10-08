@@ -40,13 +40,19 @@ export async function POST(request) {
       password: hashedPass,
       profile: profile._id,
     });
+    
+    const username = requestBody.name.split(' ').join("-").toLowerCase().concat("-").concat(Date.now());
+
     profile.user = user._id;
+    profile.username = username;
 
     const result = await user.save();
+
     await profile.save();
 
     return SendResponse({message: "Your registration has been successful.", user: _.pick(result, "_id", "name", "email", "role")}, 201);
   } catch (error) {
+    console.log(error)
     return SendResponse({ message: "Your registration has been failed." }, 500);
   }
 }

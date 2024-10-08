@@ -11,6 +11,10 @@ export const Profile =
           unique: true,
           required: true,
         },
+        username: {
+          type: String,
+          unique: true
+        },
         avatar: {
           type: String,
           default: "",

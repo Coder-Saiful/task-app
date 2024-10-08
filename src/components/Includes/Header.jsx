@@ -135,7 +135,7 @@ const Header = () => {
                 )}`}
                 href={"/admin/dashboard"}
               >
-                Dashboard
+                Admin Dashboard
               </Link>
             </li>
             )}

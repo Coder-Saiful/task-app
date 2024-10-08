@@ -45,19 +45,20 @@ const LoginForm = () => {
         if (redirectUrl) {
           router.push(`${redirectUrl}`);
         } else {
-          switch (response.data.user.role) {
-            case "user":
-              router.push(`/accounts/profile`);
-              break;
-            case "manager":
-              router.push("/admin/dashboard");
-              break;
-            case "admin":
-              router.push("/admin/dashboard");
-              break;
-            default:
-              router.push("/");
-          }
+          // switch (response.data.user.role) {
+          //   case "user":
+          //     router.push(`/accounts/profile`);
+          //     break;
+          //   case "manager":
+          //     router.push("/admin/dashboard");
+          //     break;
+          //   case "admin":
+          //     router.push("/admin/dashboard");
+          //     break;
+          //   default:
+          //     router.push("/");
+          // }
+          router.push(`/`);
         }
       })
       .catch((error) => {

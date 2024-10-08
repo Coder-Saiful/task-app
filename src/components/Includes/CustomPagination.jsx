@@ -11,7 +11,7 @@ const CustomPagination = ({handleChangeLimit, rowLimit, page, limit, totalPages,
                         <span className="me-1">Show</span>
                         <select className="form-select" value={limit} onChange={handleChangeLimit}>
                             {rowLimit?.map((countValue, index) => (
-                                <option key={index} value={countValue}>{countValue == 10 ? "Default" : countValue}</option>
+                                <option key={index} value={countValue}>{countValue == 10 ? "Default" : countValue == "all" ? "Show All" : countValue}</option>
                             ))}
                         </select>
                         <span className="ms-1">Entries</span>

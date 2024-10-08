@@ -112,15 +112,7 @@ const AdminNavbar3 = () => {
               >
                 Users
               </Link>
-            </li>
-            <li>
-              <Link
-                href={`/admin/employee`}
-                className={activeLink(currentPath, "/admin/employee")}
-              >
-                Employees
-              </Link>
-            </li>
+            </li> 
             <li>
               <Link
                 href={`/admin/posts`}

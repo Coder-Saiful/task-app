@@ -1,4 +1,4 @@
-import TaskList from "@/components/TaskList/TaskList";
+import PostList from "@/components/Post/PostList"; 
 
 
 export const metadata = {
@@ -7,6 +7,6 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <TaskList />
+    <PostList />
   );
 }

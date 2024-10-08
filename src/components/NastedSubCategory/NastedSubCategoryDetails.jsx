@@ -33,8 +33,8 @@ const NastedSubCategoryDetails = ({id}) => {
             {nastedSubcategory?.name && (
                 <div className='card text-white p-3'>
                     <p><span>ID:</span> <b>{id}</b></p>
-                    <p><span>Subategory Name:</span> <b>{nastedSubcategory.name}</b></p>
-                    <p><span>Parent Category:</span> <b>{nastedSubcategory.parentCategory?.name}</b></p> 
+                    <p><span>Nasted Subategory Name:</span> <b>{nastedSubcategory.name}</b></p>
+                    <p><span>Parent Subategory:</span> <b>{nastedSubcategory.parentCategory?.name}</b></p> 
                     <p><span>Created At:</span> <b>{dateFormat(nastedSubcategory.createdAt, "mmmm, dd yyyy 'at' h:MM tt")}</b></p>
                     <p className="mb-0"><span>Last Updated At:</span> <b>{dateFormat(nastedSubcategory.updatedAt, "mmmm, dd yyyy 'at' h:MM tt")}</b></p>
                 </div>

@@ -19,7 +19,7 @@ export async function POST(request) {
             return SendResponse({errors}, 400);
         }
 
-        const user = await User.findOne({email: data.email});
+        const user = await User.findOne({email: data.email}).populate({path: "profile", select: "username"});
         if (!user) {
             return SendResponse({invalid_credential: "Your email or password is invalid."}, 400);
         }
@@ -33,7 +33,9 @@ export async function POST(request) {
             return SendResponse({deactive_account: "Your account has been disabled."});
         }
         
-        const payload = _.pick(user, ["_id", "name", "email", "role"]);
+        const username = user.profile.username;
+        let payload = _.pick(user, ["_id", "name", "email", "role"]);
+        payload = {...payload, username};
         const token = genJWT(payload);
 
         const response = NextResponse.json({message: "Login successfully.", token, user: payload});
@@ -44,7 +46,7 @@ export async function POST(request) {
             expires: new Date(Date.now() + Number(process.env.AUTH_COOKIE_EXPIRY) * 1000)
         })
         return response;
-    } catch (error) {
+    } catch (error) {  
         return SendResponse({message: "Login failed. Please try again later."}, 500);
     }
 }

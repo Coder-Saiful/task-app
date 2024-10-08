@@ -21,6 +21,9 @@ export const postValidator = (data) => {
       "string.empty": "Post category is a required field.",
       "any.required": "Post category is a required field.",
     }),
+    isPublished: Joi.boolean().messages({
+      "boolean.base": "Published value must be a boolean value like true or false",
+    }),
   });
 
   const { error } = schema.validate(data, { abortEarly: false });

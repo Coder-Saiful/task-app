@@ -1,4 +1,4 @@
-import PostListAdmin from "@/components/Post/PostListAdmin";
+import PostListAdmin from "@/components/Post/PostListTableAdmin";
 import React from "react";
 
 export const metadata = {

@@ -1,42 +1,113 @@
 import { mongodbConnect } from "@/config/mongodbConnect";
 import { authenticated } from "@/helper/authenticated";
+import { fileDelete } from "@/helper/fileDelete";
+import { fileUpload } from "@/helper/fileUpload";
 import { SendResponse } from "@/helper/SendResponse";
+import { Post } from "@/models/post";
 import { postValidator } from "@/validators/postValidator";
-import { v4 as uuidv4 } from 'uuid';
 
 
 // mongodbConnect();
 
 export async function POST(request) {
-    const {auth, response, decoded} = authenticated();
-    
+    const { auth, response, decoded } = authenticated();
+
+    if (auth) {
+        // const formdata = await request.formData() || new FormData();
+        // const requestBody = {};
+        // const files = formdata.getAll("images");
+        // const { imageError, fileUrls, filePaths } = await fileUpload(files, "images", "posts" + "/" + decoded.username, 1, true) || {};
+
+        // try {
+
+        //     for (let [key, value] of formdata.entries()) {
+        //         if (!(value instanceof Blob)) {
+        //             requestBody[key] = value;
+        //         }
+        //     }
+
+
+        //     const err = postValidator(requestBody);
+
+        //     const errors = { ...err, ...imageError };
+        //     if (Object.keys(errors).length > 0) {
+        //         if (fileUrls) {
+        //             await fileDelete(filePaths, true);
+        //         }
+        //         return SendResponse({ errors }, 400);
+        //     }
+
+        //     const slug = requestBody.title.split(/[\s_]+/).join("-").toLowerCase() + "-" + Date.now();
+        //     const postObj = { ...requestBody, images: fileUrls, author: decoded._id, slug };
+        //     const post = new Post(postObj);
+
+        //     await post.save();
+
+        //     return SendResponse({ message: "Your task has been created successfully." }, 201);
+        // } catch (error) {
+        //     console.log((error))
+        //     await fileDelete(filePaths, true);
+        //     return SendResponse({ message: "Failed to create task." }, 500);
+        // }
+
+        const formdata = await request.formData() || new FormData();
+        const requestBody = {};
+        const files = formdata.getAll("images");
+        Array(10).fill(1).map(async n => {
+            const { imageError, fileUrls, filePaths } = await fileUpload(files, "images", "posts" + "/" + decoded.username, 1, true) || {};
+
+            try {
+
+                for (let [key, value] of formdata.entries()) {
+                    if (!(value instanceof Blob)) {
+                        requestBody[key] = value;
+                    }
+                }
+
+
+                const err = postValidator(requestBody);
+
+                const errors = { ...err, ...imageError };
+                if (Object.keys(errors).length > 0) {
+                    if (fileUrls) {
+                        await fileDelete(filePaths, true);
+                    }
+                    return SendResponse({ errors }, 400);
+                }
+
+                const slug = requestBody.title.split(/[\s_]+/).join("-").toLowerCase() + "-" + Date.now();
+                const postObj = { ...requestBody, images: fileUrls, author: decoded._id, slug };
+                const post = new Post(postObj);
+
+                await post.save();
+
+                // return SendResponse({ message: "Your task has been created successfully." }, 201);
+            } catch (error) {
+                console.log((error))
+                await fileDelete(filePaths, true);
+                return SendResponse({ message: "Failed to create task." }, 500);
+            }
+        })
+        return SendResponse("SUCCESSFULLY ADDED")
+    } else {
+        return response;
+    }
+}
+
+// get all post
+
+export async function GET(request) {
+    const { auth, response, decoded } = authenticated();
+
     if (auth) {
         try {
-            const formdata = await request.formData() || new FormData();
-            const requestBody = {};
-            // const taskImages = [];
-            // for (let [key,value] of formdata.entries()) {
-            //     if (value instanceof Blob && value.name) {
-            //         taskImages.push(value);
-            //     }
-
-            //     if (!(value instanceof Blob)) {
-            //         requestBody[key] = value;
-            //     }
-            // }
-            console.log(formdata)
-
-            const errors = postValidator(requestBody);
-            if (Object.keys(errors).length > 0) {
-                return SendResponse({errors}, 400)
+            const posts = await Post.find().populate({ path: "author", select: "name" });
+            if (posts.length == 0) {
+                return SendResponse({ message: "No posts available." });
             }
-            // console.log({...requestBody, images: taskImages});
-            // console.log({requestBody, taskImages})
-            console.log(formdata)
-            return SendResponse({message: "Your task has been created successfully."}, 201);
+            return SendResponse({ posts });
         } catch (error) {
-            console.log(error.message)
-            return SendResponse({message: "Failed to create task."}, 500);
+            return SendResponse({ message: "Failed to load posts." }, 500);
         }
     } else {
         return response;

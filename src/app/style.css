@@ -246,6 +246,19 @@ input[type="date"] {
 .form-select:disabled {
     background: transparent;
 }
+
+.postImagePreview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 10px;
+}
+
+.postImagePreview img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+}
 /*=============== form css end ==================*/
 
 /*============== pagination part css ==============*/

@@ -45,12 +45,12 @@ export async function PUT(request) {
         decoded._id,
         {
           name: requestData.name,
-          email: requestData.email,
-          role: requestData.role,
+          email: requestData.email
         },
         { new: true }
       );
 
+      // const username = requestData.name.split(' ').join("-").toLowerCase().concat("-").concat(uuidv4());
       const updatedProfile = await Profile.findByIdAndUpdate(
         user.profile,
         {

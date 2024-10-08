@@ -4,6 +4,7 @@ import { SendResponse } from "@/helper/SendResponse";
 import { NastedSubCategory } from "@/models/nastedsubcategory";
 import { SubCategory } from "@/models/subcategory";
 import { nastedSubCategoryValidator } from "@/validators/nastedSubCategoryValidator";
+import { isNaN } from "lodash";
 
 mongodbConnect();
 
@@ -29,8 +30,8 @@ export async function GET(request) {
       let isLimit = Boolean(Number(searchParams.get("limit")));
 
 
-      const totalData = await NastedSubCategory.countDocuments();
-      const totalPages = Math.ceil(totalData / limit);
+      // const totalData = await NastedSubCategory.countDocuments();
+      // const totalPages = Math.ceil(totalData / limit);
       const skip = (page - 1) * limit;
 
       const regex = new RegExp(search, 'i');
@@ -65,6 +66,13 @@ export async function GET(request) {
         query = query.sort({ [sort]: order == "asc" ? 1 : -1 });
       }
 
+      if (searchParams.get("limit") == "all") {
+        query = query.limit(null);
+      }
+
+      const totalData = await NastedSubCategory.countDocuments(filterObj);
+      const totalPages = searchParams.get("limit") == "all" ? 1 : Math.ceil(totalData / limit);
+    
       const nasted_subcategories = await query;
 
       if (nasted_subcategories.length == 0 && !search) {
@@ -80,6 +88,7 @@ export async function GET(request) {
         nasted_subcategories,
       });
     } catch (error) {
+      // console.log(error)
       return SendResponse({ message: "Failed to load nasted subcategories." }, 500);
     }
   } else {

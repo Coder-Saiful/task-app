@@ -19,7 +19,7 @@ const NastedSubCategoryList = () => {
   const [nastedSubcategoryData, setNastedSubcategoryData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [rowLimit, setRowLimit] = useState([10, 2, 4, 6, 25, 50, 75, 100]);
+  const [rowLimit, setRowLimit] = useState([10, 2, 4, 6, 25, 50, 75, 100, "all"]);
   const [deletedIds, setDeletedIds] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [select, setSelect] = useState({
@@ -29,7 +29,8 @@ const NastedSubCategoryList = () => {
 
 
   const page = Number(searchParams.get("page")) || 1;
-  const limit = Number(searchParams.get("limit")) || 10;
+  let limit = searchParams.get("limit");
+  limit = limit ? limit == "all" ? "all" : Number(limit) : 10;
   const search = searchParams.get("search") || "";
   const sort = searchParams.get("sort") || "";
   const order = searchParams.get("order") || "";
@@ -221,6 +222,7 @@ const NastedSubCategoryList = () => {
   }
 
   const handleFilter = e => {
+    setDeletedIds([]);
     const { name, value } = e.target;
     setFilters((preValue) => ({
       ...preValue,
@@ -248,6 +250,7 @@ const NastedSubCategoryList = () => {
   }
 
   const resetFilter = (e) => {
+    setDeletedIds([]);
     const queryParams = new URLSearchParams(searchParams);
     queryParams.delete("sort");
     queryParams.delete("order");
@@ -347,7 +350,7 @@ const NastedSubCategoryList = () => {
         <div className="table-responsive card">
           <div className="card-header text-white" style={{ background: "var(--primaryColor)" }}>
             <h2 className="fs-4 mb-0 text-center" style={{ fontWeight: "600" }}>
-              Manage All Nasted Subategory {nastedSubcategoryData?.totalData && '(' + nastedSubcategoryData?.totalData + ')'}
+              Manage All Nasted Subategory  
             </h2>
           </div>
           <table className="table admin_table table-hover table-striped mb-0">

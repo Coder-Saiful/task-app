@@ -1,4 +1,4 @@
-import CreateTaskForm from "@/components/Post/CreateTaskForm";
+import CreatePostForm from "@/components/Post/CreatePostForm";
 
 export const metadata = {
   title: "Create New Task",
@@ -14,10 +14,10 @@ const CreateTaskPage = () => {
               <div
                 className="card-header text-white position-relative"
               >
-                <h3 className="mb-0 text-center">Create New Task</h3>
+                <h3 className="mb-0 text-center">Create New Post</h3>
               </div>
               <div className="card-body">
-                <CreateTaskForm />
+                <CreatePostForm />
               </div>
             </div>
           </div>
